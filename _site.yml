@@ -1,0 +1,12 @@
+name: "Learning bioinformatics"
+output_dir: "docs"
+navbar:
+  title: "Learning bioinformatics"
+  left:
+  - text: "Home"
+   href: index.html
+  - text: "Intro to Stats"
+   href: intro_to_stats.html
+output:
+  html_document:
+ theme: cosmo
