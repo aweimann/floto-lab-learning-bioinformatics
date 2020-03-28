@@ -297,25 +297,206 @@ $(document).ready(function () {
 </div>
 
 
-<div id="r-markdown" class="section level2">
-<h2>R Markdown</h2>
-<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
-<pre class="r"><code>summary(cars)</code></pre>
-<pre><code>##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00</code></pre>
-</div>
-<div id="including-plots" class="section level2">
-<h2>Including Plots</h2>
-<p>You can also embed plots, for example:</p>
-<p><img src="intro_to_stats_files/figure-html/pressure-1.png" width="672" /></p>
-<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
-</div>
+<pre class="r"><code>######################################################################################
+## Guion para explicar los comandos básicos de representación y exploración de datos
+## a traves de la librería ggplot2
+#####################################################################################
+
+# Importar lib
+library(ggplot2)
+#library(ggpubr)
+library(data.table)
+
+# Establecer una plantilla gráfica
+#theme_set(ggpubr::theme_pubclean(base_size = 15)) # Load theme
+
+# Cuarteto de Anscombe, gráfica para mostar
+
+anscombe </code></pre>
+<pre><code>##    x1 x2 x3 x4    y1   y2    y3    y4
+## 1  10 10 10  8  8.04 9.14  7.46  6.58
+## 2   8  8  8  8  6.95 8.14  6.77  5.76
+## 3  13 13 13  8  7.58 8.74 12.74  7.71
+## 4   9  9  9  8  8.81 8.77  7.11  8.84
+## 5  11 11 11  8  8.33 9.26  7.81  8.47
+## 6  14 14 14  8  9.96 8.10  8.84  7.04
+## 7   6  6  6  8  7.24 6.13  6.08  5.25
+## 8   4  4  4 19  4.26 3.10  5.39 12.50
+## 9  12 12 12  8 10.84 9.13  8.15  5.56
+## 10  7  7  7  8  4.82 7.26  6.42  7.91
+## 11  5  5  5  8  5.68 4.74  5.73  6.89</code></pre>
+<pre class="r"><code>anscombe_m &lt;- data.frame() # Crear data.frame vacio para recoger 
+
+for(i in 1:4) { # Transformar cuarteto de anscombe de formato ancho a formato largo
+  anscombe_m &lt;- rbind(anscombe_m, data.frame(set = i, x = anscombe[,i], y = anscombe[,i+4]))
+}
+rm(i)
+anscombe_m</code></pre>
+<pre><code>##    set  x     y
+## 1    1 10  8.04
+## 2    1  8  6.95
+## 3    1 13  7.58
+## 4    1  9  8.81
+## 5    1 11  8.33
+## 6    1 14  9.96
+## 7    1  6  7.24
+## 8    1  4  4.26
+## 9    1 12 10.84
+## 10   1  7  4.82
+## 11   1  5  5.68
+## 12   2 10  9.14
+## 13   2  8  8.14
+## 14   2 13  8.74
+## 15   2  9  8.77
+## 16   2 11  9.26
+## 17   2 14  8.10
+## 18   2  6  6.13
+## 19   2  4  3.10
+## 20   2 12  9.13
+## 21   2  7  7.26
+## 22   2  5  4.74
+## 23   3 10  7.46
+## 24   3  8  6.77
+## 25   3 13 12.74
+## 26   3  9  7.11
+## 27   3 11  7.81
+## 28   3 14  8.84
+## 29   3  6  6.08
+## 30   3  4  5.39
+## 31   3 12  8.15
+## 32   3  7  6.42
+## 33   3  5  5.73
+## 34   4  8  6.58
+## 35   4  8  5.76
+## 36   4  8  7.71
+## 37   4  8  8.84
+## 38   4  8  8.47
+## 39   4  8  7.04
+## 40   4  8  5.25
+## 41   4 19 12.50
+## 42   4  8  5.56
+## 43   4  8  7.91
+## 44   4  8  6.89</code></pre>
+<pre class="r"><code>ggplot(anscombe_m, aes(x, y)) + 
+  geom_point(size=2, color=&quot;red&quot;, fill=&quot;orange&quot;, shape=21) + 
+  geom_smooth(method=&quot;lm&quot;, fill=NA, fullrange=TRUE) + 
+  facet_wrap(~paste0(&quot;Set &quot;, set), ncol=2)</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="intro_to_stats_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="r"><code># Como construir una gráfica --------------------------------------
+
+# Crear una tabla de datos para trabajar
+
+Sigma &lt;- matrix(c(10,4,3,2),2,2) # Matriz de correlaciones para la función mvrnorm
+Sigma</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]   10    3
+## [2,]    4    2</code></pre>
+<pre class="r"><code>d &lt;- data.table(lugar = sample(c(&quot;España&quot;, &quot;Mexico&quot;), 400, replace = TRUE)) # variable1 = 2 paises
+d[, grupo := rep(c(&quot;a&quot;, &quot;b&quot;), each = 200)]                                  # variable2 = 2 grupos
+
+# variable2 y 3: multivariate dist
+set.seed(1) # Plantar semilla aleatoria
+
+d[grupo == &quot;a&quot;, 
+  c(&quot;x&quot;, &quot;y&quot;) :=  
+    data.table(MASS::mvrnorm(n = 200, rep(1, 2), Sigma) *1.75)]             
+d[grupo == &quot;b&quot;, 
+  c(&quot;x&quot;, &quot;y&quot;) :=  
+    data.table(MASS::mvrnorm(n = 200, rep(1, 2), Sigma) + 1.5)]
+d[grupo == &quot;b&quot;, y := y * 1.5 ]
+d # Mostrar el resultado</code></pre>
+<pre><code>##       lugar grupo          x          y
+##   1: Mexico     a  5.3686727  2.7946357
+##   2: España     a  1.3988202 -0.2694181
+##   3: Mexico     a  6.9851398  2.1580054
+##   4: Mexico     a -7.1858662 -1.5841854
+##   5: España     a -0.9653991  3.1609163
+##  ---                                   
+## 396: Mexico     b -0.1541564  3.0799483
+## 397: Mexico     b  5.0719842  5.3584173
+## 398: Mexico     b  3.6010145  5.5991424
+## 399: Mexico     b -0.9357033  4.0844269
+## 400: Mexico     b  5.1691029  4.2964435</code></pre>
+<pre class="r"><code># Sección 1: Gráficas univariantes ------------------------------------------------
+
+# Histograma
+ggplot(d, aes(x = y)) +
+  geom_histogram(fill = &quot;cornflowerblue&quot;, col = &quot;gray80&quot;)   # Argumento bins por defecto</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="intro_to_stats_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
+<pre class="r"><code>ggplot(d, aes(x = y)) +
+  geom_histogram(fill = &quot;cornflowerblue&quot;, col = &quot;gray80&quot;, 
+                 bins = 64)                                 # Argumento bins declarado</code></pre>
+<p><img src="intro_to_stats_files/figure-html/unnamed-chunk-1-3.png" width="672" /></p>
+<pre class="r"><code># Gráfico de cuantiles
+ggplot(d, aes(sample = y)) +
+  geom_qq(col = &quot;cornflowerblue&quot;) +
+  geom_qq_line(distribution = qnorm)</code></pre>
+<p><img src="intro_to_stats_files/figure-html/unnamed-chunk-1-4.png" width="672" /></p>
+<pre class="r"><code># Sección 2: Gráficas bivariantes categóricas --------------------------------------
+
+# Diagrama de barras
+ggplot(d, aes(x = grupo, y = y)) +
+  geom_bar(stat = &quot;identity&quot;, fill = &quot;cornflowerblue&quot;) </code></pre>
+<p><img src="intro_to_stats_files/figure-html/unnamed-chunk-1-5.png" width="672" /></p>
+<pre class="r"><code># Diagrama de cajas y bigotes
+ggplot(d, aes(x = grupo, y = y)) +
+  geom_boxplot(fill = &quot;cornflowerblue&quot;) </code></pre>
+<p><img src="intro_to_stats_files/figure-html/unnamed-chunk-1-6.png" width="672" /></p>
+<pre class="r"><code># Sección 4: Gráficos bivaiantes continuos -----------------------------------------
+
+ggplot(d, aes(x = x, y = y, shape = grupo)) +
+  geom_point(col = &quot;black&quot;, # color fijo 
+             size = 2) +
+  theme_bw(base_size = 20)</code></pre>
+<p><img src="intro_to_stats_files/figure-html/unnamed-chunk-1-7.png" width="672" /></p>
+<pre class="r"><code>ggplot(d, aes(x = x, y = y, col = grupo)) + # color como variable
+  geom_point(size = 2) +
+  theme_bw(base_size = 20)</code></pre>
+<p><img src="intro_to_stats_files/figure-html/unnamed-chunk-1-8.png" width="672" /></p>
+<pre class="r"><code># Sección 5: Representación de modelos simples ---------------------------------------
+
+ggplot(d, aes(x = x, y = y)) +
+  geom_point() +
+  stat_smooth() </code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="intro_to_stats_files/figure-html/unnamed-chunk-1-9.png" width="672" /></p>
+<pre class="r"><code>ggplot(d, aes(x = x, y = y)) +
+  geom_point(aes(col = grupo)) +
+  stat_smooth(method = &quot;lm&quot;, col = &quot;black&quot;)</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="intro_to_stats_files/figure-html/unnamed-chunk-1-10.png" width="672" /></p>
+<pre class="r"><code># Sección 6: Representación de modelos con subsetado y distitos datos -------------------
+
+ggplot(d, # Datos originales 
+       aes(x = x, y = y, col = grupo)) +
+  geom_point() +                                  # Representar como puntos
+  stat_smooth(method = &quot;lm&quot;,                      # Regresión lineal
+              formula = y ~ exp(x)) +             # Especificar fórmula
+  
+  # Introducir seguntods datos, 
+  geom_line(data = d[, .(meanY = mean(y)),
+              by = .(x = round(x), grupo, lugar)],
+            
+            aes(x = x, y = meanY),                # Representar como lineas discontinueas
+            linetype = 2, size = 1.5) +
+ 
+  facet_grid(~ lugar,                             # Separar datos por lugar
+             scales = &quot;free_x&quot;) +
+  scale_x_continuous(trans = &quot;log2&quot;) +
+  labs(x = &quot;Una variable&quot;, y = &quot;Una respuesta&quot;) +
+  scale_color_brewer(palette = &quot;Set1&quot;)</code></pre>
+<pre><code>## Warning in self$trans$transform(x): NaNs produced</code></pre>
+<pre><code>## Warning: Transformation introduced infinite values in continuous x-axis</code></pre>
+<pre><code>## Warning in self$trans$transform(x): NaNs produced</code></pre>
+<pre><code>## Warning: Transformation introduced infinite values in continuous x-axis</code></pre>
+<pre><code>## Warning in self$trans$transform(x): NaNs produced</code></pre>
+<pre><code>## Warning: Transformation introduced infinite values in continuous x-axis</code></pre>
+<pre><code>## Warning: Removed 122 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 122 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 16 row(s) containing missing values (geom_path).</code></pre>
+<p><img src="intro_to_stats_files/figure-html/unnamed-chunk-1-11.png" width="672" /></p>
 
 
 
