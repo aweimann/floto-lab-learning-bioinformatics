@@ -5,6 +5,8 @@ navbar:
   left:
   - text: "Home"
     href: index.html
+  - text: "Introduction to R"
+    href: introduction.to.R.html
   - text: "Intro to Stats"
     href: intro_to_stats.html
 output:
