@@ -120,7 +120,7 @@ ggplot(d, aes(x = x, y = y)) +
 # Section 6: Subset data and add an addtitional data series to an existing plot -------------------
 
 ```{r, message = F, warning= F}
-ggplot(d, # Original data 
+ggplot(d, # Original data  
        aes(x = x, y = y, col = grupo)) +
   geom_point() +                                  # dot plots
   stat_smooth(method = "lm",                      # plotting an approximation of the point cloud
