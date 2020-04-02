@@ -276,6 +276,9 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li>
+  <a href="introduction.to.R.html">Introduction to R</a>
+</li>
+<li>
   <a href="intro_to_stats.html">Intro to Stats</a>
 </li>
       </ul>
@@ -403,14 +406,14 @@ d[grupo == &quot;b&quot;,
 d[grupo == &quot;b&quot;, y := y * 1.5 ]
 d # Show the result</code></pre>
 <pre><code>##       lugar grupo          x          y
-##   1: España     a  5.3686727  2.7946357
-##   2: Mexico     a  1.3988202 -0.2694181
+##   1: Mexico     a  5.3686727  2.7946357
+##   2: España     a  1.3988202 -0.2694181
 ##   3: Mexico     a  6.9851398  2.1580054
-##   4: España     a -7.1858662 -1.5841854
+##   4: Mexico     a -7.1858662 -1.5841854
 ##   5: España     a -0.9653991  3.1609163
 ##  ---                                   
-## 396: Mexico     b -0.1541564  3.0799483
-## 397: España     b  5.0719842  5.3584173
+## 396: España     b -0.1541564  3.0799483
+## 397: Mexico     b  5.0719842  5.3584173
 ## 398: Mexico     b  3.6010145  5.5991424
 ## 399: Mexico     b -0.9357033  4.0844269
 ## 400: Mexico     b  5.1691029  4.2964435</code></pre>
@@ -469,7 +472,7 @@ d # Show the result</code></pre>
 </div>
 <div id="section-6-subset-data-and-add-an-addtitional-data-series-to-an-existing-plot--" class="section level1">
 <h1>Section 6: Subset data and add an addtitional data series to an existing plot ——————-</h1>
-<pre class="r"><code>ggplot(d, # Original data 
+<pre class="r"><code>ggplot(d, # Original data  
        aes(x = x, y = y, col = grupo)) +
   geom_point() +                                  # dot plots
   stat_smooth(method = &quot;lm&quot;,                      # plotting an approximation of the point cloud
