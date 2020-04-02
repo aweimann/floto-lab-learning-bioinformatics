@@ -301,6 +301,7 @@ $(document).ready(function () {
 
 
 <p>In this tutorial, we’re going to run through the basics of R. R is a programming language that is brilliant for data analysis and plotting and contains a whole series of useful additions for analysing more complicated data like RNASeq and phylogenetic trees. R is very good at doing anything you might usually do in excel, plus a whole lot more. You can write your analyses in the form of a script which means your work will be reproducible and you won’t have to remember all of the specifics of what you’ve done to be able to do it again. The easiest way to get up and running with R is to download RStudio (<a href="https://rstudio.com/products/rstudio/download/" class="uri">https://rstudio.com/products/rstudio/download/</a> the free version is fine). You can write all of the code in RStudio and it contains handy features like a help bar and a window for plots.</p>
+<p>Each section finishes with a set of exercises that put into practice what we’ve covered in that section.</p>
 <div id="variables-and-data-types" class="section level1">
 <h1>Variables and data types</h1>
 <p>So if you open RStudio, you should see four windows. For this tutorial, we’re going to use the bottom left window, which has a little tab above it saying “Console”. The first thing we’re going to look at is variables. Whatever level of programming expertise you reach, you’re going to use variables. Variables are objects that you can multiply, plot, perform complex calculations on or do pretty much anything else with. This next bit of code generates a variable ‘a’ and gives it a value of 1. When you see a box like this, type everything before the ‘#’ into that bottom left window in RStudio, one line at a time. The text after the # gives you a bit more information about the code</p>
@@ -317,6 +318,13 @@ b * 2 #Should print an error message as R doesn&#39;t know how to multiply a wor
 d &lt;- TRUE #This assigns the variable d to a logical value
 typeof(d) #Prints &quot;logical&quot;</code></pre>
 <p>When we tried to multiply b by 2, we get an error message because b is not a numerical variable, so R doesn’t know how to multiply it (neither do I, come to that). Most of the time, you’ll probably work with numbers and R will try to interpret your data as numbers where it can. So most of the time, you don’t need to do anything to work with your data. But if you get an error message, the type of the variable is often a good place to start to see what might be going wrong.</p>
+<hr />
+<p><strong>Exercises</strong></p>
+<ol style="list-style-type: decimal">
+<li>Create a new variable containing your favourite number and multiply it by 10</li>
+<li>Create a new variable containing your name</li>
+</ol>
+<hr />
 </div>
 <div id="vectors" class="section level1">
 <h1>Vectors</h1>
@@ -328,6 +336,12 @@ typeof(d) #Prints &quot;logical&quot;</code></pre>
 <p>Compare the output from this to the values that we assigned to memPotMeasurements. You should see that R has multiplied every value within the vector by 2. This is what R will do with vectors by default. The variable memPotMeasurements has not, however, been changed. Type:</p>
 <pre><code>print(memPotMeasurements)</code></pre>
 <p>You can see that memPotMeasurements still contains the values that we initially assigned. When we performed the function above, R printed the new values to the screen but left the original variable unchanged.</p>
+<hr />
+<p><strong>Exercises</strong></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Create a new variable containing 10 numbers (any numbers you like) and multiply these numbers by 10</li>
+</ol>
+<hr />
 </div>
 <div id="data-frames" class="section level1">
 <h1>Data frames</h1>
@@ -353,6 +367,14 @@ memPotDF[c(1,2),c(1,2)] #Print the values in columns 1 and 2 of rows 1 and 2
 memPotDF$Measurement1 #Print the column in the data frame with name Measurement1
 memPotDF$Measurement2 * 2 #Multiply all values in the column with name Measurement2 by 2</code></pre>
 <p>There’s 2 ways of picking out a column of interest. You can either use the column number in square brackets or use “$” followed by the column name. So memPotDF[,2] and memPotDF$Measurement1 give the same output. Likewise, there’s two ways of picking out multiple columns or rows of interest. You can either use c(1,2) which extracts the columns or rows within the brackets (through creating a vector with the specified numbers in). Or, if and only if you want to pull out a continuous run of columns or rows, you can use 1:2 which creates a sequence containing the integer numbers between the first and second numbers and extracts these columns or rows. so memPotDF[,c(1,2)] and memPotDF[,1:2] give the same output.</p>
+<hr />
+<p><strong>Exercises</strong></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Create a data frame with 2 columns - the first column containing your 5 favourite TV shows and the second column containing the number of episodes of those TV shows you reckon you’ve watched in the last month (roughly, hopefully its less than 3 figures)</li>
+<li>Use square brackets to pick out the number of episodes you’ve watched of your second favourite TV show</li>
+<li>Imagine your TV watching is going to be similar next month to this month. Calculate the number of episodes of each show you will have watched across the 2 month period by multiplying the number of episodes column by 2</li>
+</ol>
+<hr />
 </div>
 <div id="functions" class="section level1">
 <h1>Functions</h1>
@@ -379,6 +401,13 @@ seq(from = 1, to = 10, by = 1)</code></pre>
 <pre><code>multiplyTwoNumbers(1,5)
 multiplyTwoNumbers(x = 1, y = 5)</code></pre>
 <p>So once you’ve written the code for the function, you run it exactly as you would one of R’s in built functions.</p>
+<hr />
+<p><strong>Exercises</strong></p>
+<ol start="7" style="list-style-type: decimal">
+<li>Write a function that takes 3 numbers, multiplies the first two numbers together and adds this to the third number</li>
+<li>Run your function on different sets of 3 numbers</li>
+</ol>
+<hr />
 </div>
 <div id="libraries" class="section level1">
 <h1>Libraries</h1>
@@ -386,6 +415,12 @@ multiplyTwoNumbers(x = 1, y = 5)</code></pre>
 <pre><code>install.packages(&quot;DESeq2&quot;)
 library(DESeq2)</code></pre>
 <p>The first step is to install the package on your computer and that’s what the first line of code does. Once you’ve installed the package, you need to load it to use the functions and you do that with “library(PackageName)”. You only need to install the package once but you’ll need to reload the library every time that you open a new RStudio session.</p>
+<hr />
+<p><strong>Exercises</strong></p>
+<ol start="8" style="list-style-type: decimal">
+<li>Install and then load the package ggplot2</li>
+</ol>
+<hr />
 </div>
 <div id="loops-and-conditionals" class="section level1">
 <h1>Loops and conditionals</h1>
@@ -404,6 +439,13 @@ for (eachValue in allValues) { #Iterate through the values in allValues
 valuesLessThan5</code></pre>
 <p>As before, we here iterate through the 5 numbers in allValues. We only want to continue with the value if it is less than 5 and we check that using the line “if (eachValue &lt; 5) {”. The if statement checks if a particular condition specified between “(” and “)” is met and if and only if it is, will run the code between “{” and “}”. Here, we check if the current value we’re on in the iteration is less than 5 and if it is we continue. If it isn’t, R will move on to the next value in the for loop. If the value is less than 5 we add it to the end of the vector valuesLessThan5. Here, we have two pairs of “{}” brackets, one for the for loop and one for the if statement. These define the start and end of the code associated with the for loop and if statement so we have to keep track of these and make sure we close them at the right point.</p>
 <p>Combining for loops and if statements can be very useful when analysing data. For example, you can go through all of the genes in your gene list with the for loop and keep or discard the gene if it matches some condition in the if statement.</p>
+<hr />
+<p><strong>Exercises</strong></p>
+<ol start="9" style="list-style-type: decimal">
+<li>Using your TV show data frame from exercise 4 (recreate it if you need to), use a for loop to print each of the TV shows in turn (HINT: Pick out the column first)</li>
+<li>Combine a for loop and if statement to print the number of episodes you’ve watched if this is more than 5</li>
+</ol>
+<hr />
 </div>
 <div id="reading-and-writing-files" class="section level1">
 <h1>Reading and writing files</h1>
@@ -421,6 +463,13 @@ write.table(memPotDF,&quot;test_save_R_data.txt&quot;,row.names=FALSE,quote=FALS
 <pre><code>newMemPotDF &lt;- read.csv(&quot;test_save_R_data.csv&quot;)
 newMemPotDF &lt;- read.table(&quot;test_save_R_data.txt&quot;,sep=&quot;\t&quot;,header=TRUE)</code></pre>
 <p>You’ll need to use the setwd command to get RStudio in the same directory as the file you want to read in or give the read.csv or read.table commands the file path relative to the current working directory. The read.csv command is nice and simple. You just give it the name of the csv file you want to read in. Make sure its a csv file though as read.csv won’t work properly with any other type of file. The read.table command can read files in with columns separated by any delimiter. You tell the command what the column delimiter is using sep, here a tab. You also need to tell read.table that your file contains column names using header=TRUE. If it doesn’t, you can leave this part out.</p>
+<hr />
+<p><strong>Exercises</strong></p>
+<ol start="11" style="list-style-type: decimal">
+<li>Save your TV show data frame from exercise 4 (recreate it if you need to) as a csv file</li>
+<li>Read the csv file you just saved into R</li>
+</ol>
+<hr />
 </div>
 <div id="plots-and-ggplot" class="section level1">
 <h1>Plots and ggplot</h1>
@@ -437,6 +486,12 @@ ggplot(memPotDF,aes(x = Measurement1, y = Measurement2)) + theme_classic() + geo
 <p>The code we write for ggplot is a bit unusual and its not quite as simple to understand as for the standard plot. We start the plot command with ggplot(). The first item in the brackets (memPotDF) tells R which data frame we want to plot. Within the aes() brackets, we say what column name we’d like on the x-axis and what column name we’d like on the y-axis. R uses the column names to pick out the data to plot. You then add additional parts to the plot with “+”. Here, we’ve added “+ theme_classic()” which plots on a white background instead of the standard grey. And we’ve added “+ geom_point()” which tells R that we want to plot the data as points. This should give us a plot that looks like:</p>
 <p><img src="introduction.to.R_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>Which looks a bit nicer than the standard plot. Working with ggplot is an entire tutorial in itself as you can add colours, shapes and other datasets to the plot as well as changing a huge number of different plot aspects. The pages at <a href="https://ggplot2.tidyverse.org/" class="uri">https://ggplot2.tidyverse.org/</a> provide a good guide to ggplot.</p>
+<hr />
+<p><strong>Exercises</strong></p>
+<ol start="13" style="list-style-type: decimal">
+<li>Plot your TV watching data from exercise 4 as a barplot using ggplot2. You’ll need to switch “+ geom_point()” in the above example for “+ geom_bar(stat=”identity“)”</li>
+</ol>
+<hr />
 </div>
 
 
