@@ -1,24 +1,31 @@
 ---
 title: "Intro to Stats"
 author: "Aaron Weimann"
-date: "27/03/2020"
-output: html_document
+output: 
+  html_document:
+    theme: paper
+    highlight: tango
+    toc: true
+    toc_float: true
+    toc_collapsed: true
+    number_sections: TRUE
 ---
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-## Simple plots in R with the ggplot2 library
-# Load required libraries
+# Simple plots in R with the ggplot2 library
+
+Before start with the actual exercise, we first need to load the required libraries
 ```{r}
 library(ggplot2)
 library(data.table)
 ```
 
+In addition, before, going into the idea of the data exploration proccess, one might question why it is importat at all to proyect numerical information into a 
 
-# The Anscombe Quartet data as an example data set
+## The Anscombe Quartet data as an example data set
 ```{r}
 anscombe 
 anscombe_m <- data.frame() # Create an empty data frame 
@@ -31,7 +38,7 @@ anscombe_m
 ```
 
 
-# How to do simple plots in R --------------------------------------
+## How to do simple plots in R 
 ```{r, message = F, warning= F}
 ggplot(anscombe_m, aes(x, y)) + 
   geom_point(size=2, color="red", fill="orange", shape=21) + 
@@ -39,7 +46,7 @@ ggplot(anscombe_m, aes(x, y)) +
   facet_wrap(~paste0("Set ", set), ncol=2)
 ```
 
-# Create an example dataset
+## Create an example dataset
 ```{r, message = F, warning= F}
 Sigma <- matrix(c(10,4,3,2),2,2) # table of correlations for function mvrnorm
 Sigma
@@ -60,9 +67,9 @@ d[grupo == "b", y := y * 1.5 ]
 d # Show the result
 ```
 
-# Section 1: Simple plots ------------------------------------------------
+# Section 1: Simple plots 
 
-# Histograms
+## Histograms
 ```{r, message = F, warning= F}
 ggplot(d, aes(x = y)) +
   geom_histogram(fill = "cornflowerblue", col = "gray80")   # use default number of bins in the histogram
@@ -72,27 +79,27 @@ ggplot(d, aes(x = y)) +
                  bins = 64)                                 # use preset number of bins
 
 ```
-# Quantile plots
+## Quantile plots
 ```{r, message = F, warning= F}
 ggplot(d, aes(sample = y)) +
   geom_qq(col = "cornflowerblue") +
   geom_qq_line(distribution = qnorm)
 ```
 
-# Section 2: Plots with two variables --------------------------------------
+# Section 2: Plots with two variables 
 
-# Bar plots
+## Bar plots
 ```{r, message = F, warning= F}
 ggplot(d, aes(x = grupo, y = y)) +
   geom_bar(stat = "identity", fill = "cornflowerblue") 
 ```
-# Boxplots
+## Boxplots
 ```{r, message = F, warning= F}
 ggplot(d, aes(x = grupo, y = y)) +
   geom_boxplot(fill = "cornflowerblue") 
 ```
 
-# Section 4: Plots with continuous variables-----------------------------------------
+# Section 4: Plots with continuous variables
 
 ```{r, message = F, warning= F}
 ggplot(d, aes(x = x, y = y, shape = grupo)) +
@@ -105,7 +112,7 @@ ggplot(d, aes(x = x, y = y, col = grupo)) + # color according to the group
   theme_bw(base_size = 20)
 ```
 
-# Section 5: Representing simple models ---------------------------------------
+# Section 5: Representing simple models
 
 ```{r, message = F, warning= F}
 ggplot(d, aes(x = x, y = y)) +
@@ -117,7 +124,7 @@ ggplot(d, aes(x = x, y = y)) +
   stat_smooth(method = "lm", col = "black")
 ```
 
-# Section 6: Subset data and add an addtitional data series to an existing plot -------------------
+# Section 6: Subset data and add an addtitional data series to an existing plot
 
 ```{r, message = F, warning= F}
 ggplot(d, # Original data  
