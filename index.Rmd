@@ -1,7 +1,10 @@
 ---
 title: "Welcome to the Floto Lab Learning Bioinformatics Pages"
 author: "Aaron Weimann, Chris Ruis, Santiago Caño-Muñiz"
-output: html_document
+output: 
+  html_document:
+    theme: paper
+    highlight: tango
 ---
 
 ```{r setup, include=FALSE}

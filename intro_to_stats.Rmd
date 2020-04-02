@@ -17,13 +17,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Simple plots in R with the ggplot2 library
 
-Before start with the actual exercise, we first need to load the required libraries
+Before start with the actual exercise, we first need to load the required libraries:
 ```{r}
 library(ggplot2)
 library(data.table)
 ```
-
-In addition, before, going into the idea of the data exploration proccess, one might question why it is importat at all to proyect numerical information into a 
 
 ## The Anscombe Quartet data as an example data set
 ```{r}

@@ -7,7 +7,6 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 <meta name="author" content="Aaron Weimann, Chris Ruis, Santiago Caño-Muñiz" />
@@ -17,29 +16,12 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
-}
-</script>
 
 
 
@@ -71,7 +53,9 @@ h6 {
 </style>
 
 
+</head>
 
+<body>
 
 <style type = "text/css">
 .main-container {
@@ -85,6 +69,7 @@ code {
 }
 img {
   max-width:100%;
+  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -104,33 +89,33 @@ summary {
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 51px;
+  padding-top: 64px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 69px;
+  margin-top: -69px;
 }
 .section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 69px;
+  margin-top: -69px;
 }
 .section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 69px;
+  margin-top: -69px;
 }
 .section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 69px;
+  margin-top: -69px;
 }
 .section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 69px;
+  margin-top: -69px;
 }
 .section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 69px;
+  margin-top: -69px;
 }
 .dropdown-submenu {
   position: relative;
@@ -189,6 +174,8 @@ $(document).ready(function () {
 });
 </script>
 
+<div class="container-fluid main-container">
+
 <!-- tabsets -->
 
 <style type="text/css">
@@ -245,17 +232,20 @@ $(document).ready(function () {
 }
 </style>
 
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
 <!-- code folding -->
 
-
-
-
-</head>
-
-<body>
-
-
-<div class="container-fluid main-container">
 
 
 
@@ -294,14 +284,14 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Welcome to the Floto Lab Learning Bioinformatics Pages</h1>
-<h4 class="author">Aaron Weimann, Chris Ruis, Santiago Caño-Muñiz</h4>
+<h4 class="author"><em>Aaron Weimann, Chris Ruis, Santiago Caño-Muñiz</em></h4>
 
 </div>
 
 
 <div id="preliminary-schedule" class="section level1">
 <h1>Preliminary schedule</h1>
-<p>We plan to have a lectures on every Wednesday and Friday, followed by a practical session. We would like you to work through the practical session by yourself before we will go through them together. We aim to cover a broad range of topics. Currently, we plan to focus on the R programming language first. More specifically the basics of R, plotting with R and finally some basic statistics. Next, we will work with Python. You will learn how to write simple scripts in pure Python first. Then we will your new skills forward to explore some applications to image processing and sequence analysis.</p>
+<p>We plan to have a lectures on every Wednesday and Friday, followed by a practical session. We would like you to work through the practical session by yourself before we will go through them together. We aim to cover a broad range of topics. Currently, we plan to focus on the R programming language first. More specifically the basics of R, plotting with R and finally some basic statistics. Next, we will work with Python. You will learn how to write simple scripts in pure Python first. Then we will take your new skills forward to explore some applications to image processing and sequence analysis.</p>
 </div>
 
 
@@ -321,23 +311,6 @@ $(document).ready(function () {
 
 
 </script>
-
-<!-- tabsets -->
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
-<!-- code folding -->
-
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
