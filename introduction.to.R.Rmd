@@ -176,6 +176,10 @@ ___
 
 ___
 
+#Data tables
+
+We learnt how to use data frames in the previous section. Data tables are a more powerful version of a data frame and its a bit easier to do things like selecting particular columns and pulling out rows that match particular criteria.
+
 #Loops and conditionals
 
 Often you'll find that you have a set of data and you want to do the same thing with each of the individual data points in the set. We saw earlier how you can multiply all of the values in a vector or column but what if you want to do something more complicated? And what if you only want to perform an operation with a subset of the data, for example if they match a particular criteria. One way in which you can achieve this is using for loops and if statements. Here's a couple of examples of for loops and if statements that are similar to things you may want to do with your data:
