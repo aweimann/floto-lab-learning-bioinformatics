@@ -1,0 +1,11 @@
+---
+title: "How to use RStudio"
+author: "Chris Ruis"
+output: html_document
+---
+
+RStudio is a really useful tool for writing and running code in R. You can write your code, run your code, view tables and plots, find help pages for functions and view all of your files in here, amongst other things. In this tutorial, we'll cover how to use RStudio.
+
+#The basic setup
+
+RStudio consists of 4 windows.
