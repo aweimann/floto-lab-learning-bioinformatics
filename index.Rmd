@@ -8,12 +8,20 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = F, warning = F, message = F )
+library(kableExtra)
+library(readr)
 ```
 # Preliminary schedule
 We plan to have a lectures on every Wednesday and Friday, followed by a practical session. We would like you to work through the practical session by yourself before we will go through them together.
 We aim to cover a broad range of topics. Currently, we plan to focus on the R programming language first. More specifically the basics of R, plotting with R and finally some basic statistics.
 Next, we will work with Python. You will learn how to write simple scripts in pure Python first. Then we will take your new skills forward to explore some applications to image processing and sequence analysis.
+
+# Time table
+```{r, echo = F}
+time <- read_csv("docs/time_table.csv")
+kable(time) %>%   kable_styling(bootstrap_options = c("striped", "hover"))
+```
 
 
 
