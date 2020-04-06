@@ -280,6 +280,9 @@ $(document).ready(function () {
 <li>
   <a href="how.to.use.RStudio.html">How to use RStudio</a>
 </li>
+<li>
+  <a href="glossary.of.R.terms.html">R glossary</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -309,14 +312,6 @@ $(document).ready(function () {
 <h3>Prerequisites</h3>
 <p>This chapter focusses on ggplot2, one of the core members of the tidyverse. To access the datasets, help pages, and functions that we will use in this chapter, load the tidyverse by running this code:</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ─────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
-<pre><code>## ✓ ggplot2 3.3.0     ✓ purrr   0.3.3
-## ✓ tibble  3.0.0     ✓ dplyr   0.8.5
-## ✓ tidyr   1.0.2     ✓ stringr 1.4.0
-## ✓ readr   1.3.1     ✓ forcats 0.5.0</code></pre>
-<pre><code>## ── Conflicts ────────────────────────────────────────────────── tidyverse_conflicts() ──
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
 <p>That one line of code loads the core tidyverse; packages which you will use in almost every data analysis. It also tells you which functions from the tidyverse conflict with functions in base R (or from other packages you might have loaded).</p>
 <p>If you run this code and get the error message “there is no package called ‘tidyverse’”, you’ll need to first install it, then run <code>library()</code> once again.</p>
 <pre class="r"><code>install.packages(&quot;tidyverse&quot;)
@@ -333,18 +328,18 @@ library(tidyverse)</code></pre>
 <p>You can test your answer with the <code>mpg</code> <strong>data frame</strong> found in ggplot2 (aka <code>ggplot2::mpg</code>). A data frame is a rectangular collection of variables (in the columns) and observations (in the rows). <code>mpg</code> contains observations collected by the US Environmental Protection Agency on 38 models of car.</p>
 <pre class="r"><code>mpg</code></pre>
 <pre><code>## # A tibble: 234 x 11
-##    manufacturer model    displ  year   cyl trans   drv     cty   hwy fl    class
-##    &lt;chr&gt;        &lt;chr&gt;    &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
-##  1 audi         a4         1.8  1999     4 auto(l… f        18    29 p     comp…
-##  2 audi         a4         1.8  1999     4 manual… f        21    29 p     comp…
-##  3 audi         a4         2    2008     4 manual… f        20    31 p     comp…
-##  4 audi         a4         2    2008     4 auto(a… f        21    30 p     comp…
-##  5 audi         a4         2.8  1999     6 auto(l… f        16    26 p     comp…
-##  6 audi         a4         2.8  1999     6 manual… f        18    26 p     comp…
-##  7 audi         a4         3.1  2008     6 auto(a… f        18    27 p     comp…
-##  8 audi         a4 quat…   1.8  1999     4 manual… 4        18    26 p     comp…
-##  9 audi         a4 quat…   1.8  1999     4 auto(l… 4        16    25 p     comp…
-## 10 audi         a4 quat…   2    2008     4 manual… 4        20    28 p     comp…
+##    manufacturer model      displ  year   cyl trans      drv     cty   hwy fl    class  
+##    &lt;chr&gt;        &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  
+##  1 audi         a4           1.8  1999     4 auto(l5)   f        18    29 p     compact
+##  2 audi         a4           1.8  1999     4 manual(m5) f        21    29 p     compact
+##  3 audi         a4           2    2008     4 manual(m6) f        20    31 p     compact
+##  4 audi         a4           2    2008     4 auto(av)   f        21    30 p     compact
+##  5 audi         a4           2.8  1999     6 auto(l5)   f        16    26 p     compact
+##  6 audi         a4           2.8  1999     6 manual(m5) f        18    26 p     compact
+##  7 audi         a4           3.1  2008     6 auto(av)   f        18    27 p     compact
+##  8 audi         a4 quattro   1.8  1999     4 manual(m5) 4        18    26 p     compact
+##  9 audi         a4 quattro   1.8  1999     4 auto(l5)   4        16    25 p     compact
+## 10 audi         a4 quattro   2    2008     4 manual(m6) 4        20    28 p     compact
 ## # … with 224 more rows</code></pre>
 <p>Among the variables in <code>mpg</code> are:</p>
 <ol style="list-style-type: decimal">
@@ -589,7 +584,7 @@ ggplot() +
 <li><p>boxplots compute a robust summary of the distribution and then display a specially formatted box.</p></li>
 </ul>
 <p>The algorithm used to calculate new values for a graph is called a <strong>stat</strong>, short for statistical transformation. The figure below describes how this process works with <code>geom_bar()</code>.</p>
-<p><img src="docs/images/visualization-stat-bar.png" width="100%" /></p>
+<p><img src="images/visualization-stat-bar.png" width="100%" /></p>
 <p>You can learn which stat a geom uses by inspecting the default value for the <code>stat</code> argument. For example, <code>?geom_bar</code> shows that the default value for <code>stat</code> is “count”, which means that <code>geom_bar()</code> uses <code>stat_count()</code>. <code>stat_count()</code> is documented on the same page as <code>geom_bar()</code>, and if you scroll down you can find a section called “Computed variables”. That describes how it computes two new variables: <code>count</code> and <code>prop</code>.</p>
 <p>You can generally use geoms and stats interchangeably. For example, you can recreate the previous plot using <code>stat_count()</code> instead of <code>geom_bar()</code>:</p>
 <pre class="r"><code>ggplot(data = diamonds) + 
@@ -765,11 +760,11 @@ bar + coord_flip()</code></pre>
 <p>Our new template takes seven parameters, the bracketed words that appear in the template. In practice, you rarely need to supply all seven parameters to make a graph because ggplot2 will provide useful defaults for everything except the data, the mappings, and the geom function.</p>
 <p>The seven parameters in the template compose the grammar of graphics, a formal system for building plots. The grammar of graphics is based on the insight that you can uniquely describe <em>any</em> plot as a combination of a dataset, a geom, a set of mappings, a stat, a position adjustment, a coordinate system, and a faceting scheme.</p>
 <p>To see how this works, consider how you could build a basic plot from scratch: you could start with a dataset and then transform it into the information that you want to display (with a stat).</p>
-<p><img src="docs/images/visualization-grammar-1.png" width="100%" /></p>
+<p><img src="images/visualization-grammar-1.png" width="100%" /></p>
 <p>Next, you could choose a geometric object to represent each observation in the transformed data. You could then use the aesthetic properties of the geoms to represent variables in the data. You would map the values of each variable to the levels of an aesthetic.</p>
-<p><img src="docs/images/visualization-grammar-2.png" width="100%" /></p>
+<p><img src="images/visualization-grammar-2.png" width="100%" /></p>
 <p>You’d then select a coordinate system to place the geoms into. You’d use the location of the objects (which is itself an aesthetic property) to display the values of the x and y variables. At that point, you would have a complete graph, but you could further adjust the positions of the geoms within the coordinate system (a position adjustment) or split the graph into subplots (faceting). You could also extend the plot by adding one or more additional layers, where each additional layer uses a dataset, a geom, a set of mappings, a stat, and a position adjustment.</p>
-<p><img src="docs/images/visualization-grammar-3.png" width="100%" /></p>
+<p><img src="images/visualization-grammar-3.png" width="100%" /></p>
 <p>You could use this method to build <em>any</em> plot that you imagine. In other words, you can use the code template that you’ve learned in this chapter to build hundreds of thousands of unique plots.</p>
 </div>
 </div>

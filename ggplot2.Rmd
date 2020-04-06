@@ -476,7 +476,7 @@ On the x-axis, the chart displays `cut`, a variable from `diamonds`. On the y-ax
 The algorithm used to calculate new values for a graph is called a __stat__, short for statistical transformation. The figure below describes how this process works with `geom_bar()`.
 
 ```{r, echo = FALSE, out.width = "100%"}
-knitr::include_graphics("docs/images/visualization-stat-bar.png")
+knitr::include_graphics("images/visualization-stat-bar.png")
 ```
 
 You can learn which stat a geom uses by inspecting the default value for the `stat` argument. For example, `?geom_bar` shows that the default value for `stat` is "count", which means that `geom_bar()` uses `stat_count()`. `stat_count()` is documented on the same page as `geom_bar()`, and if you scroll down you can find a section called "Computed variables". That describes how it computes two new variables: `count` and `prop`.
@@ -749,19 +749,19 @@ The seven parameters in the template compose the grammar of graphics, a formal s
 To see how this works, consider how you could build a basic plot from scratch: you could start with a dataset and then transform it into the information that you want to display (with a stat).
 
 ```{r, echo = FALSE, out.width = "100%"}
-knitr::include_graphics("docs/images/visualization-grammar-1.png")
+knitr::include_graphics("images/visualization-grammar-1.png")
 ```
 
 Next, you could choose a geometric object to represent each observation in the transformed data. You could then use the aesthetic properties of the geoms to represent variables in the data. You would map the values of each variable to the levels of an aesthetic.
 
 ```{r, echo = FALSE, out.width = "100%"}
-knitr::include_graphics("docs/images/visualization-grammar-2.png")
+knitr::include_graphics("images/visualization-grammar-2.png")
 ```
 
 You'd then select a coordinate system to place the geoms into. You'd use the location of the objects (which is itself an aesthetic property) to display the values of the x and y variables. At that point, you would have a complete graph, but you could further adjust the positions of the geoms within the coordinate system (a position adjustment) or split the graph into subplots (faceting). You could also extend the plot by adding one or more additional layers, where each additional layer uses a dataset, a geom, a set of mappings, a stat, and a position adjustment.
 
 ```{r, echo = FALSE, out.width = "100%"}
-knitr::include_graphics("docs/images/visualization-grammar-3.png")
+knitr::include_graphics("images/visualization-grammar-3.png")
 ```
 
 You could use this method to build _any_ plot that you imagine. In other words, you can use the code template that you've learned in this chapter to build hundreds of thousands of unique plots.

@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
@@ -84,7 +83,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -233,6 +231,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -281,6 +280,9 @@ $(document).ready(function () {
 <li>
   <a href="how.to.use.RStudio.html">How to use RStudio</a>
 </li>
+<li>
+  <a href="glossary.of.R.terms.html">R glossary</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -299,8 +301,7 @@ $(document).ready(function () {
 
 
 <p>There’s a lot of terminology used in R, some of which is widely used in programming and bioinformatics and some of which is more specific to R. In this document we provide a glossary of commonly used terms and their meaning.</p>
-<div id="glossary" class="section level1">
-<h1>Glossary</h1>
+<p>#Glossary</p>
 <p><strong>Argument</strong> - something that is given as input to a function. For example, if you run the code “mean(x)”, mean is the function and x is the argument that is given to that function. Different functions will take a different number of arguments. The function “mean” takes a single argument while the function “seq” would usually take 3 arguments. If you’re not sure how many arguments a function takes, type ? followed by the function name into the bottom left window in RStudio to access the help pages.</p>
 <p><strong>Character data</strong> - what our brain would recognise as letters, words and sentences. Data like sample names, countries, reagents and cell lines are character data. You can recognise this sort of data in R as it has quotes around it. To create a new variable containing character data, you’ll need to put quotes around the data, for example to create a vector called cell_line with two cell lines in it, you’d use:</p>
 <pre class="r"><code>cell_line &lt;- c(&quot;THP-1&quot;, &quot;IPSCs&quot;)</code></pre>
@@ -354,7 +355,6 @@ library(data.table)
 dataTableA &lt;- data.table(Numbers = c(1,2,3,4,5), Letters = c(&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;,&quot;E&quot;)) #Create a data table variable containing 2 columns and 5 rows
 listA &lt;- list(1,2,3,4,5) #Create a list variable containing 5 numbers</code></pre>
 <p><strong>Vector</strong> - a set of values of a particular data type, created using c().</p>
-</div>
 
 
 

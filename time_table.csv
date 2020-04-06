@@ -1,0 +1,12 @@
+Date,Week,Type,Lecturer,Topic,Link
+03/04/20,1,Lecture,Santi,Introduction to R,https://github.com/aweimann/floto-lab-learning-bioinformatics/blob/master/presentations/R_worskshop_Statistics_analysisENG.pptx?raw=true
+08/04/20,2,Tutorial,Chris,Rstudio,https://aweimann.github.io/floto-lab-learning-bioinformatics/docs/how.to.use.RStudio.html
+08/04/20,2,Tutorial,Chris,Programming in R,https://aweimann.github.io/floto-lab-learning-bioinformatics/docs/introduction.to.R.html
+08/04/20,2,Lecture,Santi/Aaron,The grammar of graphics and intro to stats in R,
+15/04/20,2,Tutorial,Aaron,The grammar of graphics,
+15/04/20,2,Tutorial,Chris,More advanced R,
+15/04/20,3,Lecture,,Statistics,
+17/04/20,3,Tutorial,,Statistics in R,
+,4,,,Programming in Python,
+,5,,,Simple sequence analysis,
+,6,,,Image analysis,
