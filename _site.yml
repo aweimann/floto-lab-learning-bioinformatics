@@ -10,7 +10,7 @@ navbar:
   - text: "How to use RStudio"
     href: how.to.use.RStudio.html
   - text: "Glossary of R terms"
-    href: glossary.of.R.terms.Rmd
+    href: glossary.of.R.terms.html
 output:
   html_document:
   
