@@ -1,6 +1,14 @@
 ---
 title: "Glossary of R Terms"
-output: html_document
+author: "Chris Ruis"
+output: 
+  html_document:
+    theme: paper
+    highlight: tango
+    toc: true
+    toc_float: true
+    toc_collapsed: true
+    number_sections: TRUE
 ---
 
 There's a lot of terminology used in R, some of which is widely used in programming and bioinformatics and some of which is more specific to R. In this document we provide a glossary of commonly used terms and their meaning.
