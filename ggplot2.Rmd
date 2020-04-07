@@ -1,6 +1,7 @@
 # Data visualisation
 
 ## Introduction
+Disclaimer: This is a book chapter based on Hadley Wickham's highly recommended book R for Data Science, which is free and available  online from https://r4ds.had.co.nz
 
 > "The simple graph has brought more information to the data analyst’s mind 
 > than any other device." --- John Tukey
