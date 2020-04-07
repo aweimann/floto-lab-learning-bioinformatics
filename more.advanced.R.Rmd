@@ -109,7 +109,7 @@ memPotDT[Cell_type == "A" & ((Measurement1 > 2.5 & Measurement2 > 2.5) | (Measur
 
 This is a bit more complicated. R will return rows only if the overall outcome of the square brackets is true. The overall outcome of the square brackets is determined by each of the components within the square brackets.
 
-We keep rows only if they're Cell_type A and the match the criteria in the (). We've actually got two criteria in the brackets, each containing two criteria. Both measurements need to be greater than 2.5 or less than 2.0. We can use these criteria to select data.
+We keep rows only if they're Cell_type A and the match the criteria in the (). We've actually got two criteria in the brackets, each containing two criteria. Both measurements need to be greater than 2.5 or less than 2.0.
 
 #Lists
 
