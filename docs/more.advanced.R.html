@@ -401,6 +401,9 @@ div.tocify {
   <a href="how.to.use.RStudio.html">How to use RStudio</a>
 </li>
 <li>
+  <a href="more.advanced.R.html">More advanced R</a>
+</li>
+<li>
   <a href="glossary.of.R.terms.html">Glossary of R terms</a>
 </li>
       </ul>
@@ -557,19 +560,13 @@ memPotDT[Measurement1 <span class="op">&gt;</span><span class="st"> </span><span
 </div>
 <div id="merging-tables" class="section level1">
 <h1><span class="header-section-number">7</span> Merging tables</h1>
-<p>Single column and multiple column</p>
-</div>
-<div id="lists" class="section level1">
-<h1><span class="header-section-number">8</span> Lists</h1>
-</div>
-<div id="logical-operators-1" class="section level1">
-<h1><span class="header-section-number">9</span> Logical operators</h1>
-</div>
-<div id="pipes" class="section level1">
-<h1><span class="header-section-number">10</span> Pipes</h1>
-</div>
-<div id="apply" class="section level1">
-<h1><span class="header-section-number">11</span> Apply</h1>
+<p>You might find yourself in a situation where you’ve got two sets of samples and you’ve taken different measurements of those samples. It could be the same thing measured multiple times or you may have measured different things. And you’d like to combine your data into a single table. You can copy and paste your columns in excel and try to check that you’ve matched them all up correctly but there’s a chance that you might make a mistake. R has a function called merge that makes it easy to merge tables that share one or more column headers.</p>
+<p>In the data directory you should find a second spreadsheet called membrane_potential_2.xlsx. It contains an additional 2 measurements of the membrane potential of each sample. Let’s read that into RStudio and also read in the original membrane potential spreadsheet again as we’ve made changes to it above:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">memPotDT &lt;-<span class="st">  </span><span class="kw">data.table</span>(<span class="kw">read_excel</span>(<span class="st">&quot;more_advanced_R_membrane_potential.xlsx&quot;</span>)) <span class="co">#Imports our excel spreadsheet and converts it into a data table</span>
+memPotDT2 &lt;-<span class="st"> </span><span class="kw">data.table</span>(<span class="kw">read_excel</span>(<span class="st">&quot;membrane_potential_2.xlsx&quot;</span>))</code></pre></div>
+<p>If you print these 2 data tables to the screen, you can see that they share 2 columns: Cell_type and Replicate. We can merge the data tables to get all 4 measurements in the same row using:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">merge</span>(memPotDT, memPotDT2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;Cell_type&quot;</span>, <span class="st">&quot;Replicate&quot;</span>))</code></pre></div>
+<p>We give merge the two data tables we want to merge, in this case memPotDT and memPotDT2. Using “by”, we say which columns we want to use to merge. So here, we merge the rows in the different data tables if they have the same value in Cell_type and Replicate. You should see that the resulting data table now has 7 columns including all 4 measurements.</p>
 </div>
 
 
