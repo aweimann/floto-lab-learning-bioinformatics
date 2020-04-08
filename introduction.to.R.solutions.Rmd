@@ -134,6 +134,8 @@ for (episode in tvShowDF$Episodes) {
 
 ```
 
+We run a for loop as we did in exercise 10 but this time looping through the number of episodes instead of the TV programmes. We use the if statement to determine whether we have watched more than 5 episodes of a programme. The if statement works by checking if a given criteria is true and doing something if that criteria is true. We put the criteria between the "(" and ")", here checking if the value is greater than 5. We then put the code that we run if the criteria is met between the "{" and "}", here printing the number of episodes to the screen.
+
 **12.	Save your TV show data frame from exercise 4 (recreate it if you need to) as a csv file**
 
 ```{r eval = FALSE}
@@ -141,6 +143,8 @@ for (episode in tvShowDF$Episodes) {
 write.csv(tvShowDF, "tv_shows.csv", row.names = FALSE, quote = FALSE)
 
 ```
+
+We can save a data frame as a csv file using write.csv. The first argument we give this function is the name of the data frame to save, then the file to save it to and then some options, here not including row names and not putting quotes around the saved values. You can leave these options out if you want row names and quotes but you'll always need the name of the data frame you want to save and the name of the file you want to save it as.
 
 **13.	Read the csv file you just saved into R**
 
@@ -150,6 +154,8 @@ newTvShowDF <- read.csv("tv_shows.csv")
 
 ```
 
+We read a csv file using the read.csv. Make sure you're in the same directory as the file you want to read in, or alternatively give R the full path to the file to be read in.
+
 **14.	Plot your TV watching data from exercise 4 as a barplot using ggplot2. You’ll need to switch “+ geom_point()” in the above example for “+ geom_bar(stat=”identity“)”**
 
 ```{r eval = FALSE}
@@ -158,3 +164,5 @@ library(ggplot2)
 ggplot(tvShowDF, aes(x = Show, y = Episodes)) + geom_bar(stat="identity")
 
 ```
+
+We'll cover the commands for using ggplot in much more detail in a later tutorial. But remember to load the library ggplot2 if you haven't already done so in your RStudio session. We use the command ggplot to make the plot. The first thing we put in the brackets is the name of the data frame we want to plot, here tvShowDF. We then use the aes brackets to say what we want to plot on the x- and y-axes, giving the column names. So here we want the Show on the x-axis and the number of episodes on the y-axis. We then need to tell R what sort of plot we want, here a bar plot. The stat="identity" part is something you only need with bar plots and it tells R that we want to use the actual values.
