@@ -110,6 +110,28 @@ m1 <- lm(Weight ~ Sex_c, data = d)
 summary(m1)
 plot(m1)
 
+cancer <- c("No" = 0, Yes=1)
+
+cancer_t <- c("No cancer", "lung", "digestive", "ORL", "breast",   
+              "gynaecological (female)", "genital (male)", "urothelial", "kidney",
+              "brain", "skin", "thyroid", "prostate", "non-Hodgkin lymphoma",  
+              "Hodgkin", "kaposi", "Myelona", "leukemia", "other")
+
+
+d[, Cancer_t_cat := cancer_t[Cancer_Type + 1] %>% as.factor()]
+d[, Cancer_t_cat := relevel(Cancer_t_cat, ref = "No cancer") ]
+m1.2 <- lm(Weight ~ Cancer_t_cat, data = d)
+
+summary(m1.2)
+
+
+d %>% 
+  ggplot(., aes(x = Cancer_t_cat, y = Weight, fill = Cancer_t_cat)) +
+  geom_boxplot(show.legend = FALSE) +
+  scale_x_discrete(name = "Cancer Type") +
+  scale_y_continuous(name = "Weigth Kg") +
+  theme_pubclean(base_size = 20) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 # Sección 2: Modelos multivariable --------------------------------------------------------------------------------
 
 m2 <- update(m, ~ . + Sex_c )  # Dos parametros
@@ -169,6 +191,25 @@ plot_model(model = m5,
            show.values = TRUE, 
            sort.est = TRUE,
            value.offset = .3)
+# non-normally dist. data
+
+d[BrownFat ==1] %>% # Histograma
+  ggplot(., aes(x = Total_vol)) +
+  geom_histogram(col = "grey80", fill = "cornflowerblue") +
+  labs(x = "Brown fat volume") +
+  theme_pubclean(base_size = 20) 
+
+d[BrownFat ==1] %>%  # Histograma
+  ggplot(., aes(x = log(Total_vol))) +
+  geom_histogram(col = "grey80", fill = "cornflowerblue") +
+  labs(x = "Log. of the brown fat volume") +
+  theme_pubclean(base_size = 20) 
+
+m6 <- lm(Total_vol ~ Age + Sex + BMI, data = d)
+m7 <- lm(log(Total_vol + 1) ~ Age + Sex + BMI, data = d)
+m8 <- lm(rank(Total_vol) ~ Age + Sex + BMI, data = d)
+
+AIC(m6, m7, m8)
 
 # Bola extra -----------------------------------------------------------------
 
