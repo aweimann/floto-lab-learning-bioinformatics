@@ -1,0 +1,20 @@
+﻿Sex,Diabetoc,Seasson,Cancer_status,Brown_fat,Cancer_type
+Female,No,Spring,No,No,No
+Male,Yes,Summer,Yes,Yes,lung
+,,Autumn,,,digestive
+,,Winter,,,ORL
+,,,,,breast
+,,,,,gynaecological (female)
+,,,,,genitall (male)
+,,,,,urothelial
+,,,,,kidney
+,,,,,brain
+,,,,,skin
+,,,,,thyroid
+,,,,,prostate
+,,,,,non-Hodgkin lymphoma
+,,,,,Hodgkin
+,,,,,kaposi
+,,,,,Myelona
+,,,,,leukemia
+,,,,,other

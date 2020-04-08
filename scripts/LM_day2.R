@@ -1,10 +1,20 @@
 #####################################################################################
-## Guion para explicar los comandos para ejecutar regresiones lineales y verificación
-## de la calidad de los modelos
+## Script for linear models. Bioinformatics workshop session 2.
 #####################################################################################
 
+required_packs <- c("data.table", "magrittr", "ggplot2", "ggpubr", "ggpubr", "sjPlot", "broom")
+packages_in <- required_packs %in% rownames(installed.packages())
+
+if (!all(packages_in)) {
+  
+  install.packages(required_packs[!packages_in])
+
+}
+
+rm(required_packs, packages_in)
 library(data.table)
-library(tidyverse)
+library(magrittr)
+library(ggplot2)
 library(ggpubr)
 library(sjPlot)
 library(broom)
@@ -110,13 +120,9 @@ m1 <- lm(Weight ~ Sex_c, data = d)
 summary(m1)
 plot(m1)
 
-cancer <- c("No" = 0, Yes=1)
+ref <- fread("Datasets/Key_for_brownfat.csv", )
 
-cancer_t <- c("No cancer", "lung", "digestive", "ORL", "breast",   
-              "gynaecological (female)", "genital (male)", "urothelial", "kidney",
-              "brain", "skin", "thyroid", "prostate", "non-Hodgkin lymphoma",  
-              "Hodgkin", "kaposi", "Myelona", "leukemia", "other")
-
+cancer_t <- ref$Cancer_type
 
 d[, Cancer_t_cat := cancer_t[Cancer_Type + 1] %>% as.factor()]
 d[, Cancer_t_cat := relevel(Cancer_t_cat, ref = "No cancer") ]
