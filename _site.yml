@@ -9,6 +9,10 @@ navbar:
     href: introduction.to.R.html
   - text: "How to use RStudio"
     href: how.to.use.RStudio.html
+  - text: "More advanced R"
+    href: more.advanced.R.html
+  - text: "ggplot2"
+    href: ggplot2.html
   - text: "Glossary of R terms"
     href: glossary.of.R.terms.html
 output:
