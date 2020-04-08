@@ -316,6 +316,14 @@ $(document).ready(function () {
 <h3>Prerequisites</h3>
 <p>This chapter focusses on ggplot2, one of the core members of the tidyverse. To access the datasets, help pages, and functions that we will use in this chapter, load the tidyverse by running this code:</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ──────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>## ✔ ggplot2 3.1.0       ✔ purrr   0.3.0  
+## ✔ tibble  2.0.1       ✔ dplyr   0.8.0.1
+## ✔ tidyr   0.8.2       ✔ stringr 1.4.0  
+## ✔ readr   1.3.1       ✔ forcats 0.4.0</code></pre>
+<pre><code>## ── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <p>That one line of code loads the core tidyverse; packages which you will use in almost every data analysis. It also tells you which functions from the tidyverse conflict with functions in base R (or from other packages you might have loaded).</p>
 <p>If you run this code and get the error message “there is no package called ‘tidyverse’”, you’ll need to first install it, then run <code>library()</code> once again.</p>
 <pre class="r"><code>install.packages(&quot;tidyverse&quot;)

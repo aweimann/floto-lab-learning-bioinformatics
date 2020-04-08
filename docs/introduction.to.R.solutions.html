@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Chris Ruis" />
+
+
+<title>Introduction to R solutions to exercises</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 64px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h2 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h3 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h4 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h5 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h6 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Learning bioinformatics</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="introduction.to.R.html">Introduction to R</a>
+</li>
+<li>
+  <a href="how.to.use.RStudio.html">How to use RStudio</a>
+</li>
+<li>
+  <a href="more.advanced.R.html">More advanced R</a>
+</li>
+<li>
+  <a href="glossary.of.R.terms.html">Glossary of R terms</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Introduction to R solutions to exercises</h1>
+<h4 class="author">Chris Ruis</h4>
+
+</div>
+
+
+<p>In this document, we’re going to run through the solutions to the exercises in the Introduction to R tutorial.</p>
+<p><strong>1. Create a new variable containing your favourite number and multiply it by 10</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myNumber &lt;-<span class="st"> </span><span class="dv">8</span>
+myNumber <span class="op">*</span><span class="st"> </span><span class="dv">10</span></code></pre></div>
+<p>In the first line, we assign a new variable called “myNumber” to the number 8 using “&lt;-”. In the second line, we multiply the variable name by 10. R remembers that the variable “myNumber” corresponds to 8 and therefore when we type “myNumber * 10”, R interprets this as 8 * 10.</p>
+<p><strong>2. Create a new variable containing your name</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myName &lt;-<span class="st"> &quot;Chris&quot;</span></code></pre></div>
+<p>We create a new variable called myName using the “&lt;-”. As names are character data (what R calls letters, words and sentences), we need to put quotes around the text.</p>
+<p><strong>3. Create a new variable containing 10 numbers (any numbers you like) and multiply these numbers by 10</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">numberVector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">2</span>,<span class="fl">1.2</span>,<span class="fl">1E5</span>,<span class="dv">7</span>,<span class="dv">9</span>,<span class="dv">1</span>,<span class="dv">10</span>)</code></pre></div>
+<p>We create a vector called numberVector. We use the c (concatenate) to specify what we want to go in our vector. The vector can contain a mixture of whole numbers, decimals and log number. Remember a vector can only contain one type of data, so we couldn’t add our name at the end without changing the type of the data in the vector.</p>
+<p><strong>4. Create a data frame with 2 columns - the first column containing your 5 favourite TV shows and the second column containing the number of episodes of those TV shows you reckon you’ve watched in the last month (roughly, hopefully its less than 3 figures)</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tvShowDF &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Show =</span> <span class="kw">c</span>(<span class="st">&quot;Bad education&quot;</span>, <span class="st">&quot;Mrs Browns boys&quot;</span>, <span class="st">&quot;Not going out&quot;</span>, <span class="st">&quot;Outnumbered&quot;</span>, <span class="st">&quot;Taskmaster&quot;</span>), <span class="dt">Episodes =</span> <span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">4</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">11</span>))</code></pre></div>
+<p>We create a data frame called tvShowDF using the function “data.frame”. Within the brackets after data.frame we choose the columns that we want to create and assign values to those columns. Here, we create 2 columns called Show and Episodes and give the TV shows and number of episodes to these columns, respectively. As the TV shows are character data, we need to put quotes around each of their names.</p>
+<p><strong>5. Use square brackets to pick out the number of episodes you’ve watched of your second favourite TV show</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tvShowDF[<span class="dv">2</span>,<span class="dv">2</span>]</code></pre></div>
+<p>We pick out columns, rows and cells from a data frame using square brackets. Here, we want to pick out an individual cell so we need 2 numbers in the sqaure brackets in the format: tvShowDF[row_number, column_number]. The number of episodes is in column 2 so we put 2 after the comma in the square brackets to specify column 2. We want our second favourite show which in my case is in row 2 so we put 2 before the comma in the square brackets to specify row 2.</p>
+<p><strong>6. Imagine your TV watching is going to be similar next month to this month. Calculate the number of episodes of each show you will have watched across the 2 month period by multiplying the number of episodes column by 2</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tvShowDF[,<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span><span class="dv">2</span>
+
+OR
+
+tvShowDF<span class="op">$</span>Episodes <span class="op">*</span><span class="st"> </span><span class="dv">2</span></code></pre></div>
+<p>We want to multiply the values in the Episodes column by 2. There’s 2 ways in which we can do this. We can either pick out the column using square brackets or we can pick out the column from its name. As we want a column, if we use the square brackets method, we put the number of the column after the comma. To pick out the column by name we put “$” after the data frame name and follow this with the column name.</p>
+<p><strong>7. Write a function that takes 3 numbers, multiplies the first two numbers together and adds this to the third number</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">numberFunction &lt;-<span class="st"> </span><span class="cf">function</span>(x, y, z) {
+  multipliedNumber &lt;-<span class="st"> </span>x <span class="op">*</span><span class="st"> </span>y
+  totalNumber &lt;-<span class="st"> </span>multipliedNumber <span class="op">+</span><span class="st"> </span>z
+  <span class="kw">print</span>(totalNumber)}</code></pre></div>
+<p>We create a function using the command “function”. Within the “()” following “function” we specify the number of variables that the function will take (also called arguments) and give them names that will enable us to refer to them in the code of the function. Here, we want our function to take 3 numbers so we give our function 3 input variables and call them x, y and z. We assign our function to a name (here numberFunction) using “&lt;-” so we can use the function later on by running “numberFunction”. The code between the “{” and “}” determines what the function will do. Here, we multiply the first 2 input numbers together and assign the result to a new variable called multipliedNumber. We then add the third number to the result and print the result of this to the screen.</p>
+<p><strong>8. Run your function on different sets of 3 numbers</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">numberFunction</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)
+<span class="kw">numberFunction</span>(<span class="dt">x =</span> <span class="dv">10</span>, <span class="dt">y =</span> <span class="dv">4</span>, <span class="dt">z =</span> <span class="dv">20</span>)</code></pre></div>
+<p>To run our function, we write the name of the function and within the following brackets give the arguments that the function will run on. We can just give the 3 numbers in which case R assigns them to the variables x, y and z in the order in which the numbers were given. Or we can be explicit about which number corresponds to which argument by giving “argument name = input number”.</p>
+<p><strong>9. Install and then load the package ggplot2</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)
+<span class="kw">library</span>(ggplot2)</code></pre></div>
+<p>In the first line we install the package ggplot2. We give install.packages the name of the package we want to install surrounded by quotes as its character data. We then load the package using library(PackageName).</p>
+<p><strong>10. Using your TV show data frame from exercise 4 (recreate it if you need to), use a for loop to print each of the TV shows in turn (HINT: Pick out the column first)</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (tvShow <span class="cf">in</span> tvShowDF<span class="op">$</span>Show) {
+  <span class="kw">print</span>(tvShow)}</code></pre></div>
+<p>To run a for loop, we first tell R what we want to loop through, specified between the “(” and “)”. In this case, we want to loop through a column in our data frame so we give R that column. Between the “{” and “}” we tell R what we want to do with each value which in this case is print it to the screen.</p>
+<p><strong>11. Combine a for loop and if statement to print the number of episodes you’ve watched if this is more than 5</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (episode <span class="cf">in</span> tvShowDF<span class="op">$</span>Episodes) {
+  <span class="cf">if</span> (episode <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>) {
+    <span class="kw">print</span>(episode)}}</code></pre></div>
+<p><strong>12. Save your TV show data frame from exercise 4 (recreate it if you need to) as a csv file</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write.csv</span>(tvShowDF, <span class="st">&quot;tv_shows.csv&quot;</span>, <span class="dt">row.names =</span> <span class="ot">FALSE</span>, <span class="dt">quote =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p><strong>13. Read the csv file you just saved into R</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">newTvShowDF &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;tv_shows.csv&quot;</span>)</code></pre></div>
+<p><strong>14. Plot your TV watching data from exercise 4 as a barplot using ggplot2. You’ll need to switch “+ geom_point()” in the above example for “+ geom_bar(stat=”identity“)”</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<span class="kw">ggplot</span>(tvShowDF, <span class="kw">aes</span>(<span class="dt">x =</span> Show, <span class="dt">y =</span> Episodes)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>)</code></pre></div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

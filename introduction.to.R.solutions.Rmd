@@ -1,0 +1,160 @@
+---
+title: "Introduction to R solutions to exercises"
+author: "Chris Ruis"
+output: 
+  html_document:
+    theme: paper
+    highlight: tango
+    toc: true
+    toc_float: true
+    toc_collapsed: true
+    number_sections: TRUE
+---
+
+In this document, we're going to run through the solutions to the exercises in the Introduction to R tutorial.
+
+**1.	Create a new variable containing your favourite number and multiply it by 10**
+
+```{r eval = FALSE}
+
+myNumber <- 8
+myNumber * 10
+
+```
+
+In the first line, we assign a new variable called "myNumber" to the number 8 using "<-". In the second line, we multiply the variable name by 10. R remembers that the variable "myNumber" corresponds to 8 and therefore when we type "myNumber * 10", R interprets this as 8 \* 10.
+
+**2.	Create a new variable containing your name**
+
+```{r eval = FALSE}
+
+myName <- "Chris"
+
+```
+
+We create a new variable called myName using the "<-". As names are character data (what R calls letters, words and sentences), we need to put quotes around the text.
+
+**3.	Create a new variable containing 10 numbers (any numbers you like) and multiply these numbers by 10**
+
+```{r eval = FALSE}
+
+numberVector <- c(1,5,6,2,1.2,1E5,7,9,1,10)
+
+```
+
+We create a vector called numberVector. We use the c (concatenate) to specify what we want to go in our vector. The vector can contain a mixture of whole numbers, decimals and log number. Remember a vector can only contain one type of data, so we couldn't add our name at the end without changing the type of the data in the vector.
+
+**4.	Create a data frame with 2 columns - the first column containing your 5 favourite TV shows and the second column containing the number of episodes of those TV shows you reckon you’ve watched in the last month (roughly, hopefully its less than 3 figures)**
+
+```{r eval = FALSE}
+
+tvShowDF <- data.frame(Show = c("Bad education", "Mrs Browns boys", "Not going out", "Outnumbered", "Taskmaster"), Episodes = c(10, 4, 8, 1, 11))
+
+```
+
+We create a data frame called tvShowDF using the function "data.frame". Within the brackets after data.frame we choose the columns that we want to create and assign values to those columns. Here, we create 2 columns called Show and Episodes and give the TV shows and number of episodes to these columns, respectively. As the TV shows are character data, we need to put quotes around each of their names.
+
+**5.	Use square brackets to pick out the number of episodes you’ve watched of your second favourite TV show**
+
+```{r eval = FALSE}
+
+tvShowDF[2,2]
+
+```
+
+We pick out columns, rows and cells from a data frame using square brackets. Here, we want to pick out an individual cell so we need 2 numbers in the sqaure brackets in the format: tvShowDF[row_number, column_number]. The number of episodes is in column 2 so we put 2 after the comma in the square brackets to specify column 2. We want our second favourite show which in my case is in row 2 so we put 2 before the comma in the square brackets to specify row 2.
+
+**6.	Imagine your TV watching is going to be similar next month to this month. Calculate the number of episodes of each show you will have watched across the 2 month period by multiplying the number of episodes column by 2**
+
+```{r eval = FALSE}
+
+tvShowDF[,2] * 2
+
+OR
+
+tvShowDF$Episodes * 2
+
+```
+
+We want to multiply the values in the Episodes column by 2. There's 2 ways in which we can do this. We can either pick out the column using square brackets or we can pick out the column from its name. As we want a column, if we use the square brackets method, we put the number of the column after the comma. To pick out the column by name we put "$" after the data frame name and follow this with the column name.
+
+**7.	Write a function that takes 3 numbers, multiplies the first two numbers together and adds this to the third number**
+
+```{r eval = FALSE}
+
+numberFunction <- function(x, y, z) {
+  multipliedNumber <- x * y
+  totalNumber <- multipliedNumber + z
+  print(totalNumber)}
+
+```
+
+We create a function using the command "function". Within the "()" following "function" we specify the number of variables that the function will take (also called arguments) and give them names that will enable us to refer to them in the code of the function. Here, we want our function to take 3 numbers so we give our function 3 input variables and call them x, y and z. We assign our function to a name (here numberFunction) using "<-" so we can use the function later on by running "numberFunction". The code between the "{" and "}" determines what the function will do. Here, we multiply the first 2 input numbers together and assign the result to a new variable called multipliedNumber. We then add the third number to the result and print the result of this to the screen.
+
+**8.	Run your function on different sets of 3 numbers**
+
+```{r eval = FALSE}
+
+numberFunction(1, 2, 3)
+numberFunction(x = 10, y = 4, z = 20)
+
+```
+
+To run our function, we write the name of the function and within the following brackets give the arguments that the function will run on. We can just give the 3 numbers in which case R assigns them to the variables x, y and z in the order in which the numbers were given. Or we can be explicit about which number corresponds to which argument by giving "argument name = input number".
+
+**9.	Install and then load the package ggplot2**
+
+```{r eval = FALSE}
+
+install.packages("ggplot2")
+library(ggplot2)
+
+```
+
+In the first line we install the package ggplot2. We give install.packages the name of the package we want to install surrounded by quotes as its character data. We then load the package using library(PackageName).
+
+**10.	Using your TV show data frame from exercise 4 (recreate it if you need to), use a for loop to print each of the TV shows in turn (HINT: Pick out the column first)**
+
+```{r eval = FALSE}
+
+for (tvShow in tvShowDF$Show) {
+  print(tvShow)}
+
+```
+
+To run a for loop, we first tell R what we want to loop through, specified between the "(" and ")". In this case, we want to loop through a column in our data frame so we give R that column. Between the "{" and "}" we tell R what we want to do with each value which in this case is print it to the screen.
+
+**11.	Combine a for loop and if statement to print the number of episodes you’ve watched if this is more than 5**
+
+```{r eval = FALSE}
+
+for (episode in tvShowDF$Episodes) {
+  if (episode > 5) {
+    print(episode)}}
+
+```
+
+**12.	Save your TV show data frame from exercise 4 (recreate it if you need to) as a csv file**
+
+```{r eval = FALSE}
+
+write.csv(tvShowDF, "tv_shows.csv", row.names = FALSE, quote = FALSE)
+
+```
+
+**13.	Read the csv file you just saved into R**
+
+```{r eval = FALSE}
+
+newTvShowDF <- read.csv("tv_shows.csv")
+
+```
+
+**14.	Plot your TV watching data from exercise 4 as a barplot using ggplot2. You’ll need to switch “+ geom_point()” in the above example for “+ geom_bar(stat=”identity“)”**
+
+```{r eval = FALSE}
+
+library(ggplot2)
+ggplot(tvShowDF, aes(x = Show, y = Episodes)) + geom_bar(stat="identity")
+
+```
