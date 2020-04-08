@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
 <meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
@@ -28,66 +29,41 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  { background-color: #f8f8f8; }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ef2929; } /* Alert */
-code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #c4a000; } /* Attribute */
-code span.bn { color: #0000cf; } /* BaseN */
-code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4e9a06; } /* Char */
-code span.cn { color: #000000; } /* Constant */
-code span.co { color: #8f5902; font-style: italic; } /* Comment */
-code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-code span.dt { color: #204a87; } /* DataType */
-code span.dv { color: #0000cf; } /* DecVal */
-code span.er { color: #a40000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #0000cf; } /* Float */
-code span.fu { color: #000000; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-code span.ot { color: #8f5902; } /* Other */
-code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code span.sc { color: #000000; } /* SpecialChar */
-code span.ss { color: #4e9a06; } /* SpecialString */
-code span.st { color: #4e9a06; } /* String */
-code span.va { color: #000000; } /* Variable */
-code span.vs { color: #4e9a06; } /* VerbatimString */
-code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
 
 </style>
 <script>
@@ -160,6 +136,7 @@ code {
 }
 img {
   max-width:100%;
+  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -308,7 +285,6 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
-  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -337,12 +313,6 @@ $(document).ready(function () {
 }
 }
 
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
 
 .toc-content {
   padding-left: 30px;
@@ -434,9 +404,6 @@ div.tocify {
   <a href="more.advanced.R.html">More advanced R</a>
 </li>
 <li>
-  <a href="ggplot2.html">ggplot2</a>
-</li>
-<li>
   <a href="glossary.of.R.terms.html">Glossary of R terms</a>
 </li>
       </ul>
@@ -458,7 +425,8 @@ div.tocify {
 
 
 <p>RStudio is a really useful tool for writing and running code in R. You can write your code, run your code, view tables and plots, find help pages for functions and view all of your files in here, amongst other things. In this tutorial, we’ll cover how to use RStudio.</p>
-<p>#The basic setup</p>
+<div id="the-basic-setup" class="section level1">
+<h1><span class="header-section-number">1</span> The basic setup</h1>
 <p>RStudio consists of 4 windows. The top left window is where you write your code. The bottom left window (the Console) is where this code runs and prints any output associated with the code. The top right window shows the variables that you have created. The bottom right window shows your files, shows plots and contains the help pages.</p>
 <center>
 <div class="figure">
@@ -466,7 +434,9 @@ div.tocify {
 <p class="caption"></p>
 </div>
 </center>
-<p>#Creating and opening projects in RStudio</p>
+</div>
+<div id="creating-and-opening-projects-in-rstudio" class="section level1">
+<h1><span class="header-section-number">2</span> Creating and opening projects in RStudio</h1>
 <p>Keeping track of where you’ve saved your code and data can be a nightmare, as with any set of files. RStudio provides a nice way of keeping it all together through Projects. Whenever you have some data analysis you want to carry out, you can create a Project and store all of your code and data in here. You can add new scripts, data, plots and anything else you like to this Project and load these into RStudio whenever you want to do some analysis.</p>
 <p>To create a new Project, you first need to open RStudio. Then click “File” followed by “New Project”. Then click “New Directory”, “New Project”. Type the name of the folder you’d like the project to be saved in into “Directory name:” and then click “Create Project”. RStudio will now restart. If you look in the bottom right window under the Files tab, you should see that R has created a new folder which should be in “Home &gt; Project name”. The Files tab contains all of the files and folders that are currently in the newly created Project, which will only be one currently.</p>
 <p>If you want to close the Project, click “File” then “Close Project”. Again, RStudio will restart and will now be outside of the Project folder. You can reopen the Project by clicking “File” then “Open Project” and then clicking on the Project folder (which is called whatever you named your Project) and then “Open”. RStudio will now have reopened your Project folder and you should be able to see all of your files and folders in the Project in the “Files” tab in the bottom right window.</p>
@@ -476,9 +446,11 @@ div.tocify {
 <li>Create a new Project called “Working_in_RStudio”</li>
 </ol>
 <hr />
-<p>#Writing and running code in RStudio</p>
+</div>
+<div id="writing-and-running-code-in-rstudio" class="section level1">
+<h1><span class="header-section-number">3</span> Writing and running code in RStudio</h1>
 <p>Let’s write and run some code. Type the following in the top left window:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">mean</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</code></pre></div>
 <p>This is the code that we want to run. With your cursor on the “mean(1:10)” line, type ctrl and enter. Now look at the bottom left window. You should see something that looks like this:</p>
 <center>
 <div class="figure">
@@ -488,8 +460,8 @@ div.tocify {
 </center>
 <p>R has run the line of code “mean(1:10)” and has printed the output to the screen in the bottom left window. Whenever you see a line in the bottom left window that starts with “&gt;”, this is a line of code. Lines that don’t start with “&gt;” are the output from the code.</p>
 <p>You can run multiple lines of code in one go. Type the following lines in the top left window:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">numbersMean &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">print</span>(numbersMean)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">numbersMean &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)
+<span class="kw">print</span>(numbersMean)</code></pre></div>
 <p>Here, the first line creates a variable called numbersMean that contains the output from mean(1:10). In the second line, we print this variable to the screen. You have 2 options for how to run these 2 lines in RStudio. You can either type ctrl and enter on each line individually and RStudio will run the code one line at a time. However, the easiest way of running multiple lines is to highlight the lines you want to run with your mouse and then click on the “Run” button in the top right corner of the top left window:</p>
 <center>
 <div class="figure">
@@ -505,33 +477,41 @@ div.tocify {
 </div>
 </center>
 <p>R has run the two lines of code that we highlighted. There’s no limit to the number of lines you can run in one go like this. Highlighting and clicking Run will be much more efficient than going line-by-line once you want to run tens of lines in one go.</p>
-<p>#Writing scripts in RStudio</p>
+</div>
+<div id="writing-scripts-in-rstudio" class="section level1">
+<h1><span class="header-section-number">4</span> Writing scripts in RStudio</h1>
 <p>We now know how to write and run code in RStudio. Its good practice to save the code that you write so that you can make your results reproducible and check it later to make sure you didn’t make any mistakes. You can also add bits to the code to run additional analyses, make new plots, etc. A script is a saved piece of code and we can make scripts in RStudio using the top left window.</p>
 <p>To start a new script, click “File”, “New File”, “R script”. You should get a new empty document appear in the top left window. We’re going to write our code in the top left window and, as before, run it in the bottom left window. The only difference now is we’re going to save the top left window as a script. Type the following lines in the top left window:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">sumMeans &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) { <span class="co">#Takes two vectors, calculates the mean of each vector and adds the means together</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">  xMean &lt;-<span class="st"> </span><span class="kw">mean</span>(x)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">  yMean &lt;-<span class="st"> </span><span class="kw">mean</span>(y)</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">  summedMeans &lt;-<span class="st"> </span>xMean <span class="op">+</span><span class="st"> </span>yMean</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">  <span class="kw">print</span>(summedMeans)}</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">vector1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">9</span>)</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">vector2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="kw">sumMeans</span>(vector1,vector2)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sumMeans &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) { <span class="co">#Takes two vectors, calculates the mean of each vector and adds the means together</span>
+  xMean &lt;-<span class="st"> </span><span class="kw">mean</span>(x)
+  yMean &lt;-<span class="st"> </span><span class="kw">mean</span>(y)
+  summedMeans &lt;-<span class="st"> </span>xMean <span class="op">+</span><span class="st"> </span>yMean
+  <span class="kw">print</span>(summedMeans)}
+
+vector1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">9</span>)
+vector2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">10</span>)
+
+<span class="kw">sumMeans</span>(vector1,vector2)</code></pre></div>
 <p>Save this as “sumMeans.R” with “File”, “Save as” as you would other files. You’ve now created a script called sumMeans.R that contains this code. So what does the code do? We’ve created a function called “sumMeans” which takes 2 vectors, calculates the mean of each vector and adds these means together. We then make two vectors and then run our function on these vectors. Run these lines by highlighting them as we did above. You should see the lines appear in the bottom left window and the number 11 be printed to the screen. We’ve just run our script!</p>
 <p>You can put any bit of code in scripts. Loops, conditionals, functions, plotting instructions, etc. The script is just a way of saving your code so you can come back to it later.</p>
-<p>#Viewing variables in RStudio</p>
+</div>
+<div id="viewing-variables-in-rstudio" class="section level1">
+<h1><span class="header-section-number">5</span> Viewing variables in RStudio</h1>
 <p>One nice thing about RStudio is that you can view variables. Its a bit like having an excel spreadsheet in R. Let’s make a data frame containing some data by typing the following into the top left window of RStudio and then running the line so it appears in the bottom left window:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">memPotDF &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Sample =</span> <span class="kw">c</span>(<span class="st">&quot;Sample1&quot;</span>,<span class="st">&quot;Sample2&quot;</span>,<span class="st">&quot;Sample3&quot;</span>,<span class="st">&quot;Sample4&quot;</span>,<span class="st">&quot;Sample5&quot;</span>), <span class="dt">Measurement1 =</span> <span class="kw">c</span>(<span class="fl">1.2</span>,<span class="fl">1.4</span>,<span class="fl">2.5</span>,<span class="fl">2.7</span>,<span class="fl">1.6</span>), <span class="dt">Measurement2 =</span> <span class="kw">c</span>(<span class="fl">1.4</span>,<span class="fl">1.5</span>,<span class="fl">2.2</span>,<span class="fl">2.8</span>,<span class="fl">1.5</span>))</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">memPotDF &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Sample =</span> <span class="kw">c</span>(<span class="st">&quot;Sample1&quot;</span>,<span class="st">&quot;Sample2&quot;</span>,<span class="st">&quot;Sample3&quot;</span>,<span class="st">&quot;Sample4&quot;</span>,<span class="st">&quot;Sample5&quot;</span>), <span class="dt">Measurement1 =</span> <span class="kw">c</span>(<span class="fl">1.2</span>,<span class="fl">1.4</span>,<span class="fl">2.5</span>,<span class="fl">2.7</span>,<span class="fl">1.6</span>), <span class="dt">Measurement2 =</span> <span class="kw">c</span>(<span class="fl">1.4</span>,<span class="fl">1.5</span>,<span class="fl">2.2</span>,<span class="fl">2.8</span>,<span class="fl">1.5</span>))</code></pre></div>
 <p>Now have a look in the top right window under the “Environment” tab. Under the heading “Data”, you should see memPotDF. When you click on memPotDF here, the data frame is displayed in the top left window. This is a nice way of being able to see our data. You can’t view all types of data using this, for example vectors aren’t displayed. But its very useful for looking at data frames and data tables.</p>
-<p>#Viewing plots in RStudio</p>
+</div>
+<div id="viewing-plots-in-rstudio" class="section level1">
+<h1><span class="header-section-number">6</span> Viewing plots in RStudio</h1>
 <p>RStudio can display plots, including those produced with ggplot2. Let’s plot our memPotDF using ggplot and view it in RStudio. Type the following lines into the top left window and run them:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">library</span>(ggplot2) <span class="co">#We need to load the library before using it</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">ggplot</span>(memPotDF, <span class="kw">aes</span>(<span class="dt">x =</span> Measurement1, <span class="dt">y =</span> Measurement2)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2) <span class="co">#We need to load the library before using it</span>
+<span class="kw">ggplot</span>(memPotDF, <span class="kw">aes</span>(<span class="dt">x =</span> Measurement1, <span class="dt">y =</span> Measurement2)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
 <p>You should see the bottom right window changes to the “Plots” tab and our plot appears. Whenever you plot something in RStudio it will appear in this window (unless you save it to a file).</p>
-<p>#Installing packages in RStudio</p>
+</div>
+<div id="installing-packages-in-rstudio" class="section level1">
+<h1><span class="header-section-number">7</span> Installing packages in RStudio</h1>
 <p>Packages contain sets of functions that can be useful for particular analyses, for example DESeq2 contains functions for RNASeq analysis and ape contains functions for analysing phylogenetic trees. To use the functions within a package, you first need to install the package. There’s two ways of doing this. You can either use the install.packages() function in the bottom left window:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;DESeq2&quot;</span>) <span class="co">#Make sure the package name is in quotes</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;DESeq2&quot;</span>) <span class="co">#Make sure the package name is in quotes</span></code></pre></div>
 <p>This will install the DESeq2 package. The alternative in RStudio is to use the “Packages” tab in the bottom right window. When you click on this tab, it shows you a list of the packages you currently have installed. To install a new package, click on the “Install button”:</p>
 <center>
 <div class="figure">
@@ -540,7 +520,9 @@ div.tocify {
 </div>
 </center>
 <p>Then type the package name (e.g. DESeq2) into “Packages”.</p>
-<p>#Finding help for functions in RStudio</p>
+</div>
+<div id="finding-help-for-functions-in-rstudio" class="section level1">
+<h1><span class="header-section-number">8</span> Finding help for functions in RStudio</h1>
 <p>If ever you’re not sure what a function does or what input it takes, the help pages in RStudio should help you out. Say we’re not sure how to use the function mean(). There’s two ways of accessing the help pages. You can either use the bottom left window and type ? followed by the name of the function, here “?mean”. The help page will appear in the bottom right window and contains some explanation about what the function does and what input it takes. Alternatively, you can use the Help tab in the bottom right window:</p>
 <center>
 <div class="figure">
@@ -549,6 +531,7 @@ div.tocify {
 </div>
 </center>
 <p>This contains a search bar and you can type the name of the function in here to find the help page.</p>
+</div>
 
 
 

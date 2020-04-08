@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Chris Ruis" />
+
+
+<title>More Advanced R</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 64px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h2 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h3 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h4 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h5 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h6 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Learning bioinformatics</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="introduction.to.R.html">Introduction to R</a>
+</li>
+<li>
+  <a href="how.to.use.RStudio.html">How to use RStudio</a>
+</li>
+<li>
+  <a href="more.advanced.R.html">More advanced R</a>
+</li>
+<li>
+  <a href="glossary.of.R.terms.html">Glossary of R terms</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">More Advanced R</h1>
+<h4 class="author">Chris Ruis</h4>
+
+</div>
+
+
+<p>In the first R tutorial, we covered quite a broad range of coding tools in R, including creating variables, using your own and existing functions, running loops and conditional statements and reading and writing files. In this tutorial, we’re going to build on that and bring in a set of additional functions that should be useful for analysing your data. Feel free to look back at the previous tutorial if you can’t remember how to do things.</p>
+<div id="logical-operators" class="section level1">
+<h1><span class="header-section-number">1</span> Logical operators</h1>
+<p>We’ve already used some of these but there’s a few more that are important. The logical operators are a set of symbols that we can use to determine if a particular criteria is matched. For now, we just need to know what the common ones are and what they do:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x <span class="op">==</span><span class="st"> </span>y <span class="co">#Check whether x is equal to y, make sure you put == and not just =</span>
+x <span class="op">!=</span><span class="st"> </span>y <span class="co">#Check whether x does not equal y, the answer to this will be the opposite of x == y</span>
+x <span class="op">&lt;</span><span class="st"> </span>y <span class="co">#Check whether x is less than y</span>
+x <span class="op">&gt;</span><span class="st"> </span>y <span class="co">#Check whether x is greater than y</span>
+x <span class="op">&lt;=</span><span class="st"> </span>y <span class="co">#Check whether x is less than or equal to y</span>
+x <span class="op">&gt;=</span><span class="st"> </span>y <span class="co">#Check whether x is greater than or equal to y</span></code></pre></div>
+<p>Each of these logical operators gives an answer of TRUE if the condition is matched, or FALSE if the condition is not matched. We can use them to determine whether to progress with a conditional statement (see section 6 in the Introduction to R tutorial if you can’t remember what one of these is) or to extract data from a table if it does, or does not, match one or more specified criteria.</p>
+<hr />
+<p><strong>Exercises</strong></p>
+<p>For these exercises, we’re going to use this vector: vectorOfNumbers &lt;- c(1,2,3,4,5,6,7,8,9,10)</p>
+<p>When we run a logical operator on a vector, R will run the logical operator on each value in the vector, so vectorOfNumbers == 5 will check whether each number in the vector equals 5 and return TRUE or FALSE for each value. To get a feeling for how the logic operators are working:</p>
+<ol style="list-style-type: decimal">
+<li>How many numbers in vectorOfNumbers are greater than 5</li>
+<li>How many numbers in vectorOfNumbers are less than 5</li>
+<li>How many numbers in vectorOfNumbers are greater than or equal to 5</li>
+<li>How many numbers in vectorOfNumbers are less than or equal to 5</li>
+</ol>
+<hr />
+</div>
+<div id="data-tables" class="section level1">
+<h1><span class="header-section-number">2</span> Data tables</h1>
+<p>Data tables are similar to data frames in that they look like excel spreadsheets. You have columns and rows in the same way as you would with a data frame and you can have different types of data (e.g. numbers, sample names) in different columns. I only recently learnt that data tables existed (thanks Santi!) so am still learning about what you can do with them. But I think its fair to say that they’re a bit easier to use than data frames.</p>
+<p>Whenever you want to use data tables, you’ll need to load the data tables library, as they’re not a standard feature of R. So before you use them for the first time, you’ll need to install the “data.tables” package (have a look in the Introduction to R or How to use RStudio tutorials if you’re not sure how to do this) and you’ll then need to load the library each time you want to use it. As a quick aside, if you write a script that uses data tables, you’ll need to have library(data.table) at the top of that script so R will load the library when the script runs.</p>
+</div>
+<div id="creating-a-data-table" class="section level1">
+<h1><span class="header-section-number">3</span> Creating a data table</h1>
+<p>Ok, so how do we create a data table? Its essentially the same as creating a data frame, but using data.table instead of data.frame. We’re going to create a data table of membrane potential measurements in two different ways. In the first example, we’re going to write the data that’s going into the data table by hand in RStudio. There’s a bit more data in this example than in the previous tutorials, so writing it out by hand is a bit more time consuming. Therefore, in the second example, we’re going to read in an excel spreadsheet containing the membrane potential measurements and convert that into a data table. When you have your own data, you’re likely to have it in excel or as a csv or text file and so its most likely that you’ll want to use the second option most of the time. To read in an excel spreadsheet, you need to have a library called readxl. Check if you already have it installed in RStudio (see section 7 in the “How to use RStudio” tutorial if you’re not sure how to do this) and install it if you don’t.</p>
+<p>The spreadsheet that we want to read in is in the GitHub repository. You can either download just the spreadsheet but its a good opportunity to set up a Project in RStudio containing all of the course materials. Let’s set the Project up and then run through what’s in there. In RStudio, click “File” then “New Project”. Then click “Version control”, then “Git”. In the “Repository URL:” section copy this link: <a href="https://github.com/aweimann/floto-lab-learning-bioinformatics" class="uri">https://github.com/aweimann/floto-lab-learning-bioinformatics</a> which is the link to the Bioinformatics Course GitHub page. Into the “Project directory name:” section type whatever you want the Project to be called, e.g. Floto_lab_bioinformatics. Then click “Create Project”. RStudio will restart. If you look in the Files tab in the bottom right hand window you should see a whole series of files. These are all of the files in GitHub repository. In a Project, you can save all of your code, data and plots in one place. Whenever you have a new dataset to analyse, you can create a new Project to keep everything together. Have a look in the How to use RStudio tutorial if you want to know how to create a new Project from scratch.</p>
+<p>If you now look just below the “Console” tab in the bottom left hand window, you should see “~/Floto_lab_bioinformatics/” (or replace Floto_lab_bioinformatics with whatever you called the Project if you called it something else). This is the current working directory so is where RStudio will look for and save files by default. The spreadsheet we want to read in is in directory data and the data directory is in the directory we are currently in (see if you can see it in the bottom right hand window). Therefore to read in the spreadsheet from the directory we are currently in, we type: “read_excel(data/more_advanced_R_membrane_potential.xlsx”) so R knows to look in the data directory for the file.</p>
+<p>Let’s create a data table:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(data.table) <span class="co">#Remember you need to do this before you can use data tables, but you only need it once per script or per RStudio session</span>
+<span class="kw">library</span>(readxl) <span class="co">#This is the library to read in excel files, you&#39;ll need to install it if you don&#39;t already have it</span>
+exampleDT &lt;-<span class="st"> </span><span class="kw">data.table</span>(<span class="dt">Cell_type =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;A&quot;</span>,<span class="st">&quot;A&quot;</span>,<span class="st">&quot;A&quot;</span>,<span class="st">&quot;A&quot;</span>,<span class="st">&quot;A&quot;</span>,<span class="st">&quot;A&quot;</span>,<span class="st">&quot;A&quot;</span>,<span class="st">&quot;A&quot;</span>,<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;B&quot;</span>), <span class="dt">Sample =</span> <span class="kw">c</span>(<span class="st">&quot;Sample1&quot;</span>,<span class="st">&quot;Sample2&quot;</span>,<span class="st">&quot;Sample3&quot;</span>,<span class="st">&quot;Sample4&quot;</span>,<span class="st">&quot;Sample5&quot;</span>,<span class="st">&quot;Sample6&quot;</span>,<span class="st">&quot;Sample7&quot;</span>,<span class="st">&quot;Sample8&quot;</span>,<span class="st">&quot;Sample9&quot;</span>,<span class="st">&quot;Sample10&quot;</span>,<span class="st">&quot;Sample1&quot;</span>,<span class="st">&quot;Sample2&quot;</span>,<span class="st">&quot;Sample3&quot;</span>,<span class="st">&quot;Sample4&quot;</span>,<span class="st">&quot;Sample5&quot;</span>,<span class="st">&quot;Sample6&quot;</span>,<span class="st">&quot;Sample7&quot;</span>,<span class="st">&quot;Sample8&quot;</span>,<span class="st">&quot;Sample9&quot;</span>,<span class="st">&quot;Sample10&quot;</span>), <span class="dt">Measurement1 =</span> <span class="kw">c</span>(<span class="fl">1.2</span>,<span class="fl">1.4</span>,<span class="fl">2.5</span>,<span class="fl">2.7</span>,<span class="fl">1.6</span>,<span class="fl">2.4</span>,<span class="fl">2.2</span>,<span class="fl">1.9</span>,<span class="fl">1.4</span>,<span class="fl">1.5</span>,<span class="fl">2.1</span>,<span class="fl">2.4</span>,<span class="fl">2.7</span>,<span class="fl">2.6</span>,<span class="fl">3.1</span>,<span class="fl">1.9</span>,<span class="fl">2.8</span>,<span class="fl">2.7</span>,<span class="fl">2.3</span>,<span class="fl">2.2</span>), <span class="dt">Measurement2 =</span> <span class="kw">c</span>(<span class="fl">1.4</span>,<span class="fl">1.5</span>,<span class="fl">2.2</span>,<span class="fl">2.8</span>,<span class="fl">1.5</span>,<span class="fl">2.5</span>,<span class="fl">2.2</span>,<span class="fl">1.7</span>,<span class="fl">1.4</span>,<span class="fl">1.5</span>,<span class="fl">2.2</span>,<span class="fl">2.9</span>,<span class="fl">2.4</span>,<span class="fl">2.1</span>,<span class="fl">2.9</span>,<span class="fl">1.7</span>,<span class="fl">2.6</span>,<span class="fl">2.2</span>,<span class="fl">2.2</span>,<span class="fl">2.5</span>)) <span class="co">#Creates a data table by hand, but with this amount of data its quite time consuming to write out in full</span>
+memPotDT &lt;-<span class="st"> </span><span class="kw">data.table</span>(<span class="kw">read_excel</span>(<span class="st">&quot;data/more_advanced_R_membrane_potential.xlsx&quot;</span>)) <span class="co">#Imports our excel spreadsheet and converts it into a data table. Assumes you have created a Project with the GitHub data and are in the home directory of that Project (the one with a directory called data in it)</span></code></pre></div>
+<p>The function read_excel does exactly what it says on the tin. By default, read_excel doesn’t import the data as a data table, so we therefore need to put data.table around the import command to turn the data into a data table. We assign the data we’ve imported to an object called memPotDT. Try the same import command but without the “memPotDT &lt;-” part. You should see that RStudio just prints the imported data to the screen. By assigning it to an object, we can refer to that object to use the data later in our script or RStudio session. Print the data tables exampleDT and memPotDT to the screen so we can have a look at them. They should be the same. In this (made up) example, we’ve taken membrane potential measurements from two cell types, A and B. We’ve got 10 independent experiments using each cell type and we’ve measured the membrane potential twice in each experiment. We ran 5 experiments with each cell type on each of 2 different days. Therefore in our data table, we’ve got 10 rows for each cell type and two measurements in each row. In our data table, column 1 is the cell type, column 2 is the experiment number within that cell type, columns 3 and 4 are the measurements and column 5 is the day that experiment was carried out.</p>
+<p>Now we’ve imported our data, let’s explore it!</p>
+</div>
+<div id="sorting-tables" class="section level1">
+<h1><span class="header-section-number">4</span> Sorting tables</h1>
+<p>Let’s first look at the range of values we have for the membrane potential measurements. While all of the measurements are in the data table, it will be easier to look at the range of values we have if we sort the columns. You can sort data in a data table just as you can in excel. We need to pick the column(s) to sort the data on. The way we do that with a data table is putting the column name(s) inside square brackets. Let’s sort the membrane potential table by measurement 1:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">memPotDT[<span class="kw">order</span>(Measurement1)]</code></pre></div>
+<p>We put the square brackets after the name of our data table so R knows we want to do something with this object. Within the square brackets, we tell R what we want to do and which column we want to use to do it. So here, we want to order the data table and we want to use the column called Measurement1 to do that. If you look at the output from this line of code, you should see that column Measurement1 starts with its smallest value (1.2) and ascends to its largest value (3.1). R has also changed the order of the other columns to keep the rows together. So we can see from this that the 6 smallest measurments in Measurement1 are from cell type A, while the 4 largest measurements are from cell type B.</p>
+<hr />
+<p><strong>Exercises</strong></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Sort memPotDT by column Measurement2 - does it look like cell type A also has the smallest values here?</li>
+</ol>
+<hr />
+<p>We’ve sorted the data table by Measurement1 in ascending order. We can also sort in descending order by putting a minus sign before the column name:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">memPotDT[<span class="kw">order</span>(<span class="op">-</span>Measurement1)]</code></pre></div>
+<p>You should see that the data table is sorted in descending order by the value in Measurement1. In these examples, we’ve sorted based on numerical data so we sort from smallest to largest or from largest to smallest. We can also sort on character data (what our brains recognise as letters, words, and sentences). The columns Cell_type and Replicate contain character data.</p>
+<hr />
+<p><strong>Exercises</strong></p>
+<ol start="5" style="list-style-type: decimal">
+<li>Sort memPotDT by column Replicate in ascending and descending order</li>
+</ol>
+<hr />
+<p>You should see that R has sorted memPotDT in alphabetical order. If we were going to sort the Replicate column in our heads, we’d probably do it a bit differently to R. We’d probably put the 2 “Sample1”’s first, followed by the 2 “Sample2”’s, then the “Sample3”’s and so on. But you can see that R has put the 2 “Sample10”’s straight after the “Sample1”’s. This is because R doesn’t recognise numbers within text. It treats each character as a letter. So if you had “Sample100” in this column as well, that would follow “Sample1” and “Sample10” but be ahead of “Sample2”. This is something to keep in mind when sorting based on character data.</p>
+<p>We can also sort on multiple columns. As an example, let’s sort the data table on the Measurement1 values but keep cell types A and B apart:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">memPotDT[<span class="kw">order</span>(Cell_type, Measurement1)]</code></pre></div>
+<p>If you look in column Cell_type, you can see that the ten cell type A rows have been kept together as have the ten cell type B rows. But we’ve sorted within cell type A so the Measurment1 values are in ascending order, and likewise within cell type B. The order in which we put the column names in this command matters. R will sort on the first column name first, and then on the second, then the third, etc. So memPotDT[order(Cell_type, Measurement1)] gives a different result to memPotDT[order(Measurement1,Cell_type)].</p>
+<hr />
+<p><strong>Exercises</strong></p>
+<ol start="6" style="list-style-type: decimal">
+<li>Sort memPotDT by cell type in ascending order and then by Measurement 2 in descending order</li>
+</ol>
+<hr />
+</div>
+<div id="filtering-tables" class="section level1">
+<h1><span class="header-section-number">5</span> Filtering tables</h1>
+<p>Filtering a table to keep only rows that match a particular criteria can be very useful. For example, you can select all of the genes with a significant p-value or all of your experimental replicates with a measurement above a given value. This is where the operators we covered at the start of the tutorial come in very handy. As with sorting, we can filter our data table based on the values in one or more columns. We again use square brackets to specify the column we want to filter and the criteria we want values in the column to match. Here’s some examples:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">memPotDT[Cell_type <span class="op">==</span><span class="st"> &quot;A&quot;</span>] <span class="co">#Filter memPotDT to keep only the rows with Cell_type equal to A, remember the quotes around A as its a character value</span>
+memPotDT[Replicate <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Sample1&quot;</span>,<span class="st">&quot;Sample2&quot;</span>)] <span class="co">#Filter memPotDT to keep only the rows with Replicate equal to Sample2 or Sample10</span>
+memPotDT[Replicate <span class="op">%like%</span><span class="st"> &quot;Sample1&quot;</span>] <span class="co">#Filter memPotDT to keep only the rows whose Replicate contains &quot;Sample1&quot;</span>
+memPotDT[Measurement1 <span class="op">&gt;</span><span class="st"> </span><span class="fl">2.5</span>] <span class="co">#Filter memPotDT to keep only the rows whose Measurement1 is greater than 2.5</span>
+memPotDT[Measurement1 <span class="op">&gt;</span><span class="st"> </span><span class="fl">2.5</span> <span class="op">&amp;</span><span class="st"> </span>Measurement2 <span class="op">&gt;</span><span class="st"> </span><span class="fl">2.5</span>] <span class="co">#Filter memPotDT to keep only the rows whose Measurement1 and Measurement2 are greater than 2.5</span>
+memPotDT[Measurement1 <span class="op">&gt;</span><span class="st"> </span><span class="fl">2.5</span> <span class="op">|</span><span class="st"> </span>Measurement2 <span class="op">&gt;</span><span class="st"> </span><span class="fl">2.5</span>] <span class="co">#Filter memPotDT to keep only the rows whose Measurement1 or Measurement2 is greater than 2.5</span></code></pre></div>
+<p>To filter based on a column, we put the column name in the square brackets followed by some criteria we want to match. In the first example, we filter on Cell_type and only keep rows if their Cell_type is A. Remember, this needs to match exactly so if the Cell_type was listed as “A1”, it would not match exactly and the row wouldn’t be kept.</p>
+<p>In the second example, we keep rows whose Replicate value is either “Sample1” or “Sample2”. We use “%in%” to specify that we want the left hand side (here Replicate) to be one of the values on the right hand side (here “Sample1” or “Sample2”). So we check whether the Replicate is either Sample1 or Sample2 and keep the row if it is. If the Replicate has any other value we don’t keep the row. The Replicate needs to match one of the values on the right hand side exactly. You can put as many values in the vector on the right hand side of the “%in%” as you want.</p>
+<p>The third example uses “%like%” to filter our data table. Like will keep any rows whose value specified on the left hand side contains what is specified on the right hand side. So here, we keep any row whose Replicate contains “Sample1”. This therefore matches “Sample1” and “Sample10” (and would also match values with any text at the front or end of “Sample1”, e.g. “ThisIsSample1” and “Sample12345” would be matched). “%like%” is often very useful to filter data if you complicated sample names and you want to pick a subset out.</p>
+<p>Example 4 filters based on column Measurement1 and keeps the row if its Measurement1 is greater than 2.5. We can also include multiple criteria and specify that we either want all of these criteria to be met or that we want at least one of these criteria to be met in order to keep the row. In R, if we want criteria 1 AND criteria 2 to be met, we use the “&amp;” symbol. If we want criteria 1 OR criteria 2 to be met, we use the “|” symbol. So in example 5, we keep rows if they have Measurement1 AND Measurement2 both greater than 2.5. While in example 6, we keep rows if they have Measurement1 OR Measurement2 greater than 2.5. We’ve just combined 2 criteria here, but you can use as many as you like as long as you can keep track of exactly what you’re specifying! For example, try this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">memPotDT[Cell_type <span class="op">==</span><span class="st"> &quot;A&quot;</span> <span class="op">&amp;</span><span class="st"> </span>((Measurement1 <span class="op">&gt;</span><span class="st"> </span><span class="fl">2.5</span> <span class="op">&amp;</span><span class="st"> </span>Measurement2 <span class="op">&gt;</span><span class="st"> </span><span class="fl">2.5</span>) <span class="op">|</span><span class="st"> </span>(Measurement1 <span class="op">&lt;</span><span class="st"> </span><span class="fl">2.0</span> <span class="op">&amp;</span><span class="st"> </span>Measurement2 <span class="op">&lt;</span><span class="st"> </span><span class="fl">2.0</span>))]</code></pre></div>
+<p>This is a bit more complicated as we have nested criteria to be matched. The overall effect of this line of code is to extract rows from memPotDT if they have Cell_type A and both of the Measurments are greater than 2.5 or both of their measurements are less than 2.0. You should see 7 rows printed when you run this command in RStudio. R will return rows only if the overall outcome of the square brackets is true. The overall outcome of the square brackets is determined by each of the components within the square brackets. We’ve made these components quite complicated here so let’s break down this example. The first thing is that when we have “(” and “)”, R determines whether the outcome of the code within those brackets is true. So in our example, we’ve got two small pairs of brackets - “(Measurement1 &gt; 2.5 &amp; Measurement2 &gt; 2.5)” and “(Measurement1 &lt; 2.0 &amp; Measurement2 &lt; 2.0)”. R checks whether the conditions within each of these brackets is true. For the first set of brackets, it will be true if both Measurement1 and Measurement2 are greater than 2.5. While the second set will be true if both Measurement1 and Measurement2 are less than 2.0. We then join these two pairs of brackets in another pair of brackets and using “|”. Remember that “|” means or. Therefore this larger pair of brackets will be true if either of the two smaller pairs of brackets is true. So the overall impact of this larger pair of brackets is to keep rows if:</p>
+<ul>
+<li>Measurement1 and Measurement2 are both greater than 2.5</li>
+</ul>
+<p>OR</p>
+<ul>
+<li>Measurement1 and Measurement2 are both less than 2.0</li>
+</ul>
+<p>So the right hand side of our line of code (after the “”A&quot; &amp;&quot; bit) will be true if either of these criteria are met. We also specify that we want Cell_type A only so keep rows if they have Cell_type “A” and match one of the criteria on the right hand side. There’s 7 rows in our data table that match these criteria. This filtering command is about as complicated as you’re ever likely to want to use, and might be more complicated than any you’d want to use! If you can follow what this command has done, you should be well set to filter your data however you’d like. The key things to remember are than you can use “&amp;” and “|” to combine criteria and use “(” and “)” to combine multiple sets of criteria.</p>
+<hr />
+<p><strong>Exercises</strong></p>
+<ol start="7" style="list-style-type: decimal">
+<li>Filter memPotDT to keep rows from Replicate Sample1, Sample3, Sample5, Sample7 and Sample9</li>
+<li>Filter memPotDT to keep rows from Cell_type A that are from Replicate Sample1 or Sample2</li>
+<li>Filter memPotDT to keep cells from Cell_type B with Measurement1 greater than 2.5</li>
+<li>Use filter to count the number of Replicate samples from each cell type than have Measurement1 greater than 2.5</li>
+</ol>
+<hr />
+</div>
+<div id="splitting-a-data-table-into-groups-and-doing-things-with-these-groups" class="section level1">
+<h1><span class="header-section-number">6</span> Splitting a data table into groups and doing things with these groups</h1>
+<p>One really useful aspect of data tables is that they make it easy to perform calculations on specific subsets of your data. For example, you can compare the mean measurement between two sets of experiments. The way we do this is using the following format:</p>
+<center>
+<div class="figure">
+<img src="../images/More_advanced_R/data.table.syntax.png" alt="" width="500" />
+<p class="caption"></p>
+</div>
+</center>
+<p>What does this mean? The way of reading it is we take DT (our data table), we subset/reorder the rows in DT using some conditions we specify in i, we then calculate one or more things that we specify in j, while grouping our data table by what we specify in by. We’re not going to consider the i part here. But we’re going to look at some different useful things we can calculate in the j part while grouping our data with the by part.</p>
+<p>Let’s start off with an example using memPotDT to see how the above format works:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">memPotDT[, .(<span class="dt">M1_mean =</span> <span class="kw">mean</span>(Measurement1)), by =<span class="st"> </span>Cell_type]</code></pre></div>
+<p>You should see a new data table printed to the screen with 2 columns and 2 rows. We’ve specified that we want to do something with memPotDT by putting the square brackets after it. We then use commas to split the square brackets into the 3 parts in the picture above. Here, we haven’t put anything in front of the first comma which means we don’t want to subset or reorder it. In the middle section between the 2 columns, we say what we want to do. Here, we want to calculate the mean of the values in column Measurement1. By adding “.( M1_mean =” and the corresponding “)”, we say that we want to call the column in the output M1_mean. You can change the name of the column by changing the name here. The “by = Cell_type” part says that we want to calculate the mean of each Cell_type separately. R will determine what the unique values in the Cell_type column are and then calculate the mean of the Measurement1’s in the rows with each Cell_type separately.</p>
+<p>So it looks like the mean of the measurement1 values is higher in cell type B than cell type A. We can also split our data into groups based on multiple columns. Let’s calculate the mean of Measurement1 in the different cell types in experiments carried out on different days:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">memPotDT[, .(<span class="dt">M1_mean =</span> <span class="kw">mean</span>(Measurement1)), by =<span class="st"> </span>.(Cell_type, Day_of_experiment)]</code></pre></div>
+<p>Again, we don’t have anything before the first comma as we don’t want to subset or reorder our data. We keep the middle part the same as we want to calculate the mean as we did before. But we change the third part by adding in two columns to group the data by. R will split the data into all of the combinations of these columns (i.e. A and 1, A and 2, B and 1, B and 2) and calculate the mean for each of the combinations. So our output table now has 4 rows as there are 4 combinations. It also has 3 columns as R outputs the 2 columns used to split the data and the mean of each combination.</p>
+<p>We can assign the output from these data table calulations to a new object. However, if we want to keep all of our data in a single table, we can add a new column to the data table containing our calculated mean values:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">memPotDT[, M1_mean <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">mean</span>(Measurement1), by =<span class="st"> </span>.(Cell_type, Day_of_experiment)]</code></pre></div>
+<p>If you print memPotDT to the screen, you should see that it now has an additional column called M1_mean. The value that a row has in this column is determined by the values in the Cell_type and Day_of_experiment columns. If the row is Cell_type A and Day_of_experiment 1, it is given the mean Measurement1 value of the rows with Cell_type A and Day_of_experiment 1. It is also possible to create multiple new columns in a single line of code:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">memPotDT[, <span class="kw">c</span>(<span class="st">&quot;M1_mean&quot;</span>, <span class="st">&quot;M2_mean&quot;</span>) <span class="op">:</span><span class="er">=</span><span class="st"> </span>.(<span class="kw">mean</span>(Measurement1), <span class="kw">mean</span>(Measurement2)), by =<span class="st"> </span>.(Cell_type, Day_of_experiment)]</code></pre></div>
+<p>This creates 2 new columns called M1_mean and M2_mean that contain the mean of Measurement1 and mean of Measurement2, respectively, for the corresponding value of Cell_type and Day_of_experiment.</p>
+<hr />
+<p><strong>Exercises</strong></p>
+<p>We’re going to do the same things as in the examples above but using median instead of mean.</p>
+<ol start="11" style="list-style-type: decimal">
+<li>Which Cell_type has the higher median value of Measurement1? What about Measurement2?</li>
+<li>Calculate the median of each group splitting on Cell_type and Day_of_experiment. Is there one cell type that has a greater median on each experiment day or is this dependent on the day of the experiment?</li>
+<li>Create 2 new columns in your data table containing the median values of Measurement1 and Measurement2 for the Cell_type and Day_of_experiment of the row.</li>
+</ol>
+<hr />
+</div>
+<div id="merging-tables" class="section level1">
+<h1><span class="header-section-number">7</span> Merging tables</h1>
+<p>You might find yourself in a situation where you’ve got two sets of samples and you’ve taken different measurements of those samples. It could be the same thing measured multiple times or you may have measured different things. And you’d like to combine your data into a single table. You can copy and paste your columns in excel and try to check that you’ve matched them all up correctly but there’s a chance that you might make a mistake. R has a function called merge that makes it easy to merge tables that share one or more column headers.</p>
+<p>In the data directory you should find a second spreadsheet called membrane_potential_2.xlsx. It contains an additional 2 measurements of the membrane potential of each sample. Let’s read that into RStudio and also read in the original membrane potential spreadsheet again as we’ve made changes to it above:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">memPotDT &lt;-<span class="st">  </span><span class="kw">data.table</span>(<span class="kw">read_excel</span>(<span class="st">&quot;more_advanced_R_membrane_potential.xlsx&quot;</span>)) <span class="co">#Imports our excel spreadsheet and converts it into a data table</span>
+memPotDT2 &lt;-<span class="st"> </span><span class="kw">data.table</span>(<span class="kw">read_excel</span>(<span class="st">&quot;membrane_potential_2.xlsx&quot;</span>))</code></pre></div>
+<p>If you print these 2 data tables to the screen, you can see that they share 2 columns: Cell_type and Replicate. We can merge the data tables to get all 4 measurements in the same row using:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">merge</span>(memPotDT, memPotDT2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;Cell_type&quot;</span>, <span class="st">&quot;Replicate&quot;</span>))</code></pre></div>
+<p>We give merge the two data tables we want to merge, in this case memPotDT and memPotDT2. Using “by”, we say which columns we want to use to merge. So here, we merge the rows in the different data tables if they have the same value in Cell_type and Replicate. You should see that the resulting data table now has 7 columns including all 4 measurements.</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -189,7 +189,7 @@ One really useful aspect of data tables is that they make it easy to perform cal
 
 <center>
 
-![\n](images/More_advanced_R/data.table.syntax.png){width=500px}
+![\n](../images/More_advanced_R/data.table.syntax.png){width=500px}
 
 </center>
 
