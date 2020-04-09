@@ -10,10 +10,13 @@ output:
     toc_collapsed: true
     number_sections: TRUE
 ---
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = T, warning = F, message = T )
+```
 
 There's a lot of terminology used in R, some of which is widely used in programming and bioinformatics and some of which is more specific to R. In this document we provide a glossary of commonly used terms and their meaning.
 
-#Glossary
+# Glossary
 
 **Argument** - something that is given as input to a function. For example, if you run the code "mean(x)", mean is the function and x is the argument that is given to that function. Different functions will take a different number of arguments. The function "mean" takes a single argument while the function "seq" would usually take 3 arguments. If you're not sure how many arguments a function takes, type ? followed by the function name into the bottom left window in RStudio to access the help pages.
 

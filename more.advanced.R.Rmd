@@ -6,10 +6,14 @@ output:
     theme: paper
     highlight: tango
     toc: true
+    echo: true
     toc_float: true
     toc_collapsed: true
     number_sections: TRUE
 ---
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = T, warning = T, message = T )
+```
 
 In the first R tutorial, we covered quite a broad range of coding tools in R, including creating variables, using your own and existing functions, running loops and conditional statements and reading and writing files. In this tutorial, we're going to build on that and bring in a set of additional functions that should be useful for analysing your data. Feel free to look back at the previous tutorial if you can't remember how to do things.
 
