@@ -7,7 +7,7 @@ output:
     highlight: tango
 ---
 
-```{r setup, include=FALSE}
+```{r, include=FALSE}
 knitr::opts_chunk$set(echo = F, warning = F, message = F )
 library(kableExtra)
 library(tidyverse)

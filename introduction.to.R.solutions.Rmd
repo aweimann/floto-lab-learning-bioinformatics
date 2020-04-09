@@ -10,6 +10,9 @@ output:
     toc_collapsed: true
     number_sections: TRUE
 ---
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = T, warning = F, message = T )
+```
 
 In this document, we're going to run through the solutions to the exercises in the Introduction to R tutorial.
 

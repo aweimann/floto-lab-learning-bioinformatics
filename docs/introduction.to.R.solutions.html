@@ -26,6 +26,96 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 
 
 <style type="text/css">
@@ -369,32 +459,60 @@ div.tocify {
 
 <p>In this document, we’re going to run through the solutions to the exercises in the Introduction to R tutorial.</p>
 <p><strong>1. Create a new variable containing your favourite number and multiply it by 10</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">myNumber &lt;-<span class="st"> </span><span class="dv">8</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">myNumber <span class="op">*</span><span class="st"> </span><span class="dv">10</span></a></code></pre></div>
 <p>In the first line, we assign a new variable called “myNumber” to the number 8 using “&lt;-”. In the second line, we multiply the variable name by 10. R remembers that the variable “myNumber” corresponds to 8 and therefore when we type “myNumber * 10”, R interprets this as 8 * 10.</p>
 <p><strong>2. Create a new variable containing your name</strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">myName &lt;-<span class="st"> &quot;Chris&quot;</span></a></code></pre></div>
 <p>We create a new variable called myName using the “&lt;-”. As names are character data (what R calls letters, words and sentences), we need to put quotes around the text.</p>
 <p><strong>3. Create a new variable containing 10 numbers (any numbers you like) and multiply these numbers by 10</strong></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">numberVector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">2</span>,<span class="fl">1.2</span>,<span class="fl">1E5</span>,<span class="dv">7</span>,<span class="dv">9</span>,<span class="dv">1</span>,<span class="dv">10</span>)</a></code></pre></div>
 <p>We create a vector called numberVector. We use the c (concatenate) to specify what we want to go in our vector. The vector can contain a mixture of whole numbers, decimals and log number. Remember a vector can only contain one type of data, so we couldn’t add our name at the end without changing the type of the data in the vector.</p>
 <p><strong>4. Create a data frame with 2 columns - the first column containing your 5 favourite TV shows and the second column containing the number of episodes of those TV shows you reckon you’ve watched in the last month (roughly, hopefully its less than 3 figures)</strong></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">tvShowDF &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Show =</span> <span class="kw">c</span>(<span class="st">&quot;Bad education&quot;</span>, <span class="st">&quot;Mrs Browns boys&quot;</span>, <span class="st">&quot;Not going out&quot;</span>, <span class="st">&quot;Outnumbered&quot;</span>, <span class="st">&quot;Taskmaster&quot;</span>), <span class="dt">Episodes =</span> <span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">4</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">11</span>))</a></code></pre></div>
 <p>We create a data frame called tvShowDF using the function “data.frame”. Within the brackets after data.frame we choose the columns that we want to create and assign values to those columns. Here, we create 2 columns called Show and Episodes and give the TV shows and number of episodes to these columns, respectively. As the TV shows are character data, we need to put quotes around each of their names.</p>
 <p><strong>5. Use square brackets to pick out the number of episodes you’ve watched of your second favourite TV show</strong></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">tvShowDF[<span class="dv">2</span>,<span class="dv">2</span>]</a></code></pre></div>
 <p>We pick out columns, rows and cells from a data frame using square brackets. Here, we want to pick out an individual cell so we need 2 numbers in the sqaure brackets in the format: tvShowDF[row_number, column_number]. The number of episodes is in column 2 so we put 2 after the comma in the square brackets to specify column 2. We want our second favourite show which in my case is in row 2 so we put 2 before the comma in the square brackets to specify row 2.</p>
 <p><strong>6. Imagine your TV watching is going to be similar next month to this month. Calculate the number of episodes of each show you will have watched across the 2 month period by multiplying the number of episodes column by 2</strong></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">tvShowDF[,<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">OR</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">tvShowDF<span class="op">$</span>Episodes <span class="op">*</span><span class="st"> </span><span class="dv">2</span></a></code></pre></div>
 <p>We want to multiply the values in the Episodes column by 2. There’s 2 ways in which we can do this. We can either pick out the column using square brackets or we can pick out the column from its name. As we want a column, if we use the square brackets method, we put the number of the column after the comma. To pick out the column by name we put “$” after the data frame name and follow this with the column name.</p>
 <p><strong>7. Write a function that takes 3 numbers, multiplies the first two numbers together and adds this to the third number</strong></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">numberFunction &lt;-<span class="st"> </span><span class="cf">function</span>(x, y, z) {</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">  multipliedNumber &lt;-<span class="st"> </span>x <span class="op">*</span><span class="st"> </span>y</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">  totalNumber &lt;-<span class="st"> </span>multipliedNumber <span class="op">+</span><span class="st"> </span>z</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">  <span class="kw">print</span>(totalNumber)}</a></code></pre></div>
 <p>We create a function using the command “function”. Within the “()” following “function” we specify the number of variables that the function will take (also called arguments) and give them names that will enable us to refer to them in the code of the function. Here, we want our function to take 3 numbers so we give our function 3 input variables and call them x, y and z. We assign our function to a name (here numberFunction) using “&lt;-” so we can use the function later on by running “numberFunction”. The code between the “{” and “}” determines what the function will do. Here, we multiply the first 2 input numbers together and assign the result to a new variable called multipliedNumber. We then add the third number to the result and print the result of this to the screen.</p>
 <p><strong>8. Run your function on different sets of 3 numbers</strong></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">numberFunction</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw">numberFunction</span>(<span class="dt">x =</span> <span class="dv">10</span>, <span class="dt">y =</span> <span class="dv">4</span>, <span class="dt">z =</span> <span class="dv">20</span>)</a></code></pre></div>
 <p>To run our function, we write the name of the function and within the following brackets give the arguments that the function will run on. We can just give the 3 numbers in which case R assigns them to the variables x, y and z in the order in which the numbers were given. Or we can be explicit about which number corresponds to which argument by giving “argument name = input number”.</p>
 <p><strong>9. Install and then load the package ggplot2</strong></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">library</span>(ggplot2)</a></code></pre></div>
 <p>In the first line we install the package ggplot2. We give install.packages the name of the package we want to install surrounded by quotes as its character data. We then load the package using library(PackageName).</p>
 <p><strong>10. Using your TV show data frame from exercise 4 (recreate it if you need to), use a for loop to print each of the TV shows in turn (HINT: Pick out the column first)</strong></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="cf">for</span> (tvShow <span class="cf">in</span> tvShowDF<span class="op">$</span>Show) {</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">  <span class="kw">print</span>(tvShow)}</a></code></pre></div>
 <p>To run a for loop, we first tell R what we want to loop through, specified between the “(” and “)”. In this case, we want to loop through a column in our data frame so we give R that column. Between the “{” and “}” we tell R what we want to do with each value which in this case is print it to the screen.</p>
 <p><strong>11. Combine a for loop and if statement to print the number of episodes you’ve watched if this is more than 5</strong></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="cf">for</span> (episode <span class="cf">in</span> tvShowDF<span class="op">$</span>Episodes) {</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">  <span class="cf">if</span> (episode <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>) {</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">    <span class="kw">print</span>(episode)}}</a></code></pre></div>
 <p>We run a for loop as we did in exercise 10 but this time looping through the number of episodes instead of the TV programmes. We use the if statement to determine whether we have watched more than 5 episodes of a programme. The if statement works by checking if a given criteria is true and doing something if that criteria is true. We put the criteria between the “(” and “)”, here checking if the value is greater than 5. We then put the code that we run if the criteria is met between the “{” and “}”, here printing the number of episodes to the screen.</p>
 <p><strong>12. Save your TV show data frame from exercise 4 (recreate it if you need to) as a csv file</strong></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">write.csv</span>(tvShowDF, <span class="st">&quot;tv_shows.csv&quot;</span>, <span class="dt">row.names =</span> <span class="ot">FALSE</span>, <span class="dt">quote =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <p>We can save a data frame as a csv file using write.csv. The first argument we give this function is the name of the data frame to save, then the file to save it to and then some options, here not including row names and not putting quotes around the saved values. You can leave these options out if you want row names and quotes but you’ll always need the name of the data frame you want to save and the name of the file you want to save it as.</p>
 <p><strong>13. Read the csv file you just saved into R</strong></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">newTvShowDF &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;tv_shows.csv&quot;</span>)</a></code></pre></div>
 <p>We read a csv file using the read.csv. Make sure you’re in the same directory as the file you want to read in, or alternatively give R the full path to the file to be read in.</p>
 <p><strong>14. Plot your TV watching data from exercise 4 as a barplot using ggplot2. You’ll need to switch “+ geom_point()” in the above example for “+ geom_bar(stat=”identity“)”</strong></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw">ggplot</span>(tvShowDF, <span class="kw">aes</span>(<span class="dt">x =</span> Show, <span class="dt">y =</span> Episodes)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>)</a></code></pre></div>
 <p>We’ll cover the commands for using ggplot in much more detail in a later tutorial. But remember to load the library ggplot2 if you haven’t already done so in your RStudio session. We use the command ggplot to make the plot. The first thing we put in the brackets is the name of the data frame we want to plot, here tvShowDF. We then use the aes brackets to say what we want to plot on the x- and y-axes, giving the column names. So here we want the Show on the x-axis and the number of episodes on the y-axis. We then need to tell R what sort of plot we want, here a bar plot. The stat=“identity” part is something you only need with bar plots and it tells R that we want to use the actual values.</p>
 
 

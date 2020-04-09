@@ -10,10 +10,13 @@ output:
     toc_collapsed: true
     number_sections: TRUE
 ---
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = T, warning = F, message = T )
+```
 
 RStudio is a really useful tool for writing and running code in R. You can write your code, run your code, view tables and plots, find help pages for functions and view all of your files in here, amongst other things. In this tutorial, we'll cover how to use RStudio.
 
-#The basic setup
+# The basic setup
 
 RStudio consists of 4 windows. The top left window is where you write your code. The bottom left window (the Console) is where this code runs and prints any output associated with the code. The top right window shows the variables that you have created. The bottom right window shows your files, shows plots and contains the help pages.
 
@@ -23,7 +26,7 @@ RStudio consists of 4 windows. The top left window is where you write your code.
 
 </center>
 
-#Creating and opening projects in RStudio
+# Creating and opening projects in RStudio
 
 Keeping track of where you've saved your code and data can be a nightmare, as with any set of files. RStudio provides a nice way of keeping it all together through Projects. Whenever you have some data analysis you want to carry out, you can create a Project and store all of your code and data in here. You can add new scripts, data, plots and anything else you like to this Project and load these into RStudio whenever you want to do some analysis.
 
@@ -39,7 +42,7 @@ If you want to close the Project, click "File" then "Close Project". Again, RStu
 
 ---
 
-#Writing and running code in RStudio
+# Writing and running code in RStudio
 
 Let's write and run some code. Type the following in the top left window:
 
@@ -80,7 +83,7 @@ Now looking at the bottom left window, you should see something like this:
 
 R has run the two lines of code that we highlighted. There's no limit to the number of lines you can run in one go like this. Highlighting and clicking Run will be much more efficient than going line-by-line once you want to run tens of lines in one go.
 
-#Writing scripts in RStudio
+# Writing scripts in RStudio
 
 We now know how to write and run code in RStudio. Its good practice to save the code that you write so that you can make your results reproducible and check it later to make sure you didn't make any mistakes. You can also add bits to the code to run additional analyses, make new plots, etc. A script is a saved piece of code and we can make scripts in RStudio using the top left window.
 
@@ -102,7 +105,7 @@ Save this as "sumMeans.R" with "File", "Save as" as you would other files. You'v
 
 You can put any bit of code in scripts. Loops, conditionals, functions, plotting instructions, etc. The script is just a way of saving your code so you can come back to it later.
 
-#Viewing variables in RStudio
+# Viewing variables in RStudio
 
 One nice thing about RStudio is that you can view variables. Its a bit like having an excel spreadsheet in R. Let's make a data frame containing some data by typing the following into the top left window of RStudio and then running the line so it appears in the bottom left window:
 ```{r eval = FALSE}
@@ -111,7 +114,7 @@ memPotDF <- data.frame(Sample = c("Sample1","Sample2","Sample3","Sample4","Sampl
 
 Now have a look in the top right window under the "Environment" tab. Under the heading "Data", you should see memPotDF. When you click on memPotDF here, the data frame is displayed in the top left window. This is a nice way of being able to see our data. You can't view all types of data using this, for example vectors aren't displayed. But its very useful for looking at data frames and data tables.
 
-#Viewing plots in RStudio
+# Viewing plots in RStudio
 
 RStudio can display plots, including those produced with ggplot2. Let's plot our memPotDF using ggplot and view it in RStudio. Type the following lines into the top left window and run them:
 
@@ -122,7 +125,7 @@ ggplot(memPotDF, aes(x = Measurement1, y = Measurement2)) + geom_point()
 
 You should see the bottom right window changes to the "Plots" tab and our plot appears. Whenever you plot something in RStudio it will appear in this window (unless you save it to a file).
 
-#Installing packages in RStudio
+# Installing packages in RStudio
 
 Packages contain sets of functions that can be useful for particular analyses, for example DESeq2 contains functions for RNASeq analysis and ape contains functions for analysing phylogenetic trees. To use the functions within a package, you first need to install the package. There's two ways of doing this. You can either use the install.packages() function in the bottom left window:
 ```{r eval = FALSE}
@@ -139,7 +142,7 @@ This will install the DESeq2 package. The alternative in RStudio is to use the "
 
 Then type the package name (e.g. DESeq2) into "Packages".
 
-#Finding help for functions in RStudio
+# Finding help for functions in RStudio
 
 If ever you're not sure what a function does or what input it takes, the help pages in RStudio should help you out. Say we're not sure how to use the function mean(). There's two ways of accessing the help pages. You can either use the bottom left window and type ? followed by the name of the function, here "?mean". The help page will appear in the bottom right window and contains some explanation about what the function does and what input it takes. Alternatively, you can use the Help tab in the bottom right window:
 

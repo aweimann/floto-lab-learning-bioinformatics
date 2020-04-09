@@ -6,14 +6,18 @@ output:
     theme: paper
     highlight: tango
     toc: true
+    echo: true
     toc_float: true
     toc_collapsed: true
     number_sections: TRUE
 ---
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = T, warning = T, message = T )
+```
 
 In the first R tutorial, we covered quite a broad range of coding tools in R, including creating variables, using your own and existing functions, running loops and conditional statements and reading and writing files. In this tutorial, we're going to build on that and bring in a set of additional functions that should be useful for analysing your data. Feel free to look back at the previous tutorial if you can't remember how to do things.
 
-#Logical operators
+# Logical operators
 
 We've already used some of these but there's a few more that are important. The logical operators are a set of symbols that we can use to determine if a particular criteria is matched. For now, we just need to know what the common ones are and what they do:
 
@@ -46,13 +50,13 @@ When we run a logical operator on a vector, R will run the logical operator on e
 
 ---
 
-#Data tables
+# Data tables
 
 Data tables are similar to data frames in that they look like excel spreadsheets. You have columns and rows in the same way as you would with a data frame and you can have different types of data (e.g. numbers, sample names) in different columns. I only recently learnt that data tables existed (thanks Santi!) so am still learning about what you can do with them. But I think its fair to say that they're a bit easier to use than data frames.
 
 Whenever you want to use data tables, you'll need to load the data tables library, as they're not a standard feature of R. So before you use them for the first time, you'll need to install the "data.tables" package (have a look in the Introduction to R or How to use RStudio tutorials if you're not sure how to do this) and you'll then need to load the library each time you want to use it. As a quick aside, if you write a script that uses data tables, you'll need to have library(data.table) at the top of that script so R will load the library when the script runs.
 
-#Creating a data table
+# Creating a data table
 
 Ok, so how do we create a data table? Its essentially the same as creating a data frame, but using data.table instead of data.frame. We're going to create a data table of membrane potential measurements in two different ways. In the first example, we're going to write the data that's going into the data table by hand in RStudio. There's a bit more data in this example than in the previous tutorials, so writing it out by hand is a bit more time consuming. Therefore, in the second example, we're going to read in an excel spreadsheet containing the membrane potential measurements and convert that into a data table. When you have your own data, you're likely to have it in excel or as a csv or text file and so its most likely that you'll want to use the second option most of the time. To read in an excel spreadsheet, you need to have a library called readxl. Check if you already have it installed in RStudio (see section 7 in the "How to use RStudio" tutorial if you're not sure how to do this) and install it if you don't.
 
@@ -75,7 +79,7 @@ The function read_excel does exactly what it says on the tin. By default, read_e
 
 Now we've imported our data, let's explore it!
 
-#Sorting tables
+# Sorting tables
 
 Let's first look at the range of values we have for the membrane potential measurements. While all of the measurements are in the data table, it will be easier to look at the range of values we have if we sort the columns. You can sort data in a data table just as you can in excel. We need to pick the column(s) to sort the data on. The way we do that with a data table is putting the column name(s) inside square brackets. Let's sort the membrane potential table by measurement 1:
 
@@ -133,7 +137,7 @@ If you look in column Cell_type, you can see that the ten cell type A rows have 
 
 ---
 
-#Filtering tables
+# Filtering tables
 
 Filtering a table to keep only rows that match a particular criteria can be very useful. For example, you can select all of the genes with a significant p-value or all of your experimental replicates with a measurement above a given value. This is where the operators we covered at the start of the tutorial come in very handy. As with sorting, we can filter our data table based on the values in one or more columns. We again use square brackets to specify the column we want to filter and the criteria we want values in the column to match. Here's some examples:
 
@@ -183,7 +187,7 @@ So the right hand side of our line of code (after the ""A" &" bit) will be true 
 
 ---
 
-#Splitting a data table into groups and doing things with these groups
+# Splitting a data table into groups and doing things with these groups
 
 One really useful aspect of data tables is that they make it easy to perform calculations on specific subsets of your data. For example, you can compare the mean measurement between two sets of experiments. The way we do this is using the following format:
 
@@ -245,7 +249,7 @@ We're going to do the same things as in the examples above but using median inst
 
 ---
 
-#Merging tables
+# Merging tables
 
 You might find yourself in a situation where you've got two sets of samples and you've taken different measurements of those samples. It could be the same thing measured multiple times or you may have measured different things. And you'd like to combine your data into a single table. You can copy and paste your columns in excel and try to check that you've matched them all up correctly but there's a chance that you might make a mistake. R has a function called merge that makes it easy to merge tables that share one or more column headers.
 
