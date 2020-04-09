@@ -19,16 +19,17 @@ Next, we will work with Python. You will learn how to write simple scripts in pu
 
 # Time table lectures
 ```{r, echo = F}
-time <- read_csv("tables/time_table.csv")
-time <- time %>% mutate(Topic = ifelse(!is.na(url), cell_spec(Topic, "html", link = url), Topic)) %>% select(-url)
+time <- read_csv("tables/time_table.csv", col_types = cols(.default = "c"))
+time[is.na(time)] = ""
+time <- time %>% mutate(Topic = ifelse(url != "", cell_spec(Topic, "html", link = url), Topic)) %>% select(-url)
 kable(time, escape = F) %>%   kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 # Time table tutorial
 ```{r, echo = F}
-options(knitr.kabel.na = '')
-time <- read_csv("tables/tutorial_time_table.csv")
-time <- time %>% mutate(Topic = ifelse(!is.na(tut_url), cell_spec(Topic, "html", link = tut_url), Topic))
-time <- time %>% mutate(Solutions = "solutions") %>% mutate(Solutions = ifelse(!is.na(tut_sol), cell_spec(Solutions, "html", link = tut_sol), ""))
+time <- read_csv("tables/tutorial_time_table.csv", col_types = cols(.default = "c"))
+time <- time %>% mutate(Topic = ifelse(tut_url != "", cell_spec(Topic, "html", link = tut_url), Topic))
+time[is.na(time)] = ""
+time <- time %>% mutate(Solutions = "solutions") %>% mutate(Solutions = ifelse(tut_sol != "", cell_spec(Solutions, "html", link = tut_sol), ""))
 time <- time %>% select(-tut_url, -tut_sol) 
 kable(time, escape = F) %>% kable_styling(bootstrap_options = c("striped", "hover"))
 ```
