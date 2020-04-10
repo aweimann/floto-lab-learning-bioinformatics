@@ -11,6 +11,10 @@ output:
     number_sections: TRUE
 ---
 
+---
+output: html_document
+---
+
 In this tutorial, we're going to run through the basics of R. R is a programming language that is brilliant for data analysis and plotting and contains a whole series of useful additions for analysing more complicated data like RNASeq and phylogenetic trees. R is very good at doing anything you might usually do in excel, plus a whole lot more. You can write your analyses in the form of a script which means your work will be reproducible and you won't have to remember all of the specifics of what you've done to be able to do it again. The easiest way to get up and running with R is to download RStudio (https://rstudio.com/products/rstudio/download/ the free version is fine). You can write all of the code in RStudio and it contains handy features like a help bar and a window for plots.
 
 Each section finishes with a set of exercises that put into practice what we've covered in that section. 
