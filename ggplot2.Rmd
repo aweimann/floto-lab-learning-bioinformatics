@@ -1,4 +1,7 @@
 # Data visualisation
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = T, warning = T, message = T )
+```
 
 ## Introduction
 Disclaimer: This is a book chapter based on Hadley Wickham's highly recommended book R for Data Science, which is free and available  online from https://r4ds.had.co.nz

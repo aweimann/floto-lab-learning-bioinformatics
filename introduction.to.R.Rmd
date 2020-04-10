@@ -10,6 +10,9 @@ output:
     toc_collapsed: true
     number_sections: TRUE
 ---
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = T, warning = F, message = T )
+```
 
 ---
 output: html_document
