@@ -1,11 +1,12 @@
-#####################################################################################
+###############################################################################
 ## Script for linear models. Bioinformatics workshop session 2.
-#####################################################################################
+###############################################################################
 
-required_packs <- c("data.table", "magrittr", "ggplot2", "ggpubr", "ggpubr", "sjPlot", "broom")
+required_packs <- c("data.table", "magrittr", "ggplot2", "ggpubr", "ggpubr", 
+                    "sjPlot", "broom")
 packages_in <- required_packs %in% rownames(installed.packages())
 
-if (!all(packages_in)) {
+if(!all(packages_in)) {
   
   install.packages(required_packs[!packages_in])
 
