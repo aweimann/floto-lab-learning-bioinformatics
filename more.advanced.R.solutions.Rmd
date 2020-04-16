@@ -1,0 +1,172 @@
+---
+title: "More advanced R solutions to exercises"
+author: "Chris Ruis"
+output: 
+  html_document:
+    theme: paper
+    highlight: tango
+    toc: true
+    toc_float: true
+    toc_collapsed: true
+    number_sections: TRUE
+---
+
+In this document, we're going to run through the answers for the more advanced R tutorial.
+
+For the first 4 exercises, we had a vector called vectorOfNumbers and used logical operators to count the number of values in this vector that satisfied given conditions. We'll run through the code for each and then have one explanation below the 4 answers.
+
+**1. How many numbers in vectorOfNumbers are greater than 5**
+
+```{r, eval = FALSE}
+
+vectorOfNumbers > 5
+
+```
+
+**2. How many numbers in vectorOfNumbers are less than 5**
+
+```{r, eval = FALSE}
+
+vectorOfNumbers < 5
+
+```
+
+**3. How many numbers in vectorOfNumbers are greater than or equal to 5**
+
+```{r, eval = FALSE}
+
+vectorOfNumbers >= 5
+
+```
+
+**4. How many numbers in vectorOfNumbers are less than or equal to 5**
+
+```{r, eval = FALSE}
+
+vectorOfNumbers <= 5
+
+```
+
+Each of these solutions has the same format, its just the logical operator that changes. Because vectorOfNumbers is a vector, R will by default look at each value in the vector individually and determine whether it matches the condition we give with the logical operator. Therefore R prints TRUE or FALSE to the screen for each value in the vector. You can count the number of TRUEs that are printed to determine the number of values that match the criteria. Alternatively, you can use the length and which functions like so:
+
+```{r, eval = FALSE}
+
+length(which(vectorOfNumbers > 5))
+
+```
+
+This will print the number of values that match the criteria. We didn't cover length or which in the tutorial but which gives us the positions in the vector that match the criteria but discards the rest and then by putting length around this it tells us how many values were kept by which and therefore how many values matched the criteria.
+
+**5. Sort memPotDT by column Measurement2 - does it look like cell type A also has the smallest values here?**
+
+```{r, eval = FALSE}
+
+memPotDT[order(Measurement2)]
+
+```
+
+We use "order" within the square brackets to say we want to sort the data table by the column (or columns) in the "( )".
+
+**6. Sort memPotDT by column Replicate in ascending and descending order**
+
+```{r, eval = FALSE}
+
+memPotDT[order(Replicate)]
+
+memPotDT[order(-Replicate)]
+
+```
+
+As with exercise 5, we put "order" within the square brackets and then tell R which column we want to sort on. To sort in descending order, we put "-" before the column name. Note that R hasn't sorted this in quite the same way that we probably would. R recognises "Sample10" as being before "Sample2".
+
+**7. Sort memPotDT by cell type in ascending order and then by Measurement 2 in descending order**
+
+```{r, eval = FALSE}
+
+memPotDT[order(Cell_type, -Measurement2)]
+
+```
+
+We can sort by multiple columns by putting the column names in the order brackets. R will sort by the first column name first, then the second, etc. So here, we sort by Cell_type first and then by Measurement2. We put the "-" before Measurement2 to sort in descending order.
+
+**8. Filter memPotDT to keep rows from Replicate Sample1, Sample3, Sample5, Sample7 and Sample9**
+
+```{r, eval = FALSE}
+
+memPotDT[Replicate %in% c("Sample1", "Sample3", "Sample5", "Sample7", "Sample9")]
+
+```
+
+To filter a data table to only keep rows that match one of a series of values we use "%in%". This checks each value in column Replicate and determines if it *exactly* matches one of the values that we specify on the right hand side of the "%in%". Here we want to extract rows containing any of several values and we specify this by putting the values we want to keep in a vector.
+
+**9. Filter memPotDT to keep rows from Cell_type A that are from Replicate Sample1 or Sample2**
+
+```{r, eval = FALSE}
+
+memPotDT[Cell_type == "A" & Replicate %in% c("Sample1", "Sample2")]
+
+```
+
+We here filter based on the values in multiple columns. We want to keep rows from Cell_type "A". You could specify this using "%in%" but as we just want to keep one value, I've specified this with "==". We then use the "&" to join up the criteria we want to match. On the right hand side of the "&", we do the same as in the previous question to keep rows that match either "Sample1" or "Sample2".
+
+**10. Filter memPotDT to keep cells from Cell_type B with Measurement1 greater than 2.5**
+
+```{r, eval = FALSE}
+
+memPotDT[Cell_type == "B" & Measurement1 > 2.5]
+
+```
+
+Similar to the previous question, we filter based on 2 criteria and join those criteria together using "&".
+
+**11. Use filter to count the number of Replicate samples from each cell type than have Measurement1 greater than 2.5**
+
+```{r, eval = FALSE}
+
+memPotDT[Cell_type == "A" & Measurement1 > 2.5]
+
+memPotDT[Cell_type == "B" & Measurement1 > 2.5]
+
+#Another way of doing it that's not covered in the tutorial:
+
+length(memPotDT[Cell_type == "A" & Measurement1 > 2.5][,1])
+
+length(memPotDT[Cell_type == "B" & Measurement1 > 2.5][,1])
+
+```
+
+We here filter based on 2 criteria and change the cell type. R prints the rows that match to the screen and we can simply count the number of rows that have matched both criteria. We can also get R to tell us the number of matching rows directly using the bottom two lines of code. Here, we do the same as the previous commands but we add "[,1]" after the end of the square brackets, which pulls out the values in column 1. We then use the command "length()" which tells us how long the object is. So here, "length()" tells us how many values are in column 1 and therefore how many rows matched the criteria.
+
+**12. Which Cell_type has the higher median value of Measurement1? What about Measurement2?**
+
+```{r, eval = FALSE}
+
+memPotDT[, .(M1_median = median(Measurement1)), by = Cell_type]
+
+memPotDT[, .(M2_median = median(Measurement2)), by = Cell_type]
+
+```
+
+Here, we split the data table by Cell_type and calculate the median value of Measurement1 for each Cell_type. Remember that within the square brackets, we have three sections separated by commas. The first section is to subset of reorder the data and we don't want to use that here, so we don't put anything before the first comma. The middle section says what we want to calculate, which here is the median. The third section says how we want to split the data which here is by Cell_type. So we split the data by Cell_type and calculate the median of each of the groups. We include the ".(M1_median = " part to give the output column a name. Try taking this out. You should see that you get the same output table but just without the column name for the median values. This is instead "V1" which is the R default for a column that doesn't have a name.
+
+**13. Calculate the median of each group splitting on Cell_type and Day_of_experiment. Is there one cell type that has a greater median on each experiment day or is this dependent on the day of the experiment?**
+
+```{r, eval = FALSE}
+
+memPotDT[, .(M1_median = median(Measurement1)), by = .(Cell_type, Day_of_experiment)]
+
+memPotDT[, .(M2_median = median(Measurement2)), by = .(Cell_type, Day_of_experiment)]
+
+```
+
+The setup is exactly the same as the previous exercise. We don't want to subset or reorder our data, so we don't put anything before the first comma. We again want to calculate the median value so we use the same code as in the previous exercise in the middle section. But now we want to split our data based on the values in two columns, Cell_type and Day_of_experiment. So we now specify these two columns in the third section.
+
+**14. Create 2 new columns in your data table containing the median values of Measurement1 and Measurement2 for the Cell_type and Day_of_experiment of the row.**
+
+```{r, eval = FALSE}
+
+memPotDT[, c("M1_median", "M2_median") := .(median(Measurement1), median(Measurement2)), by = .(Cell_type, Day_of_experiment)]
+
+```
+
+This builds on the code we used in the previous exercise. The first and third sections of the square brackets are the same. But now in the middle section we say that we want to create new columns in our data table. We do this using the ":=". The left hand side of this gives the names of the new columns, here "M1_median" and "M2_median" while the right hand side determines the values that we want to put in these columns. Here, the median of Measurement1 goes into the first column ("M1_median") and the median of Measurement2 goes into the second column ("M2_median"). These match up in the order that you write them, so the first value on the right is assigned to the first name on the left, the second value on the right to the second name on the left, etc. 
