@@ -16,30 +16,106 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
 
 <style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
   }
 </style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
-}
-</script>
-
 
 
 <style type="text/css">
@@ -103,33 +179,33 @@ summary {
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 51px;
+  padding-top: 64px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 69px;
+  margin-top: -69px;
 }
 .section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 69px;
+  margin-top: -69px;
 }
 .section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 69px;
+  margin-top: -69px;
 }
 .section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 69px;
+  margin-top: -69px;
 }
 .section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 69px;
+  margin-top: -69px;
 }
 .section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 69px;
+  margin-top: -69px;
 }
 .dropdown-submenu {
   position: relative;
@@ -249,6 +325,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -256,6 +395,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -310,30 +459,30 @@ $(document).ready(function () {
 
 
 <div id="r-mark..what" class="section level1">
-<h1>R Mark..what?</h1>
+<h1><span class="header-section-number">1</span> R Mark..what?</h1>
 <p>In this tutorial we will learn the basic procedures to work with R Markdown. The RMarkdown framework aims to combine text writing with executable code, giving as a result nice documets. For example, the super-cool website that we have prepared for this workshop has been built fully built with RMarkdown (courtesy of Dr Weimann!).</p>
 <p>In order to make the tutorial more engaging, we will base the tutoral on a practical casestudy: the analysis of the COVID19 epidemy that in the first place send us home. For that, let me open a new section with the <code>#</code> notation.</p>
 </div>
 <div id="the-covid19-dataset" class="section level1">
-<h1>The COVID19 dataset</h1>
+<h1><span class="header-section-number">2</span> The COVID19 dataset</h1>
 <p>The human and economic toll of COVID-19 is a stark reminder of the fragility of our globalised society. Countries’ ability to contain the outbreak across borders is being defined by their capacity to provide effective protection to the most vulnerable. However, the epidemy has not impacted all the countries equally. For that, we will take a look into the <code>COVID19_countries_data.csv</code>. Let’s then call our first “code chunk” with “```” and load the data an libraries has we have learned during the workshop.</p>
-<pre class="r"><code># We open the code chuck with ``` followed with a {}. Within the curly bracketes with 
-# can specify few argumets. An easier way to add a new code segment could be to click 
-# on the icon &quot;C inster&quot; in the upper right corner of the code editor. 
-# For the moment, we will just write &quot;r&quot; as it denotes that the code we will use 
-# is in R language. Once we are inside the code chunk, the code follows again the R syntaxis.
-
-# Load the libraries
-
-library(data.table)
-library(magrittr)
-
-# Load the data
-
-dtime &lt;- fread(&quot;https://raw.githubusercontent.com/aweimann/floto-lab-learning-bioinformatics/master/datasets/COVID19_cases_and_policy.csv&quot;)
-
-
-str(dtime)</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co"># We open the code chuck with ``` followed with a {}. Within the curly bracketes with </span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="co"># can specify few argumets. An easier way to add a new code segment could be to click </span></a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="co"># on the icon &quot;C inster&quot; in the upper right corner of the code editor. </span></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="co"># For the moment, we will just write &quot;r&quot; as it denotes that the code we will use </span></a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="co"># is in R language. Once we are inside the code chunk, the code follows again the R syntaxis.</span></a>
+<a class="sourceLine" id="cb1-6" title="6"></a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="co"># Load the libraries</span></a>
+<a class="sourceLine" id="cb1-8" title="8"></a>
+<a class="sourceLine" id="cb1-9" title="9"><span class="kw">library</span>(data.table)</a>
+<a class="sourceLine" id="cb1-10" title="10"><span class="kw">library</span>(magrittr)</a>
+<a class="sourceLine" id="cb1-11" title="11"></a>
+<a class="sourceLine" id="cb1-12" title="12"><span class="co"># Load the data</span></a>
+<a class="sourceLine" id="cb1-13" title="13"></a>
+<a class="sourceLine" id="cb1-14" title="14">dtime &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st">&quot;https://raw.githubusercontent.com/aweimann/floto-lab-learning-bioinformatics/master/datasets/COVID19_cases_and_policy.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb1-15" title="15"></a>
+<a class="sourceLine" id="cb1-16" title="16"></a>
+<a class="sourceLine" id="cb1-17" title="17"><span class="kw">str</span>(dtime)</a></code></pre></div>
 <pre><code>## Classes &#39;data.table&#39; and &#39;data.frame&#39;:   15450 obs. of  41 variables:
 ##  $ countryterritoryCode                                 : chr  &quot;ABW&quot; &quot;ABW&quot; &quot;ABW&quot; &quot;ABW&quot; ...
 ##  $ date                                                 : chr  &quot;2020-01-22&quot; &quot;2020-01-23&quot; &quot;2020-01-24&quot; &quot;2020-01-25&quot; ...
@@ -378,65 +527,74 @@ str(dtime)</code></pre>
 ##  $ sub-region                                           : chr  &quot;Latin America and the Caribbean&quot; &quot;Latin America and the Caribbean&quot; &quot;Latin America and the Caribbean&quot; &quot;Latin America and the Caribbean&quot; ...
 ##  - attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt;</code></pre>
 <p>We have above our first piece of code. Note that we have no run it. If we would like to run each piece dinamically, we then have to click on the little play buttom on the upper right corner of the cell. Then, we should see an object appearing in our environment along with the output of the code that will normally come from console. When the resulting output is a plot, we have quite few commands to customise the resulting figure.</p>
-<pre class="r"><code># Between the brackets, we separate the arguments with &quot;,&quot;
-library(ggplot2)
-
-dtime[, date := as.Date(date) # convert the date column into dates, which allow us quite 
-                              # cool operations when we work with time series
-      ]
-
-dtime[,
-      .(World_count = sum(confirm)), # Sum all the cases
-      by = date                      # by date
-      ] %&gt;%
-  
-  # pass new summary to the ggplot command
-  ggplot(., aes(x = date, 
-                y = World_count)) +
-  geom_point(size = 2) +
-  # Enhance output
-  labs(y = &quot;World total confirmed cases&quot;, x = &quot;Date&quot;) +
-  theme_bw(base_size = 20)</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># Between the brackets, we separate the arguments with &quot;,&quot;</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb3-3" title="3"></a>
+<a class="sourceLine" id="cb3-4" title="4">dtime[, date <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">as.Date</span>(date) <span class="co"># convert the date column into dates, which allow us quite </span></a>
+<a class="sourceLine" id="cb3-5" title="5">                              <span class="co"># cool operations when we work with time series</span></a>
+<a class="sourceLine" id="cb3-6" title="6">      ]</a>
+<a class="sourceLine" id="cb3-7" title="7"></a>
+<a class="sourceLine" id="cb3-8" title="8">dtime[,</a>
+<a class="sourceLine" id="cb3-9" title="9">      .(<span class="dt">World_count =</span> <span class="kw">sum</span>(confirm)), <span class="co"># Sum all the cases</span></a>
+<a class="sourceLine" id="cb3-10" title="10">      by =<span class="st"> </span>date                      <span class="co"># by date</span></a>
+<a class="sourceLine" id="cb3-11" title="11">      ] <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-12" title="12"><span class="st">  </span></a>
+<a class="sourceLine" id="cb3-13" title="13"><span class="st">  </span><span class="co"># pass new summary to the ggplot command</span></a>
+<a class="sourceLine" id="cb3-14" title="14"><span class="st">  </span><span class="kw">ggplot</span>(., <span class="kw">aes</span>(<span class="dt">x =</span> date, </a>
+<a class="sourceLine" id="cb3-15" title="15">                <span class="dt">y =</span> World_count)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-16" title="16"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-17" title="17"><span class="st">  </span><span class="co"># Enhance output</span></a>
+<a class="sourceLine" id="cb3-18" title="18"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;World total confirmed cases&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Date&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-19" title="19"><span class="st">  </span><span class="kw">theme_bw</span>(<span class="dt">base_size =</span> <span class="dv">20</span>)</a></code></pre></div>
 <p><img src="Rmarkdown_tutorial_files/figure-html/unnamed-chunk-2-1.png" width="1248" style="display: block; margin: auto;" /></p>
 <p>Now, let’s take a look at the data because as we said at the beginning. Remember what we said at the beginning: not all countries have been affected equally. We will try to figure out when the virus took root at each country. Let’s consider that an outbreak has started if or when the number of cases reaches the symbolic landmark of 100. Here is the code for that:</p>
-<pre class="r"><code>dtime[confirm &lt; 101, # We select the rows with less than 100 cases
-      .(outbreak_date =  max(date),
-        confirm, region, date), # Assuming that the cummulative number of cases only increase,
-                     # we select the latest date (or maximu)
-      by = Country]  %&gt;% # Repeat the operation for every country
-  .[date == outbreak_date] -&gt; outbreak_date
-
-dtime[,
-      .(Regional_count = sum(confirm)), # Sum all the cases
-      by = .(date, region)           # by date AND region
-      ] %&gt;%
-  
-  ggplot(., aes(x = date, 
-                y = Regional_count)) +
-  
-  # Call our second dataset
-  geom_vline(data = outbreak_date, 
-             mapping = aes(xintercept = outbreak_date + rnorm(length(outbreak_date), sd = 0.2),
-                 col = region), size = 1, alpha = 0.5) +
-  geom_point(size = 2) +
-  facet_wrap(region ~.) +
-  scale_color_brewer(palette = &quot;Set1&quot;) +
-  theme_classic(base_size = 15)</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">dtime[confirm <span class="op">&lt;</span><span class="st"> </span><span class="dv">101</span>, <span class="co"># We select the rows with less than 100 cases</span></a>
+<a class="sourceLine" id="cb4-2" title="2">      .(<span class="dt">outbreak_date =</span>  <span class="kw">max</span>(date),</a>
+<a class="sourceLine" id="cb4-3" title="3">        confirm, region, date), <span class="co"># Assuming that the cummulative number of cases only increase,</span></a>
+<a class="sourceLine" id="cb4-4" title="4">                     <span class="co"># we select the latest date (or maximu)</span></a>
+<a class="sourceLine" id="cb4-5" title="5">      by =<span class="st"> </span>Country]  <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Repeat the operation for every country</span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="st">  </span>.[date <span class="op">==</span><span class="st"> </span>outbreak_date] -&gt;<span class="st"> </span>outbreak_date</a>
+<a class="sourceLine" id="cb4-7" title="7"></a>
+<a class="sourceLine" id="cb4-8" title="8">dtime[,</a>
+<a class="sourceLine" id="cb4-9" title="9">      .(<span class="dt">Regional_count =</span> <span class="kw">sum</span>(confirm)), <span class="co"># Sum all the cases</span></a>
+<a class="sourceLine" id="cb4-10" title="10">      by =<span class="st"> </span>.(date, region)           <span class="co"># by date AND region</span></a>
+<a class="sourceLine" id="cb4-11" title="11">      ] <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-12" title="12"><span class="st">  </span></a>
+<a class="sourceLine" id="cb4-13" title="13"><span class="st">  </span><span class="kw">ggplot</span>(., <span class="kw">aes</span>(<span class="dt">x =</span> date, </a>
+<a class="sourceLine" id="cb4-14" title="14">                <span class="dt">y =</span> Regional_count)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-15" title="15"><span class="st">  </span></a>
+<a class="sourceLine" id="cb4-16" title="16"><span class="st">  </span><span class="co"># Call our second dataset</span></a>
+<a class="sourceLine" id="cb4-17" title="17"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">data =</span> outbreak_date, </a>
+<a class="sourceLine" id="cb4-18" title="18">             <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">xintercept =</span> outbreak_date <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">length</span>(outbreak_date), <span class="dt">sd =</span> <span class="fl">0.2</span>),</a>
+<a class="sourceLine" id="cb4-19" title="19">                 <span class="dt">col =</span> region), <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-20" title="20"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-21" title="21"><span class="st">  </span><span class="kw">facet_wrap</span>(region <span class="op">~</span>.) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-22" title="22"><span class="st">  </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Set1&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-23" title="23"><span class="st">  </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">15</span>)</a></code></pre></div>
 <p><img src="Rmarkdown_tutorial_files/figure-html/unnamed-chunk-3-1.png" width="1248" style="display: block; margin: auto;" /></p>
-<p>We knew that the COVID19 started in China and the first cases were detected as early as December. Still, we can see the exponential nature of the spread, first to other asian countries and then to European countries. At this point, we could propose few hypothesis to find out why the epidemy took this dynamic. Here, we will discuss three examples that also will help us to familiarise with the tools we have learn throught the course. Our hypothesis are (Notice how we use the “-” syntax to denote a list): - The number of cases per country are just an artifact, it just depends on the size of the population. - The number of cases depends on the number of tourist because they can carry the disease without symptoms, they act as vector between countries. Nevertheless, we don’t know whether the real relation happens via leaving or arriving tourist, a combination of both, or even the ratio of tourist to population. - The number of cases depends on the stringency of the policy. This might seem a rather qualitative answer, however, the University of Oxford has created the <a href="https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker">Oxford Stringency Index</a>. In order to explore this questions and create our models, we will work with a second dataset build from the WorldBank open libraries and John Hopkins COVID19 monitor. We mark with “##” the opening of a sub-section. Indeed, the logic for headings is quite simple: “#” for level 1, “##” for level 2, “###” for level 3…</p>
+<p>We knew that the COVID19 started in China and the first cases were detected as early as December. Still, we can see the exponential nature of the spread, first to other asian countries and then to European countries. A better way to look at it could be count the number of countries that have an outbreak in each region:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">outbreak_date[,</a>
+<a class="sourceLine" id="cb5-2" title="2">              .(<span class="dt">count =</span> .N), <span class="co"># .N key notation to get the number of elements within out particular sub-group</span></a>
+<a class="sourceLine" id="cb5-3" title="3">              by =<span class="st"> </span>.(region, date)] <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="st">  </span><span class="kw">ggplot</span>(., <span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> count, <span class="dt">fill =</span> region)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-6" title="6"><span class="st">  </span><span class="kw">facet_wrap</span>(region <span class="op">~</span>.) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-7" title="7"><span class="st">  </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Set1&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-8" title="8"><span class="st">  </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">15</span>)</a></code></pre></div>
+<p><img src="Rmarkdown_tutorial_files/figure-html/unnamed-chunk-4-1.png" width="1248" /> At this point, we could propose few hypothesis to find out why the epidemy took this dynamic. Here, we will discuss three examples that also will help us to familiarise with the tools we have learn throught the course. Our hypothesis are (Notice how we use the “-” syntax to denote a list): - The number of cases per country are just an artifact, it just depends on the size of the population. - The number of cases depends on the number of tourist because they can carry the disease without symptoms, they act as vector between countries. Nevertheless, we don’t know whether the real relation happens via leaving or arriving tourist, a combination of both, or even the ratio of tourist to population. - The number of cases depends on the stringency of the policy. This might seem a rather qualitative answer, however, the University of Oxford has created the <a href="https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker">Oxford Stringency Index</a>. In order to explore this questions and create our models, we will work with a second dataset build from the WorldBank open libraries and John Hopkins COVID19 monitor. We mark with “##” the opening of a sub-section. Indeed, the logic for headings is quite simple: “#” for level 1, “##” for level 2, “###” for level 3…</p>
 <div id="modelling" class="section level2">
-<h2>Modelling</h2>
+<h2><span class="header-section-number">2.1</span> Modelling</h2>
 <p>First, we should load the data. There, we will notice that the structure has change as now the number of cases has been fixed to a single day. For the new dataset, we normalised the date using as a reference the date wehen the number of cases reached 100 and count 20 days since that day. That will helps us to compare the state of the epidemy across countries. So, now we can take a look at our base model:</p>
-<pre class="r"><code>d &lt;- fread(&quot;https://raw.githubusercontent.com/aweimann/floto-lab-learning-bioinformatics/master/datasets/COVID19_countries_data.csv&quot;)
-
-d[, pop := fempop_2018 + male_pop_2018]
-
-m0 &lt;- lm(confirm ~ pop, data = d)
-
-par(mfrow=c(2,2)) # Configure the plot output to 4 panels
-plot(m0)</code></pre>
-<p><img src="Rmarkdown_tutorial_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<pre class="r"><code>summary(m0)</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">d &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st">&quot;https://raw.githubusercontent.com/aweimann/floto-lab-learning-bioinformatics/master/datasets/COVID19_countries_data.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb6-2" title="2"></a>
+<a class="sourceLine" id="cb6-3" title="3">d[, pop <span class="op">:</span><span class="er">=</span><span class="st"> </span>fempop_<span class="dv">2018</span> <span class="op">+</span><span class="st"> </span>male_pop_<span class="dv">2018</span>]</a>
+<a class="sourceLine" id="cb6-4" title="4"></a>
+<a class="sourceLine" id="cb6-5" title="5">m0 &lt;-<span class="st"> </span><span class="kw">lm</span>(confirm <span class="op">~</span><span class="st"> </span>pop, <span class="dt">data =</span> d)</a>
+<a class="sourceLine" id="cb6-6" title="6"></a>
+<a class="sourceLine" id="cb6-7" title="7"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co"># Configure the plot output to 4 panels</span></a>
+<a class="sourceLine" id="cb6-8" title="8"><span class="kw">plot</span>(m0)</a></code></pre></div>
+<p><img src="Rmarkdown_tutorial_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">summary</span>(m0)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = confirm ~ pop, data = d)
@@ -457,9 +615,9 @@ plot(m0)</code></pre>
 ## Multiple R-squared:  0.3049, Adjusted R-squared:  0.2922 
 ## F-statistic: 24.12 on 1 and 55 DF,  p-value: 8.483e-06</code></pre>
 <p>And here we can see that the population clearly plays a role in the number of cases. Checking the Standarized residual plot, we can see that infact, most of the countries lien on the expected line, except few extreme outliers where our mdoel understimates the number of cases. In a way, that was something to be expected, as it only means more people living in a place equals more potential cases. It is thus convenient to take on account this correlation before proceding with our analysis. To do that, we have two main options: - We could divide the number of cases by the total population. - We could include the population as an effect along with the other.</p>
-<pre class="r"><code>d[, cases_perM := confirm/(pop/10E6)]
-
-lm(confirm ~ cases_perM, data = d) %&gt;% summary</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">d[, cases_perM <span class="op">:</span><span class="er">=</span><span class="st"> </span>confirm<span class="op">/</span>(pop<span class="op">/</span><span class="fl">10E6</span>)]</a>
+<a class="sourceLine" id="cb9-2" title="2"></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="kw">lm</span>(confirm <span class="op">~</span><span class="st"> </span>cases_perM, <span class="dt">data =</span> d) <span class="op">%&gt;%</span><span class="st"> </span>summary</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = confirm ~ cases_perM, data = d)
@@ -480,17 +638,17 @@ lm(confirm ~ cases_perM, data = d) %&gt;% summary</code></pre>
 ## Multiple R-squared:  0.0002604,  Adjusted R-squared:  -0.01792 
 ## F-statistic: 0.01432 on 1 and 55 DF,  p-value: 0.9052</code></pre>
 <p>After our transformation, it is clear that the effect of the population is gone. Then, we can work safely with our new variableto explore the other two models that focus on more interesting variables.</p>
-<pre class="r"><code>d[, touris_perM := tourist_arrival_2018/pop]
-
-m0 &lt;- lm(cases_perM ~ 1, data = d) # This notations means that the cases only depends on the global average number of cases
-m1 &lt;- lm(cases_perM ~ Oxford_stringency_level, data = d)
-m2 &lt;- lm(cases_perM ~ tourist_arrival_2018, data = d)
-m3 &lt;- lm(cases_perM ~ tourist_departure_2018, data = d)
-m4 &lt;- lm(cases_perM ~ tourist_departure_2018*tourist_arrival_2018, data = d)
-m5 &lt;- lm(cases_perM ~ touris_perM, data = d)
-
-AIC(m0, m1, m2, m3, m4, m5, 
-    k = log(nrow(d))) # Increase size of the penaly</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">d[, touris_perM <span class="op">:</span><span class="er">=</span><span class="st"> </span>tourist_arrival_<span class="dv">2018</span><span class="op">/</span>pop]</a>
+<a class="sourceLine" id="cb11-2" title="2"></a>
+<a class="sourceLine" id="cb11-3" title="3">m0 &lt;-<span class="st"> </span><span class="kw">lm</span>(cases_perM <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> d) <span class="co"># This notations means that the cases only depends on the global average number of cases</span></a>
+<a class="sourceLine" id="cb11-4" title="4">m1 &lt;-<span class="st"> </span><span class="kw">lm</span>(cases_perM <span class="op">~</span><span class="st"> </span>Oxford_stringency_level, <span class="dt">data =</span> d)</a>
+<a class="sourceLine" id="cb11-5" title="5">m2 &lt;-<span class="st"> </span><span class="kw">lm</span>(cases_perM <span class="op">~</span><span class="st"> </span>tourist_arrival_<span class="dv">2018</span>, <span class="dt">data =</span> d)</a>
+<a class="sourceLine" id="cb11-6" title="6">m3 &lt;-<span class="st"> </span><span class="kw">lm</span>(cases_perM <span class="op">~</span><span class="st"> </span>tourist_departure_<span class="dv">2018</span>, <span class="dt">data =</span> d)</a>
+<a class="sourceLine" id="cb11-7" title="7">m4 &lt;-<span class="st"> </span><span class="kw">lm</span>(cases_perM <span class="op">~</span><span class="st"> </span>tourist_departure_<span class="dv">2018</span><span class="op">*</span>tourist_arrival_<span class="dv">2018</span>, <span class="dt">data =</span> d)</a>
+<a class="sourceLine" id="cb11-8" title="8">m5 &lt;-<span class="st"> </span><span class="kw">lm</span>(cases_perM <span class="op">~</span><span class="st"> </span>touris_perM, <span class="dt">data =</span> d)</a>
+<a class="sourceLine" id="cb11-9" title="9"></a>
+<a class="sourceLine" id="cb11-10" title="10"><span class="kw">AIC</span>(m0, m1, m2, m3, m4, m5, </a>
+<a class="sourceLine" id="cb11-11" title="11">    <span class="dt">k =</span> <span class="kw">log</span>(<span class="kw">nrow</span>(d))) <span class="co"># Increase size of the penaly</span></a></code></pre></div>
 <pre><code>## Warning in AIC.default(m0, m1, m2, m3, m4, m5, k = log(nrow(d))): models are not
 ## all fitted to the same number of observations</code></pre>
 <pre><code>##    df       AIC
@@ -501,10 +659,10 @@ AIC(m0, m1, m2, m3, m4, m5,
 ## m4  5  961.7240
 ## m5  3 1125.0671</code></pre>
 <p>With this quick look, we can see that the number of cases is completel uncorrelated with the stringency of the country response, becasue this model has very similar AIC compared to the base model. This could perfectly be a result of the relevance of the epidemy in certain countries have motivated unaffected countries to take measures in advance, before the epidemy takes root. However, we could say that including the tourism in the model improves the explanatory power of our model. More precisely, it is the number of tourist departure what give us the best model within this set. Next, we should do the proper checkings that to verify that our model assumptions are not broken:</p>
-<pre class="r"><code>par(mfrow=c(2,2)) # Configure the plot output to 4 panels
-
-plot(m3)</code></pre>
-<p><img src="Rmarkdown_tutorial_files/figure-html/unnamed-chunk-7-1.png" width="672" /> This check illustrate that our model is still short in power because it still have problems with outliers (rows 13, 36 and 43) and more importantly, we are predicting <em>negative</em> number of cases for two countries. We could continue improving the model, yet we consider it is the time for you to take on and give it a try. Therefore, we would like to propose you to create your own RMarkdown. You can create your model freely, but if you look for some inspiration, we want to suggest 3 potential topics to investigate:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co"># Configure the plot output to 4 panels</span></a>
+<a class="sourceLine" id="cb14-2" title="2"></a>
+<a class="sourceLine" id="cb14-3" title="3"><span class="kw">plot</span>(m3)</a></code></pre></div>
+<p><img src="Rmarkdown_tutorial_files/figure-html/unnamed-chunk-8-1.png" width="672" /> This check illustrate that our model is still short in power because it still have problems with outliers (rows 13, 36 and 43) and more importantly, we are predicting <em>negative</em> number of cases for two countries. We could continue improving the model, yet we consider it is the time for you to take on and give it a try. Therefore, we would like to propose you to create your own RMarkdown. You can create your model freely, but if you look for some inspiration, we want to suggest 3 potential topics to investigate:</p>
 <ol style="list-style-type: decimal">
 <li>How would you explain the mortality of the virus in different countries? Do you think the number of doctors or hospital beds matter or it is just a matter of GDP per capita? Maybe the mortality is associated to the fraction of smokers or diabetes?</li>
 <li>Once you finish your model, what do you think it means to add a regional intercept to your model? Do any of your parameters gets affected?</li>
@@ -518,6 +676,8 @@ plot(m3)</code></pre>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -550,6 +710,32 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

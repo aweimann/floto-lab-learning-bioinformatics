@@ -2,8 +2,14 @@
 title: "Rmarkdown tutorial"
 author: "Santiago Caño-Muñiz"
 date: "16/04/2020"
-output: html_document
-  
+output: 
+  html_document:
+    theme: paper
+    highlight: tango
+    toc: true
+    toc_float: true
+    toc_collapsed: true
+    number_sections: TRUE  
 ---
 
 # R Mark..what?
@@ -93,7 +99,21 @@ dtime[,
   theme_classic(base_size = 15)
 ```
 
-We knew that the COVID19 started in China and the first cases were detected as early as December. Still, we can see the exponential nature of the spread, first to other asian countries and then to European countries. At this point, we could propose few hypothesis to find out why the epidemy took this dynamic. Here, we will discuss three examples that also will help us to familiarise with the tools we have learn throught the course. Our hypothesis are (Notice how we use the "-" syntax to denote a list):
+We knew that the COVID19 started in China and the first cases were detected as early as December. Still, we can see the exponential nature of the spread, first to other asian countries and then to European countries. A better way to look at it could be count the number of countries that have an outbreak in each region:
+```{r, fig.height = 8, fig.width = 13}
+
+outbreak_date[,
+              .(count = .N), # .N key notation to get the number of elements within out particular sub-group
+              by = .(region, date)] %>%
+  ggplot(., aes(x = date, y = count, fill = region)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(region ~.) +
+  scale_color_brewer(palette = "Set1") +
+  theme_classic(base_size = 15)
+
+
+```
+At this point, we could propose few hypothesis to find out why the epidemy took this dynamic. Here, we will discuss three examples that also will help us to familiarise with the tools we have learn throught the course. Our hypothesis are (Notice how we use the "-" syntax to denote a list):
 - The number of cases per country are just an artifact, it just depends on the size of the population.
 - The number of cases depends on the number of tourist because they can carry the disease without symptoms, they act as vector between
 countries. Nevertheless, we don't know whether the real relation happens via leaving or arriving tourist, a combination of both, or even  the ratio of tourist to population.
