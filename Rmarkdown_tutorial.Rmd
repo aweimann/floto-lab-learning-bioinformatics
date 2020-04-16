@@ -1,0 +1,162 @@
+---
+title: "Rmarkdown tutorial"
+author: "Santiago Caño-Muñiz"
+date: "16/04/2020"
+output: html_document
+  
+---
+
+# R Mark..what?
+
+In this tutorial we will learn the basic procedures to work with R Markdown. The RMarkdown framework aims to combine text writing with executable code, giving as a result nice documets. For example, the super-cool website that we have prepared for this workshop has been built fully built with RMarkdown (courtesy of Dr Weimann!).
+
+In order to make the tutorial more engaging, we will base the tutoral on a practical casestudy: the analysis of the COVID19 epidemy that in the first place send us home. For that, let me open a new section with the `#` notation.
+
+# The COVID19 dataset
+
+The human and economic toll of COVID-19 is a stark reminder of the fragility of our globalised society. Countries’ ability to contain the outbreak across borders is being defined by their capacity to provide effective protection to the most vulnerable. However, the epidemy has not impacted all the countries equally. For that, we will take a look into the `COVID19_countries_data.csv`. Let's then call our first "code chunk" with "```" and load the data an libraries has we have learned during the workshop.
+
+```{r }
+
+# We open the code chuck with ``` followed with a {}. Within the curly bracketes with 
+# can specify few argumets. An easier way to add a new code segment could be to click 
+# on the icon "C inster" in the upper right corner of the code editor. 
+# For the moment, we will just write "r" as it denotes that the code we will use 
+# is in R language. Once we are inside the code chunk, the code follows again the R syntaxis.
+
+# Load the libraries
+
+library(data.table)
+library(magrittr)
+
+# Load the data
+
+dtime <- fread("https://raw.githubusercontent.com/aweimann/floto-lab-learning-bioinformatics/master/datasets/COVID19_cases_and_policy.csv")
+
+
+str(dtime)
+
+```
+
+We have above our first piece of code. Note that we have no run it. If we would like to run each piece dinamically, we then have to click on the little play buttom on the upper right corner of the cell. Then, we should see an object appearing in our environment along with the output of the code that will normally come from console. When the resulting output is a plot, we have quite few commands to customise the resulting figure. 
+```{r, fig.align = 'center', fig.height = 8, fig.width = 13}
+# Between the brackets, we separate the arguments with ","
+library(ggplot2)
+
+dtime[, date := as.Date(date) # convert the date column into dates, which allow us quite 
+                              # cool operations when we work with time series
+      ]
+
+dtime[,
+      .(World_count = sum(confirm)), # Sum all the cases
+      by = date                      # by date
+      ] %>%
+  
+  # pass new summary to the ggplot command
+  ggplot(., aes(x = date, 
+                y = World_count)) +
+  geom_point(size = 2) +
+  # Enhance output
+  labs(y = "World total confirmed cases", x = "Date") +
+  theme_bw(base_size = 20)
+
+
+```
+
+Now, let's take a look at the data because as we said at the beginning. Remember what we said at the beginning: not all countries have been affected equally. We will try to figure out when the virus took root at each country. Let's consider that an outbreak has started if or when the number of cases reaches the symbolic landmark of 100. Here is the code for that: 
+
+
+```{r, fig.align = 'center', fig.height = 8, fig.width = 13}
+
+dtime[confirm < 101, # We select the rows with less than 100 cases
+      .(outbreak_date =  max(date),
+        confirm, region, date), # Assuming that the cummulative number of cases only increase,
+                     # we select the latest date (or maximu)
+      by = Country]  %>% # Repeat the operation for every country
+  .[date == outbreak_date] -> outbreak_date
+
+dtime[,
+      .(Regional_count = sum(confirm)), # Sum all the cases
+      by = .(date, region)           # by date AND region
+      ] %>%
+  
+  ggplot(., aes(x = date, 
+                y = Regional_count)) +
+  
+  # Call our second dataset
+  geom_vline(data = outbreak_date, 
+             mapping = aes(xintercept = outbreak_date + rnorm(length(outbreak_date), sd = 0.2),
+                 col = region), size = 1, alpha = 0.5) +
+  geom_point(size = 2) +
+  facet_wrap(region ~.) +
+  scale_color_brewer(palette = "Set1") +
+  theme_classic(base_size = 15)
+```
+
+We knew that the COVID19 started in China and the first cases were detected as early as December. Still, we can see the exponential nature of the spread, first to other asian countries and then to European countries. At this point, we could propose few hypothesis to find out why the epidemy took this dynamic. Here, we will discuss three examples that also will help us to familiarise with the tools we have learn throught the course. Our hypothesis are (Notice how we use the "-" syntax to denote a list):
+- The number of cases per country are just an artifact, it just depends on the size of the population.
+- The number of cases depends on the number of tourist because they can carry the disease without symptoms, they act as vector between
+countries. Nevertheless, we don't know whether the real relation happens via leaving or arriving tourist, a combination of both, or even  the ratio of tourist to population.
+- The number of cases depends on the stringency of the policy. This might seem a rather qualitative answer, however, the University of Oxford has created the [Oxford Stringency Index](https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker).
+In order to explore this questions and create our models, we will work with a second dataset build from the WorldBank open libraries and John Hopkins COVID19 monitor. We mark with "##" the opening of a sub-section. Indeed, the logic for headings is quite simple: "#" for level 1, "##" for level 2, "###" for level 3...
+
+## Modelling
+
+First, we should load the data. There, we will notice that the structure has change as now the number of cases has been fixed to a single day. For the new dataset, we normalised the date using as a reference the date wehen the number of cases reached 100 and count 20 days since that day. That will helps us to compare the state of the epidemy across countries. So, now we can take a look at our base model:
+
+```{r}
+d <- fread("https://raw.githubusercontent.com/aweimann/floto-lab-learning-bioinformatics/master/datasets/COVID19_countries_data.csv")
+
+d[, pop := fempop_2018 + male_pop_2018]
+
+m0 <- lm(confirm ~ pop, data = d)
+
+par(mfrow=c(2,2)) # Configure the plot output to 4 panels
+plot(m0)
+
+summary(m0)
+
+```
+And here we can see that the population clearly plays a role in the number of cases. Checking the Standarized residual plot, we can see that infact, most of the countries lien on the expected line, except few extreme outliers where our mdoel understimates the number of cases. In a way, that was something to be expected, as it only means more people living in a place equals more potential cases. It is thus convenient to take on account this correlation before proceding with our analysis. To do that, we have two main options:
+ - We could divide the number of cases by the total population.
+ - We could include the population as an effect along with the other.
+```{r}
+
+d[, cases_perM := confirm/(pop/10E6)]
+
+lm(confirm ~ cases_perM, data = d) %>% summary
+
+```
+ 
+ After our transformation, it is clear that the effect of the population is gone. Then, we can work safely with our new variableto explore the other two models that focus on more interesting variables. 
+```{r}
+
+d[, touris_perM := tourist_arrival_2018/pop]
+
+m0 <- lm(cases_perM ~ 1, data = d) # This notations means that the cases only depends on the global average number of cases
+m1 <- lm(cases_perM ~ Oxford_stringency_level, data = d)
+m2 <- lm(cases_perM ~ tourist_arrival_2018, data = d)
+m3 <- lm(cases_perM ~ tourist_departure_2018, data = d)
+m4 <- lm(cases_perM ~ tourist_departure_2018*tourist_arrival_2018, data = d)
+m5 <- lm(cases_perM ~ touris_perM, data = d)
+
+AIC(m0, m1, m2, m3, m4, m5, 
+    k = log(nrow(d))) # Increase size of the penaly
+
+```
+With this quick look, we can see that the number of cases is completel uncorrelated with the stringency of the country response, becasue this model has very similar AIC compared to the base model. This could perfectly be a result of the relevance of the epidemy in certain countries have motivated unaffected countries to take measures in advance, before the epidemy takes root. However, we could say that including the tourism in the model improves the explanatory power of our model. More precisely, it is the number of tourist departure what give us the best model within this set. Next, we should do the proper checkings that to verify that our model assumptions are not broken:
+
+```{r}
+
+par(mfrow=c(2,2)) # Configure the plot output to 4 panels
+
+plot(m3)
+```
+This check illustrate that our model is still short in power because it still have problems with outliers (rows 13, 36 and 43) and more importantly, we are predicting *negative* number of cases for two countries. We could continue improving the model, yet we consider it is the time for you to take on and give it a try. Therefore, we would like to propose you to create your own RMarkdown. You can create your model freely, but if you look for some inspiration, we want to suggest 3 potential topics to investigate:
+
+1. How would you explain the mortality of the virus in different countries? Do you think the number of doctors or hospital beds matter or it is just a matter of GDP per capita? Maybe the mortality is associated to the fraction of smokers or diabetes?
+2. Once you finish your model, what do you think it means to add a regional intercept to your model? Do any of your parameters gets affected?
+3. For the most advanced students and entusiast, we propose you a little challenge. Could you find a code to:
+  1. Calculate the relative increase per day of cases as: $\mu =\frac{R_{t} -R_{t-1}}{R_{t-1}}$
+  2. Find the day in wich the curfew was enforced in the COVID19_cases_and_policy dataset. The colum curfew in the dataset indicates with a number 1 when a measure related to this topic has been taken and 0 for all the other days.
+  3. Plot the average $\mu$ per country after $n$-days and explore the impact of this measure. 
