@@ -14,21 +14,21 @@ output:
 
 # R Mark..what?
 
-In this tutorial we will learn the basic procedures to work with R Markdown. The RMarkdown framework aims to combine text writing with executable code, giving as a result nice documets. For example, the super-cool website that we have prepared for this workshop has been built fully built with RMarkdown (courtesy of Dr Weimann!).
+In this tutorial we will learn the basic procedures to work with R Markdown. The RMarkdown framework is a scientific authoring framework and aims to embed the executable code in a proper document. For example, the super-cool website that we have prepared for this workshop has been fully built with RMarkdown (courtesy of Dr Weimann!).
 
-In order to make the tutorial more engaging, we will base the tutoral on a practical casestudy: the analysis of the COVID19 epidemy that in the first place send us home. For that, let me open a new section with the `#` notation.
+In order to make the tutorial more engaging, we will base the tutoral on a practical case study: the analysis of the COVID19 epidemic that send us home in the first place. For that, let me open a new section with the `#` notation.
 
 # The COVID19 dataset
 
-The human and economic toll of COVID-19 is a stark reminder of the fragility of our globalised society. Countries’ ability to contain the outbreak across borders is being defined by their capacity to provide effective protection to the most vulnerable. However, the epidemy has not impacted all the countries equally. For that, we will take a look into the `COVID19_countries_data.csv`. Let's then call our first "code chunk" with "```" and load the data an libraries has we have learned during the workshop.
+The human and economic toll of COVID-19 is a stark reminder of the fragility of our globalised society. The  ability of a country to contain the outbreak across borders is being defined by their capacity to provide effective protection to the most vulnerable. However, the global pandemic has not impacted all the countries equally. To prove this, we will take a look into the `COVID19_countries_data.csv` table. Let's then create our first "code chunk" with "```" and load the data and libraries that we have learned during the workshop.
 
-```{r }
+```{r, message FALSE}
 
 # We open the code chuck with ``` followed with a {}. Within the curly bracketes with 
 # can specify few argumets. An easier way to add a new code segment could be to click 
-# on the icon "C inster" in the upper right corner of the code editor. 
-# For the moment, we will just write "r" as it denotes that the code we will use 
-# is in R language. Once we are inside the code chunk, the code follows again the R syntaxis.
+# on the icon "Insert" in the upper right corner of the code editor. 
+# For now, we will just write "r" as it denotes that the code we will use 
+# is written in the R language. Once we are inside the code chunk, the code follows again the R syntax.
 
 # Load the libraries
 
@@ -44,7 +44,7 @@ str(dtime)
 
 ```
 
-We have above our first piece of code. Note that we have no run it. If we would like to run each piece dinamically, we then have to click on the little play buttom on the upper right corner of the cell. Then, we should see an object appearing in our environment along with the output of the code that will normally come from console. When the resulting output is a plot, we have quite few commands to customise the resulting figure. 
+We have just created our first piece of code. Note that we have not yet run it. If we would like to run an individual code chunk, we have to click on the little play buttom on the upper right corner of the cell. We will see all the output appear that we normally see when we run code in the console. In this case we see some messages from the libraries loaded and a preview of the data table. To suppress any internal R messages we could use message = False in side the curly braces (try it out). We can also include plots in the code chunk:. 
 ```{r, fig.align = 'center', fig.height = 8, fig.width = 13}
 # Between the brackets, we separate the arguments with ","
 library(ggplot2)
@@ -58,7 +58,8 @@ dtime[,
       by = date                      # by date
       ] %>%
   
-  # pass new summary to the ggplot command
+  # pass the cumulative casese to the ggplot command
+  # remember the . is a placeholder for the data frame above
   ggplot(., aes(x = date, 
                 y = World_count)) +
   geom_point(size = 2) +
@@ -69,7 +70,7 @@ dtime[,
 
 ```
 
-Now, let's take a look at the data because as we said at the beginning. Remember what we said at the beginning: not all countries have been affected equally. We will try to figure out when the virus took root at each country. Let's consider that an outbreak has started if or when the number of cases reaches the symbolic landmark of 100. Here is the code for that: 
+Now, let's take a look at the data because as we said at the beginning. Remember what we said at the beginning: not all countries have been affected equally. We will try to figure out when the virus took root in each country. Let's consider that an outbreak has started if or when the number of cases reached 100 cases. Here is the code we need: 
 
 
 ```{r, fig.align = 'center', fig.height = 8, fig.width = 13}
@@ -77,7 +78,7 @@ Now, let's take a look at the data because as we said at the beginning. Remember
 dtime[confirm < 101, # We select the rows with less than 100 cases
       .(outbreak_date =  max(date),
         confirm, region, date), # Assuming that the cummulative number of cases only increase,
-                     # we select the latest date (or maximu)
+                     # we select the latest date (or maximum)
       by = Country]  %>% # Repeat the operation for every country
   .[date == outbreak_date] -> outbreak_date
 
@@ -99,7 +100,7 @@ dtime[,
   theme_classic(base_size = 15)
 ```
 
-We knew that the COVID19 started in China and the first cases were detected as early as December. Still, we can see the exponential nature of the spread, first to other asian countries and then to European countries. A better way to look at it could be count the number of countries that have an outbreak in each region:
+We knew that the COVID19 started in China and the first cases were detected as early as December. Still, we can see the exponential nature of the spread, first in Asian countries outside of China and then in Europe. Another way to look at it could be count the number of countries that have an outbreak in each region according out our definition:
 ```{r, fig.height = 8, fig.width = 13}
 
 outbreak_date[,
@@ -113,16 +114,16 @@ outbreak_date[,
 
 
 ```
-At this point, we could propose few hypothesis to find out why the epidemy took this dynamic. Here, we will discuss three examples that also will help us to familiarise with the tools we have learn throught the course. Our hypothesis are (Notice how we use the "-" syntax to denote a list):
-- The number of cases per country are just an artifact, it just depends on the size of the population.
-- The number of cases depends on the number of tourist because they can carry the disease without symptoms, they act as vector between
+At this point, we could propose few hypotheses to find out why the epidemy took this dynamic. Here, we will discuss three examples that also will help us to familiarise with the tools we have learned throught the course. Our hypothesis are (Notice how we use the "-" syntax to denote a list):
+- The number of cases per country is just an artifact, it just depends on the size of the population.
+- The number of cases depends on the number of tourists because they can carry the disease without symptoms, they act as vector between
 countries. Nevertheless, we don't know whether the real relation happens via leaving or arriving tourist, a combination of both, or even  the ratio of tourist to population.
-- The number of cases depends on the stringency of the policy. This might seem a rather qualitative answer, however, the University of Oxford has created the [Oxford Stringency Index](https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker).
+- The number of cases depends on the stringency of the preventive measures introduced. This might seem a rather qualitative answer, however, the University of Oxford has created the [Oxford Stringency Index](https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker).
 In order to explore this questions and create our models, we will work with a second dataset build from the WorldBank open libraries and John Hopkins COVID19 monitor. We mark with "##" the opening of a sub-section. Indeed, the logic for headings is quite simple: "#" for level 1, "##" for level 2, "###" for level 3...
 
 ## Modelling
 
-First, we should load the data. There, we will notice that the structure has change as now the number of cases has been fixed to a single day. For the new dataset, we normalised the date using as a reference the date wehen the number of cases reached 100 and count 20 days since that day. That will helps us to compare the state of the epidemy across countries. So, now we can take a look at our base model:
+First, we will load the data. There, we will notice that the structure has changed as now the number of cases has been fixed to a single day. For the new dataset, we normalised the date using as a reference the date 20 days after where the number of cases reached 100. That will helps us to compare the state of the epidemic across countries. So, now we can take a look at our base model, which is relating the number of cases to the size of the population of each country:
 
 ```{r}
 d <- fread("https://raw.githubusercontent.com/aweimann/floto-lab-learning-bioinformatics/master/datasets/COVID19_countries_data.csv")
@@ -137,9 +138,9 @@ plot(m0)
 summary(m0)
 
 ```
-And here we can see that the population clearly plays a role in the number of cases. Checking the Standarized residual plot, we can see that infact, most of the countries lien on the expected line, except few extreme outliers where our mdoel understimates the number of cases. In a way, that was something to be expected, as it only means more people living in a place equals more potential cases. It is thus convenient to take on account this correlation before proceding with our analysis. To do that, we have two main options:
+We can see that the number of cases is clearly dependent on the population. Checking the Standardized residual plot, we can see that in fact, most of the countries lie on the expected line, except for a few extreme outliers where our model underestimated the number of cases. In a way, that was something to be expected, as it only means that the more people living in a place the more potential cases we see. Let's normalize our data to account for this basic observation. To do that, we have two main options:
  - We could divide the number of cases by the total population.
- - We could include the population as an effect along with the other.
+ - We could include the population as an effect along with the other factors in the model.
 ```{r}
 
 d[, cases_perM := confirm/(pop/10E6)]
@@ -148,7 +149,7 @@ lm(confirm ~ cases_perM, data = d) %>% summary
 
 ```
  
- After our transformation, it is clear that the effect of the population is gone. Then, we can work safely with our new variableto explore the other two models that focus on more interesting variables. 
+After our transformation we won't see an effect of the population on the number of cases anymore. Then, we can  explore our transformed variable to explore the other two models that focus on more interesting variables. 
 ```{r}
 
 d[, touris_perM := tourist_arrival_2018/pop]
@@ -164,7 +165,7 @@ AIC(m0, m1, m2, m3, m4, m5,
     k = log(nrow(d))) # Increase size of the penaly
 
 ```
-With this quick look, we can see that the number of cases is completel uncorrelated with the stringency of the country response, becasue this model has very similar AIC compared to the base model. This could perfectly be a result of the relevance of the epidemy in certain countries have motivated unaffected countries to take measures in advance, before the epidemy takes root. However, we could say that including the tourism in the model improves the explanatory power of our model. More precisely, it is the number of tourist departure what give us the best model within this set. Next, we should do the proper checkings that to verify that our model assumptions are not broken:
+With this quick look, we can see that the number of cases is completel uncorrelated with the stringency of the country response, becasue this model has very similar AIC compared to the base model. This could perfectly be a result of the relevance of the epidemic in certain countries have motivated unaffected countries to take measures in advance, before the epidemy takes root. However, we could say that including the tourism in the model improves the explanatory power of our model. More precisely, it is the number of tourist departure that give us the best model within this set. Next, we should do proper quality checks to verify that our model assumptions are not broken:
 
 ```{r}
 
