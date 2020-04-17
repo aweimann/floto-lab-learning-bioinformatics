@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Aaron Weimann" />
+
+
+<title>ggplot2_solutions</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Learning bioinformatics</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="introduction.to.R.html">Introduction to R</a>
+</li>
+<li>
+  <a href="how.to.use.RStudio.html">How to use RStudio</a>
+</li>
+<li>
+  <a href="more.advanced.R.html">More advanced R</a>
+</li>
+<li>
+  <a href="ggplot2.html">ggplot2</a>
+</li>
+<li>
+  <a href="glossary.of.R.terms.html">Glossary of R terms</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">ggplot2_solutions</h1>
+<h4 class="author">Aaron Weimann</h4>
+<h4 class="date">15/04/2020</h4>
+
+</div>
+
+
+<div id="ggplot2-solution-sheet" class="section level2">
+<h2>ggplot2 solution sheet</h2>
+<div id="set-1" class="section level3">
+<h3>Set 1</h3>
+<ol style="list-style-type: decimal">
+<li>Run ggplot(data = mpg). What do you see?</li>
+</ol>
+<pre class="r"><code>ggplot(data = mpg)</code></pre>
+<p><img src="ggplot2_solutions_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>The output is just an empty plot. As long as we don’t provide any aesthetics and don’t provide a geom the output will be empty.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>How many rows are in mpg? How many columns?</li>
+</ol>
+<p>We can find out by inspecting the data frame typing mpg into the console or we can use pre-defined functions in R nrow and ncol. There are 234 rows and 11 columns.</p>
+<pre class="r"><code>mpg</code></pre>
+<pre><code>## # A tibble: 234 x 11
+##    manufacturer model    displ  year   cyl trans   drv     cty   hwy fl    class
+##    &lt;chr&gt;        &lt;chr&gt;    &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
+##  1 audi         a4         1.8  1999     4 auto(l… f        18    29 p     comp…
+##  2 audi         a4         1.8  1999     4 manual… f        21    29 p     comp…
+##  3 audi         a4         2    2008     4 manual… f        20    31 p     comp…
+##  4 audi         a4         2    2008     4 auto(a… f        21    30 p     comp…
+##  5 audi         a4         2.8  1999     6 auto(l… f        16    26 p     comp…
+##  6 audi         a4         2.8  1999     6 manual… f        18    26 p     comp…
+##  7 audi         a4         3.1  2008     6 auto(a… f        18    27 p     comp…
+##  8 audi         a4 quat…   1.8  1999     4 manual… 4        18    26 p     comp…
+##  9 audi         a4 quat…   1.8  1999     4 auto(l… 4        16    25 p     comp…
+## 10 audi         a4 quat…   2    2008     4 manual… 4        20    28 p     comp…
+## # … with 224 more rows</code></pre>
+<pre class="r"><code>nrow(mpg)</code></pre>
+<pre><code>## [1] 234</code></pre>
+<pre class="r"><code>ncol(mpg)</code></pre>
+<pre><code>## [1] 11</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>What does the drv variable describe? Read the help for ?mpg to find out.</li>
+</ol>
+<p>We can use the notation ? to look up the help for libaries or functions inside of libraries in the R help. If we type this in the console in Rstudio this will open an additional tab showing the help entry for the mpg data set. It says “the type of drive train, where f = front-wheel drive, r = rear wheel drive, 4 = 4wd”.</p>
+<pre class="r"><code>?mpg</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Make a scatterplot of hwy vs cyl.</li>
+</ol>
+<pre class="r"><code>ggplot(mpg, aes(hwy, cyl)) + 
+  geom_point()</code></pre>
+<p><img src="ggplot2_solutions_files/figure-html/unnamed-chunk-5-1.png" width="672" /> We use ggplot with the mapping hwy and cyl and the geom geom_point to make our scatter plot. From the scatter plot we can see that our cars either have 4, 5, 6 or 8 cyclinders and that cars with less cyclinders tend to last more miles per gallon of fuel.</p>
+<ol start="5" style="list-style-type: decimal">
+<li>What happens if you make a scatterplot of class vs drv? Why is the plot not useful?</li>
+</ol>
+<pre class="r"><code>ggplot(mpg, aes(class, drv)) + 
+  geom_point()</code></pre>
+<p><img src="ggplot2_solutions_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>There are two issues with this scatter plot. First of all using geom_point implies that there can be some in between values e.g. a a car bewteen a minivan and a pickup with something between an front-wheel drive and a four wheel drive. Secondly, there might be many cars with the same combination of drive and car, which this sort of plot doesn’t show us. In summary, a scatter plot is not the right sort of plot for categorical variables.</p>
+</div>
+<div id="set-2" class="section level3">
+<h3>Set 2</h3>
+<ol style="list-style-type: decimal">
+<li>What’s gone wrong with this code? Why are the points not blue?</li>
+</ol>
+<pre class="r"><code>ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = &quot;blue&quot;))</code></pre>
+<p><img src="ggplot2_solutions_files/figure-html/unnamed-chunk-7-1.png" width="672" /> We have used the color argument as part of the mapping aes rather than as argument to the geom_point function. ggplot2 will interpret color = “blue” as an additional column of the mpg data frame with the constant value “blue” rather than as a color.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Which variables in mpg are categorical? Which variables are continuous? (Hint: type ?mpg to read the documentation for the dataset). How can you see this information when you run mpg?</li>
+</ol>
+<p>We can use the notation ? to look up the help for libaries or functions inside of libraries in the R help. If we type this in the console in Rstudio this will open an additional tab showing the help entry for the mpg data set.</p>
+<pre class="r"><code>?mpg</code></pre>
+<p>The description of the mpg data frame suggests that manufacturer name, model name, type of transmission, the type of drive train, the fuel type and the class are categorical variables. Engine displacement, year of manufacture, cty and highway miles per gallon are continuous. We can also type mpg into the console, which will display a preview of the data frame with column types for each column. Categorical variables are <chr> and continuous variables are either <int> or <dbl> for integer or floating point numbers.</p>
+<pre class="r"><code>mpg</code></pre>
+<pre><code>## # A tibble: 234 x 11
+##    manufacturer model    displ  year   cyl trans   drv     cty   hwy fl    class
+##    &lt;chr&gt;        &lt;chr&gt;    &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
+##  1 audi         a4         1.8  1999     4 auto(l… f        18    29 p     comp…
+##  2 audi         a4         1.8  1999     4 manual… f        21    29 p     comp…
+##  3 audi         a4         2    2008     4 manual… f        20    31 p     comp…
+##  4 audi         a4         2    2008     4 auto(a… f        21    30 p     comp…
+##  5 audi         a4         2.8  1999     6 auto(l… f        16    26 p     comp…
+##  6 audi         a4         2.8  1999     6 manual… f        18    26 p     comp…
+##  7 audi         a4         3.1  2008     6 auto(a… f        18    27 p     comp…
+##  8 audi         a4 quat…   1.8  1999     4 manual… 4        18    26 p     comp…
+##  9 audi         a4 quat…   1.8  1999     4 auto(l… 4        16    25 p     comp…
+## 10 audi         a4 quat…   2    2008     4 manual… 4        20    28 p     comp…
+## # … with 224 more rows</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Map a continuous variable to color, size, and shape. How do these aesthetics behave differently for categorical vs. continuous variables?</li>
+</ol>
+<pre class="r"><code>ggplot(mpg, aes(x = displ, y = hwy, color = cyl)) + 
+  geom_point()</code></pre>
+<p><img src="ggplot2_solutions_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(mpg, aes(x = displ, y = hwy, color = drv)) + 
+  geom_point()</code></pre>
+<p><img src="ggplot2_solutions_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
+<pre class="r"><code>ggplot(mpg, aes(x = displ, y = hwy, size = cyl)) + 
+  geom_point()</code></pre>
+<p><img src="ggplot2_solutions_files/figure-html/unnamed-chunk-10-3.png" width="672" /></p>
+<pre class="r"><code>ggplot(mpg, aes(x = displ, y = hwy, size = drv)) + 
+  geom_point()</code></pre>
+<p><img src="ggplot2_solutions_files/figure-html/unnamed-chunk-10-4.png" width="672" /></p>
+<pre class="r"><code>ggplot(mpg, aes(x = displ, y = hwy, shape = drv)) + 
+  geom_point()</code></pre>
+<p><img src="ggplot2_solutions_files/figure-html/unnamed-chunk-10-5.png" width="672" /></p>
+<pre class="r"><code>#this will produce an error
+#ggplot(mpg, aes(x = displ, y = hwy, shape = cyl)) + 
+#  geom_point()</code></pre>
+<p>For color we find that R uses a color gradient when using continuous variables, whereas it uses distinct colors for categorical variables automatically. For size we see that for the categorical case the data points are hard to distinguish from one another. R even issues a warning. Finally for the shape aesthetic, we find that only categorical variables are supported. The last two lines of code provoke an error message. This is because there is no straight forward way of mapping a continuous variables to the shape of a data point.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>What happens if you map the same variable to multiple aesthetics?</li>
+</ol>
+<p>Let’s try it out with cyl and drv:</p>
+<pre class="r"><code>ggplot(mpg, aes(x = displ, y = hwy, color = cyl, color = drv)) + 
+  geom_point()</code></pre>
+<p><img src="ggplot2_solutions_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>We find that R ignores the second assignment of the color aesthetic and only shows the cyl colour gradient.</p>
+<ol start="5" style="list-style-type: decimal">
+<li>What does the stroke aesthetic do? What shapes does it work with? (Hint: use ?geom_point)</li>
+</ol>
+<pre class="r"><code>ggplot(mpg, aes(x = displ, y = hwy, size = cty, stroke = cyl)) + 
+  geom_point(colour = &quot;black&quot;, fill = &quot;white&quot;, shape = 21)</code></pre>
+<p><img src="ggplot2_solutions_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>From the help function: For shapes that have a border (like shape 21), you can colour the inside and outside separately. Use the stroke aesthetic to modify the width of the border. In our example we use a black border and a white filling and then map the width of the border (the stroke) to the cyl variable and the size of the inner dot to cty.</p>
+<ol start="6" style="list-style-type: decimal">
+<li>What happens if you map an aesthetic to something other than a variable name, like aes(colour = displ &lt; 5)? Note, you’ll also need to specify x and y.</li>
+</ol>
+<pre class="r"><code>ggplot(mpg, aes(x = displ, y = hwy,  colour = displ &lt; 5)) + 
+  geom_point()</code></pre>
+<p><img src="ggplot2_solutions_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>We find that R evaluates the condition i.e. for each data point it will check whether displ is smaller than five. The results, a vector of FALSE and TRUE a categorical variable is then mapped to the colour aesthethic.</p>
+</div>
+<div id="set-3" class="section level3">
+<h3>Set 3</h3>
+<ol style="list-style-type: decimal">
+<li>What happens if you facet on a continuous variable?</li>
+</ol>
+<p>When we use the example from the ggplot2 tutorial but replace cyl with cty the number of highway miles per gallon which is a continuous number we get the following plot:</p>
+<pre class="r"><code>ggplot(data = mpg) + 
+   geom_point(mapping = aes(x = displ, y = hwy)) + 
+   facet_grid(drv ~ cty)</code></pre>
+<p><img src="ggplot2_solutions_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>R will interpret cty as a discrete rather than a continuous variable. In R that’s called a factor. What happens is that for any unique number of city miles per gallon that is in the data set we will get a separate facet. This is not a very useful visualization of the data because in reality very few cars have the same number of gallons and the number of facets soars.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>What do the empty cells in plot with facet_grid(drv ~ cyl) mean? How do they relate to this plot?</li>
+</ol>
+<pre class="r"><code>ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = drv, y = cyl))</code></pre>
+<p><img src="ggplot2_solutions_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p>In this plot we explore the relationship between the number of cylinders and the type of drive train both are factors. We see that there are some combinations of cyl and drv that are absent in this data set e.g. there is no car that has got five cylinders and a rear wheel drive (r). Looking back at the original plot in the tutorial:</p>
+<pre class="r"><code>ggplot(data = mpg) + 
+   geom_point(mapping = aes(x = displ, y = hwy)) + 
+   facet_grid(drv ~ cty)</code></pre>
+<p><img src="ggplot2_solutions_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>We see that the facets that are empty correspond to exactly those combinations of cyl and drv that were absent from the data set as we saw in the previous plot.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>What plots does the following code make? What does . do?</li>
+</ol>
+<pre class="r"><code>ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(drv ~ .)</code></pre>
+<p><img src="ggplot2_solutions_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(. ~ cyl)</code></pre>
+<p><img src="ggplot2_solutions_files/figure-html/unnamed-chunk-17-2.png" width="672" /></p>
+<p>Using the drv ~ . for the facet grid will give us a grid of only rows corresponding to the invidiual values of drv, . ~ cyl will give us a grid of only columns corresponding to the individual values of cyl. The “.” is a placeholder if you don’t want row/columns facets.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Take the first faceted plot in this section:</li>
+</ol>
+<pre class="r"><code>ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, nrow = 2)</code></pre>
+<p><img src="ggplot2_solutions_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = class)) </code></pre>
+<p><img src="ggplot2_solutions_files/figure-html/unnamed-chunk-18-2.png" width="672" /> What are the advantages to using faceting instead of the colour aesthetic? What are the disadvantages? How might the balance change if you had a larger dataset?</p>
+<p>Looking at a version of the plot that uses the color aesthetic to represent class, we see that there is quite a bit of overlap of cars but on the plus we see a points in one plot and can compare the different classes to each other more readily. If the data sets grows even bigger the issue of cars with the same hwy and displ will become better.</p>
+<ol start="5" style="list-style-type: decimal">
+<li>Read ?facet_wrap. What does nrow do? What does ncol do? What other options control the layout of the individual panels? Why doesn’t facet_grid() have nrow and ncol arguments?</li>
+</ol>
+<p>The nrow and ncol parameters control the number of rows and number of columns in the facet arragangement that is being created based on just one facet variable. facet_grid() doesn’t have a nrow or ncol parameter because the number of rows and columns are determined by the number of unique values in the formula used.</p>
+<ol start="6" style="list-style-type: decimal">
+<li>When using facet_grid() you should usually put the variable with more unique levels in the columns. Why?</li>
+</ol>
+<p>We usually want to produce plots that are wider than long. Using the variable with more unique levels in the columns will make sure the plots stretch out in the horizontal direction rather than the vertical direction.</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
