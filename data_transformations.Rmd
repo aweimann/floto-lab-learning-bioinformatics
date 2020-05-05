@@ -1,0 +1,73 @@
+---
+title: "data_transformations"
+author: "Aaron Weimann"
+date: "24/04/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message= F, warning = F)
+```
+
+## Data transformations
+### Mutate, select, filter
+```{r}
+library(readr)
+library(dplyr)
+library(tidyr)
+#read in cases csv
+cases <- read_csv("datasets/COVID19_cases.csv")
+#get days with more than 10 cumulative cases
+cases_uk <- filter(cases, Country == "United Kingdom")
+cases_uk_10 <- filter(cases_uk, confirm > 10 )
+#using just one filter
+cases_uk_10 <- filter(cases, confirm > 10 , Country == "United Kingdom")
+#get relevant info only
+cases_uk_10_red <- select(cases_uk_10, date, confirm, death, recov)
+#more concise
+cases_uk_10_red <- select(cases_uk_10_red, date, confirm:recov)
+#get active cases
+cases_uk_10_red_act <- mutate(cases_uk_10_red, active = confirm - death - recov)
+```
+
+### Grouping and summarising
+```{r}
+#read in demographics csv
+demographics <- read_tsv("datasets/COVID19_countries_data_red.csv")
+#get mean GDP per capita
+gdp_mean <- summarise(demographics, mean_gdp_capita = mean(gdp_capita_2018, ignore.na = T))
+#get mean GDP per capita for every day
+gdp_mean_per_country <- group_by(demographics, `sub-region`) %>%
+  summarise(mean_gdp_capita = mean(gdp_capita_2018))
+```
+### Pipes
+```{r}
+cases_uk <- #days with uk cases over 10
+  filter(cases, confirm > 10 , Country == "United Kingdom") %>%
+  #get relevant info only
+  select(date, confirm:recov) %>%
+  #get active cases
+  mutate(active = confirm - death - recov)
+```
+
+### Pivoting
+```{r}
+pivot_longer(table4b, `1999`:`2000`, names_to = 'year', values_to = 'cases')
+```
+
+### Joins
+```{r}
+#read in cases
+cases <- read_csv("datasets/COVID19_cases.csv")
+#read in demographics csv
+demographics <- read_tsv("datasets/COVID19_countries_data_red.csv")
+#pick a single day for the cases data frame
+cases_country <- group_by(cases, Country) %>%
+  filter(death > 10) %>%
+  slice(1)
+#join with demographics data
+cases_demo <- inner_join(demographics, cases_country, by = "Country")
+```
+
+
+

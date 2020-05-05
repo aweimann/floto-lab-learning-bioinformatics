@@ -1,0 +1,80 @@
+---
+title: "Linear models and probability distributions"
+author: "Aaron Weimann"
+date: "30/04/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = F, warning = F)
+```
+
+```{r}
+library(readr)
+library(dplyr)
+library(ggplot2)
+cases <- read_csv("datasets/COVID19_countries_data.csv")
+ggplot(cases, aes(Oxford_stringency_level, confirm))+
+  geom_point()
+#ggsave("wrap_up_stats/cases_vs_oxford_scatter.png")
+model <- lm(confirm ~ Oxford_stringency_level, cases)
+#summary view
+summary(model)
+```
+```{r}
+#inspecting whether the residuals are normal distributed
+#density distributions of the residuals
+cases <- cases %>% 
+  mutate(residuals = resid(model))
+cases %>%  
+  ggplot(aes(residuals)) +
+  geom_density()
+#ggsave("wrap_up_stats/residual_density.png")
+```
+```{r}
+#qq plot of the residuals
+ggplot(cases, aes(sample = residuals)) + 
+  geom_qq() + 
+  geom_qq_line(distribution = qnorm)
+ggsave("wrap_up_stats/qqplot_residuals.png")
+```
+
+```{r}
+#looking at the residuals vs. the fitted values
+cases <- cases %>% 
+  mutate(fitted = fitted(model))
+ggplot(cases, aes(fitted, residuals)) +
+  geom_point() +
+  geom_hline(yintercept = 0)
+ggsave("wrap_up_stats/residual_vs_fitted.png")
+```
+
+```{r}
+#Data points with fitted regression line
+ggplot(cases, aes(Oxford_stringency_level, confirm))+
+  geom_point()+
+  geom_abline(intercept = 1571, slope = 32.2)
+ggsave("wrap_up_stats/cases_oxford_stringency_scatter_w_regression.png")
+
+#direct geom_smooth way
+ggplot(cases, aes(Oxford_stringency_level, confirm))+
+  geom_point() +
+  geom_smooth(method = "lm")
+ggsave("wrap_up_stats/cases_oxford_stringency_scatter_w_regression_v2.png")
+```
+
+```{r}
+
+model2 <- lm(confirm ~ Oxford_stringency_level +  tourist_departure_2018, cases)
+summary(model2)
+library(broom)
+tidy(model)
+tidy(model2)
+#direct geom_smooth way
+ggplot(cases, aes(tourist_departure_2018, confirm))+
+  geom_point() +
+  geom_smooth(method = "lm")
+ggsave("wrap_up_stats/cases_vs_tourist_departure.png")
+```
+
+

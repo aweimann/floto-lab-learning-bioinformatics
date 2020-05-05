@@ -1,0 +1,207 @@
+---
+title: "COVID Course Project"
+author: "Chris Ruis"
+output:
+  html_document:
+    code_folding: hide
+    theme: paper
+    highlight: tango
+    toc: true
+    toc_float: true
+    toc_collapsed: true
+    number_sections: TRUE
+---
+
+In this tutorial, we're going to use one of the COVID datasets to practice some of the things that we've learnt during the course. This will hopefully give you some ideas of how what we've been going through can be applied to your own data. The tutorial is divided into data exploration and data modelling sections. There's a series of exercises running through the tutorial. Each section has some exercises which ask specific questions. The code used to answer these specific questions is provided and these are in a similar style to previous tutorials. Each section also contains several extended questions. The idea with these is that you can explore whatever parts of the data you want to - the question gives you a framework to do it but you can then choose which data to use and how to explore/model it. These questions are therefore a bit more involved. So have a go at the specific questions and if you'd like to get more practice, run through the extended questions.
+
+We're going to use several COVID datasets that contain different information. They can all be found in the datasets folder if you've downloaded the course from GitHub. Not a problem if not, you can download the datasets from here: . Click to open each dataset in turn and then right click, save as and save them somewhere so you know where they are.
+
+# Setting things up
+
+Whenever you start a new analysis, its always a good idea to first load the libraries that you want to use. Not having the library loaded is one of the most common sources of errors in R. We only need 1 library for this tutorial (unless you want any others for the extensions) which is ggplot2. This tutorial has been set up so all of the code to answer the exercises is in the document but is hidden by default. This is so you can try to answer the exercises without help if you'd like to. But if you're not sure what to do, you can click on the "code" square on the right hand side just below each exercise and it will show you the code that I'd use to carry out the exercise. This is just what I'd do and for at least several of the exercises there's probably more efficient ways of doing it so don't worry if what you've done doesn't look like what I'd do!
+
+**Exercises**
+
+1) Load the ggplot2 library
+
+```{r}
+
+library(ggplot2)
+
+```
+
+We're next going to import the two COVID datasets that we'll use for the rest of the tutorial.
+
+**Exercises**
+
+2) Import "COVID19_countries_data.csv" and save it to a variable called covid. Remember if this file isn't in your current working directory, you'll need to tell RStudio where it is
+
+```{r}
+
+covid <- read.csv("datasets/COVID19_countries_data.csv") #This is where the file is on my computer, change the bit before the "/" to where it is on your computer
+
+```
+
+# Exploring the data with ggplot
+
+covid is now a data frame containing a series of measurements for a series of countries. Each row is a country and each column is some measurement from the country. Towards the end of the tutorial, we're going to construct a model to explain the number of COVID cases within a country and explore the factors that influence this number. So let's start by exploring some of the variables to get an idea of the range and distribution of their values. We'll initially look at the number of confirmed cases and several of the variables that might influence the number of cases. One good way to get an idea of the range and distribution of a variable of interest is using a histogram. The values for some of the variables we're interested in span several orders of magnitude. Its difficult to visualise these variables on a normal axis. However, we can transform the plot axis into logarithmic values which will make these variables easier to visualise. Let's take a look at some of variables. 
+
+**Exercises**
+
+3) Use ggplot to plot histograms for each of the following variables (one at a time): confirm, death, tourist_arrival_2018, tourist_departure, fempop_2018, male_pop_2018 and pop_over65_2018. Scale the x-axis into logarithmic values (add scale_x_log10() to your ggplot code). What sort of range of values do we have for each variable? How are they distributed - are there lots of similar values from different countries, does it look like there's outliers where some countries have much larger or smaller values?
+
+```{r, eval = FALSE}
+
+#The structure of the ggplot line will be the same in each case: ggplot(covid, aes(x = Column_you_want_to_plot)) + scale_x_log10() + geom_histogram()
+
+ggplot(covid, aes(x = confirm)) + scale_x_log10() + geom_histogram() #Number of confirmed cases
+ggplot(covid, aes(x = death)) + scale_x_log10() + geom_histogram() #Number of COVID-related deaths - some countries have 0 here so you'll get a message saying some infinite values have been introduced as you can't take the logarithm of 0
+ggplot(covid, aes(x = tourist_arrival_2018)) + scale_x_log10() + geom_histogram() #Number of tourists arriving in the country
+ggplot(covid, aes(x = tourist_departure_2018)) + scale_x_log10() + geom_histogram() #Number of tourists departing from the country
+ggplot(covid, aes(x = fempop_2018)) + scale_x_log10() + geom_histogram() #Female population
+ggplot(covid, aes(x = male_pop_2018)) + scale_x_log10() + geom_histogram() #Male population
+ggplot(covid, aes(x = pop_over65_2018)) + scale_x_log10() + geom_histogram() #Population over the age of 65
+
+```
+
+4) Plot the number of confirmed cases without the scale_x_log10() part, i.e. with normal axes. What does this do to the shape of our distribution? Does this make it easier or harder to distinguish differences between small values?
+
+```{r, eval = FALSE}
+
+ggplot(covid, aes(x = confirm)) + geom_histogram() #Number of confirmed cases
+
+```
+
+5) Plot the Oxford_stringency_level on normal axes. This score can only be between 0 and 100 so we don't need the logarithmic axes to view it efficiently.
+
+```{r, eval = FALSE}
+
+ggplot(covid, aes(x = Oxford_stringency_level)) + geom_histogram() #The strictness of imposed measures
+
+```
+
+These exercises have enabled us to start to get a picture of what some of our variables look like. Exercise 4 shows why its often very useful to transform one or both of our axes into logarithmic values - using a normal axis made it much harder to see the full distribution of values for the number of confirmed cases. This is because when we have one or more outlier measurements, most of the axis is taken up by the space between the outlier value(s) and the rest of the values. The rest of the values therefore end up being crunched up close together so we can't see the differences between them. The logarithmic axis reduces the difference between the outlier(s) and the rest of the values so enables us to see the differences between the rest of the values more easily. I'd usually plot something initially using normal axes and see what it looks like. If it looks like the plot in exercise 4 with lots of values crunched together and a big space before getting to other values, I'd then see if it looks better with the logarithmic axes.
+
+The histograms have shown us that most of the values fall into a middle range for most of the variables. Having an understanding of the distribution of these variables will come in handy when we do our modelling later in the tutorial. Its also often useful to know if there are variables that are tightly correlated with one another. This is because when it comes to modelling, we'll likely find it difficult to disentangle the effects of two or more variables if they are very tightly correlated. To look at whether variables of interest are correlated, we can plot them against one another using ggplot.
+
+**Extended exercises**
+
+E1) Plot some of these variables for exercises 3-5 against one another using geom_point(). Does it look like any of them are strongly correlated?
+
+We've now seen how some of the variables in our dataset are distributed across countries. Its clear that some countries have lower values for some variables than other countries. It might be useful to understand which countries correspond to which values as this might influence our interpretation. Let's look at one of the variables in detail - the Oxford stringency level. This is the degree to which a country has imposed restrictions in response to the COVID outbreak. A score of 0 means no restrictions while a score of 100 means maximum restrictions. We plotted the distribution of the Oxford stringency level in exercise 4. This showed that we have the full range of values in our dataset - some countries are at level 0 while others are at level 100. But this plot didn't show us where these restrictions have been put in place. In our data frame, we have a column called region which is the continent on which the country is located. Let's use ggplot to determine if the Oxford stringency level is determined by continent. We can do this just by colouring our histogram by the region column.
+
+**Exercises**
+
+6) Plot a histogram of the Oxford_stringency_level column coloured by region
+
+```{r, eval = FALSE}
+
+ggplot(covid, aes(x = Oxford_stringency_level, fill = region)) + geom_histogram() #We use fill rather than colour as its a histogram and we put the fill instruction in the aes brackets as we want to colour by a column in our data frame
+
+```
+
+R plots this as a stacked bar plot by default. So all of the countries with score 100 are plotted on top of one another and we therefore have multiple continents coloured in the bar representing a score of 100. If the Oxford stringency level was determined by continent, we'd expect to see the bars representing high values being all one colour and the bars representing low values all being another colour. What we actually see is the colours intermingled throughout the plot. So the Oxford stringency score isn't determined completely by continent. Rather different countries within the same continent have imposed different levels of restrictions.
+
+Let's look at the countries with the highest and lowest restriction levels.
+
+**Exercises**
+
+7) Order the covid data frame from smallest to largest Oxford stringency value
+8) Which countries have a restriction level of 0? Which other countries have a low restriction level?
+9) Order the covid data frame from largest to smallest Oxford stringency value
+10) Which countries have a restriction level of 100? Which other countries have a high restriction level?
+
+```{r, eval = FALSE}
+
+#There's multiple ways of doing this, this is just how I'd do it
+
+covid[order(covid$Oxford_stringency_level),] #Sorts from smallest to largest
+covid[order(-covid$Oxford_stringency_level),] #Sorts from largest to smallest
+
+```
+
+# Identifying factors that are important for the number of cases with linear models
+
+When we plotted the number of confirmed COVID cases and deaths in exercise 3, it was clear that some countries have more cases and deaths than others. In this next part of the tutorial, we're going to use linear models to try to pick out factors that might influence the number of cases and deaths.
+
+One simple scenario is that the number of cases in a country is influenced by the population size of the country. This makes some sense from an epidemiological perspective as a larger population means more people to infect. Let's first see if there's a correlation between cases and population size. The covid data frame has population divided into females and males, so to simplify things let's first combine these columns into a column showing the total population. We can do this using:
+
+covid\$total_population <- covid\$fempop_2018 + covid\$male_pop_2018
+
+or using dplyr 
+
+covid <- mutate(total_population = fempop_2018 + male_pop_2018)
+
+This creates a new column total_population by adding the values in columns fempop_2018 and male_pop_2018 within the respective row. We can then estimate the influence of population size on the number of covid cases using a linear model:
+
+**Exercises**
+
+11) Construct a linear model to estimate the effect of population size on 
+a) the number of COVID cases and 
+b) the number of COVID deaths
+  
+```{r, eval = FALSE}
+covid$total_population <- covid$fempop_2018 + covid$male_pop_2018
+summary(lm(confirm ~ total_population, data = covid))
+summary(lm(death ~ total_population, data = covid))
+
+```
+
+This shows us that the population size influences the number of confirmed cases and the number of deaths. 
+
+**Exercises**
+
+12) Here we want to compare how models fitted using different variables compare to each other
+a) Compare the fit of linear models constructed using total_population, Oxford_stringency_level, tourist_arrival and tourist_departure using the the coefficient of determination R^2? 
+b) Plot the regression line and the data points that is based on the total population using a combination of geom_point and geom_smooth or geom_abline
+c) Based on the summary statistics for the residual distribution, how much is the model based on total population off at most? 
+
+```{r, eval = FALSE}
+
+model1 <- lm(confirm ~ 1, data = covid)
+model2 <- lm(confirm ~ total_population, data = covid)
+model3 <- lm(confirm ~ Oxford_stringency_level, data = covid)
+model4 <- lm(confirm ~ tourist_arrival_2018, data = covid)
+model5 <- lm(confirm ~ tourist_departure_2018, data = covid)
+
+#R^2 is part of the model summary
+summary(model1)
+summary(model2) # We can extract the minimum and maximum number
+#of the residuals from the summary of model 2. min/max residual: -20341.1/ 20380.9
+summary(model3)
+summary(model4)
+summary(model5)
+
+#a plot of the regression line and data
+ggplot(covid, aes(confirm, total_population)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+
+
+```
+
+From this, it looks like tourist_departure gives the best fit to the number of cases. Note that for all models we find extreme outliers that influence the regression model this can lead to a poor fit. In practise we may need to identify and remove outliers or use other more robust regression methods. It's absolutely crucial to check if a model is well behaved by inspecting the distribution of residuals.
+
+**Extended exercises**
+
+E1) Investigate whether the residuals of the models are normal distributed using at least two different ways (hint: see R wrap-up lecture)
+
+E2) Investigate the factors in the dataset that have the greatest influence on the number of COVID deaths
+
+Some times we want to use more than one independent variable to predict our dependent variable. 
+
+**Exercises** 
+
+13) Let's compare some more complicated models:
+a) Compare the fit of a linear model constructed using total_population and the Oxford_stringency_level to a model using only the total_population using the coefficient of determination.
+b) Use the Akaike Information criterion to compare the model fit
+```{r, eval = FALSE}
+model6 <- lm(confirm ~ total_population + Oxford_stringency_level, data = covid)
+summary(model6) 
+AIC(model2, model6) 
+```
+The R^2 is 0.3106 for the combined model vs 0.3049 for the univariate model but model 6 has got a higher AIC than model 2 (higher is worse). It's important to note that the R^2 is always higher/better for more complex models. The AIC penalizes the number of variables/parameter and is the appropriate measure when comparing models that use a different number of variables.
+
+**Extended exercises** 
+
+E1: Find a combination of variables that predicts confirmed cases or deaths better than a univariate predictor and also has got a better AIC.
