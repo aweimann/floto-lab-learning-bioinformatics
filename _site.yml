@@ -15,6 +15,8 @@ navbar:
     href: ggplot2.html
   - text: "Glossary of R terms"
     href: glossary.of.R.terms.html
+  - text: "Course project"
+    href: COVID_course_project.html
 output:
   html_document:
   

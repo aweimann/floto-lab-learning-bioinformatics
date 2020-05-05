@@ -1,5 +1,7 @@
-Week,Date,Lecturer,Topic,url
-1,03/04/20,Santi,Introduction to R,https://github.com/aweimann/floto-lab-learning-bioinformatics/blob/master/presentations/R_worskshop_Statistics_analysisENG.pptx?raw=true
-2,08/04/20,Santi,The grammar of graphics and intro to stats in R,https://github.com/aweimann/floto-lab-learning-bioinformatics/blob/master/presentations/R_worskshop_Statistics_analysisENG.pptx?raw=true
-3,15/04/20,Aaron,Probability distributions,https://github.com/aweimann/floto-lab-learning-bioinformatics/raw/master/docs/presentations/probability_distributions.pptx
-5,24/04/20,Aaron,Data transformations in R,https://github.com/aweimann/floto-lab-learning-bioinformatics/raw/master/presentations/data_transformations.pptx
+Week,Date,Lecturer,Topic,url,markdown
+1,03/04/20,Santi,Introduction to R,https://github.com/aweimann/floto-lab-learning-bioinformatics/blob/master/presentations/R_worskshop_Statistics_analysisENG.pptx?raw=true,
+2,08/04/20,Santi,The grammar of graphics and intro to stats in R,https://github.com/aweimann/floto-lab-learning-bioinformatics/blob/master/presentations/R_worskshop_Statistics_analysisENG.pptx?raw=true,
+3,15/04/20,Aaron,Probability distributions,https://github.com/aweimann/floto-lab-learning-bioinformatics/raw/master/docs/presentations/probability_distributions.pptx,https://aweimann.github.io/floto-lab-learning-bioinformatics/docs/probability_distributions.html
+5,24/04/20,Aaron,Data transformations in R,https://github.com/aweimann/floto-lab-learning-bioinformatics/raw/master/presentations/data_transformations.pptx,https://aweimann.github.io/floto-lab-learning-bioinformatics/docs/data_transformations.html
+6,01/05/20,Chris,Wrap-up plotting with ggplot2,https://github.com/aweimann/floto-lab-learning-bioinformatics/raw/master/presentations/ggplot2.pptx,
+6,01/05/20,Aaron,Wrap-up linear models in R,https://github.com/aweimann/floto-lab-learning-bioinformatics/raw/master/presentations/wrap_up_stats.pptx,https://aweimann.github.io/floto-lab-learning-bioinformatics/docs/wrap_up_stats.html
